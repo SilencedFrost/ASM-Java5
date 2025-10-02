@@ -6,9 +6,7 @@ import com.entity.Product;
 import com.mapper.ProductMapper;
 import com.repository.CategoryRepository;
 import com.repository.ProductRepository;
-import com.repository.UserRepository;
 import com.util.ValidationUtil;
-import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 
 @Slf4j
 @Service
@@ -28,7 +25,6 @@ import java.util.logging.Level;
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
-    private final UserRepository userRepository;
 
     public Page<OutboundProductDTO> findAll(Pageable pageable) {
         return productRepository.findAll(pageable).map(ProductMapper::toDTO);
