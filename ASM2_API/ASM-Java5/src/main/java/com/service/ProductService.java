@@ -1,236 +1,147 @@
 package com.service;
 
-import com.dto.OutboundProductDTO;
-import com.dto.ProductDTO;
-import com.dto.InboundProductDTO;
-import com.dto.UpdateProductDTO;
+import com.dto.*;
 import com.entity.Category;
 import com.entity.Product;
-import com.entity.Role;
 import com.mapper.ProductMapper;
-import com.util.EntityManagerUtil;
+import com.repository.CategoryRepository;
+import com.repository.ProductRepository;
+import com.repository.UserRepository;
 import com.util.ValidationUtil;
 import jakarta.persistence.*;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class ProductService implements Service<ProductDTO, Integer> {
-    private static final Logger logger = Logger.getLogger(ProductService.class.getName());
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ProductService {
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
-    @Override
-    public List<OutboundProductDTO> findAll() {
-        List<Product> productList;
-        try (EntityManager em = EntityManagerUtil.getEntityManager()) {
-            productList = em.createQuery("select p from Product p", Product.class).getResultList();
-            logger.info("Fetched all products: " + productList.size() + " products found.");
-            return ProductMapper.toDTOList(productList);
-        } catch (PersistenceException e) {
-            logger.log(Level.SEVERE, "Error fetching products", e);
-            return List.of();
-        }
+    public Page<OutboundProductDTO> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable).map(ProductMapper::toDTO);
     }
 
-    @Override
-    public OutboundProductDTO findById(Integer productId) {
-        if (productId == null) {
-            throw new IllegalArgumentException("ID cannot be null or empty");
-        }
+    public List<OutboundProductDTO> findAll() {
+        return findAll(PageRequest.of(0, 50)).getContent();
+    }
 
-        Product product = null;
-        try (EntityManager em = EntityManagerUtil.getEntityManager()) {
-            product = em.find(Product.class, productId);
-            logger.info("Product with id " + productId + (product != null ? " found." : " not found."));
-            return product != null ? ProductMapper.toDTO(product) : null;
-        } catch (PersistenceException e) {
-            logger.log(Level.SEVERE, "Error finding product by ID", e);
-            return null;
-        }
+    public Optional<OutboundProductDTO> findById(Long productId) {
+        return productRepository.findById(productId).map(ProductMapper::toDTO);
     }
 
     public List<OutboundProductDTO> findByCategory(Integer categoryId) {
-        List<Product> productList;
-        try (EntityManager em = EntityManagerUtil.getEntityManager()) {
-            productList = em.createQuery("SELECT p FROM Product p WHERE p.category.categoryId = :categoryId", Product.class).setParameter("categoryId", categoryId).getResultList();
-            logger.info("Fetched all products: " + productList.size() + " products found.");
+        try {
+            List<Product> productList = productRepository.findByCategoryCategoryId(categoryId);
+            log.info("Fetched all products: {} products found.", productList.size());
             return ProductMapper.toDTOList(productList);
-        } catch (PersistenceException e) {
-            logger.log(Level.SEVERE, "Error fetching products", e);
+        } catch (Exception e) {
+            log.error("Error fetching products for category {}", categoryId, e);
             return new ArrayList<>();
         }
     }
 
     public List<OutboundProductDTO> findByNameLike(String keyword) {
-        List<Product> productList;
-        try (EntityManager em = EntityManagerUtil.getEntityManager()) {
-            productList = em.createQuery("select p from Product p where lower(p.productName) like lower(:keyword)", Product.class).setParameter("keyword", "%" + keyword + "%").getResultList();
-            logger.info("Fetched all products: " + productList.size() + " products found.");
+        try {
+            List<Product> productList = productRepository.searchByNameLike(keyword);
             return ProductMapper.toDTOList(productList);
-        } catch (PersistenceException e) {
-            logger.log(Level.SEVERE, "Error fetching products", e);
+        } catch (Exception e) {
+            // log it instead of swallowing
+            log.error("Error fetching products", e);
             return new ArrayList<>();
         }
     }
 
-    // Manual creation method
-    public boolean create(String productName, BigDecimal price, Integer stockQuantity, String ImageUrl, boolean active, String productDescription, Integer categoryId, String specifications) {
-        return create(new InboundProductDTO(productName, price, stockQuantity, ImageUrl, active, productDescription, categoryId, specifications));
-    }
-
-    @Override
-    public boolean create(ProductDTO productDTO) {
-        if (!(productDTO instanceof InboundProductDTO)) {
-            logger.warning("Create requires InboundProductDTO for security reasons");
-            return false;
-        }
-        return create((InboundProductDTO) productDTO);
-    }
-
-    // Object creation method
+    @Transactional
     public boolean create(InboundProductDTO productDTO) {
-        if(productDTO == null) {
-            logger.warning("Product cannot be null");
+        if (productDTO == null) {
+            log.warn("Product cannot be null");
             return false;
         }
-        if(ValidationUtil.isNullOrBlank(productDTO.getProductName())) {
-            logger.warning("productName cannot be null");
-            return false;
-        }
-
-        try (EntityManager em = EntityManagerUtil.getEntityManager()) {
-
-            Category category = em.find(Category.class, productDTO.getCategoryId());
-            if(category == null) {
-                logger.warning("Category not found");
-                return false;
-            }
-            EntityTransaction tx = em.getTransaction();
-            try {
-                tx.begin();
-                Product product = ProductMapper.toEntity(productDTO, category);
-                em.persist(product);
-                tx.commit();
-                logger.info("Product created: " + product);
-                return true;
-            } catch (PersistenceException e) {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-                logger.log(Level.SEVERE, "Error creating product", e);
-                return false;
-            }
-        }
-    }
-
-    @Override
-    public boolean update(ProductDTO productDTO) {
-        if (!(productDTO instanceof UpdateProductDTO)) {
-            logger.warning("Update requires UpdateProductDTO for security reasons");
-            return false;
-        }
-        return update((UpdateProductDTO) productDTO);
-    }
-
-    public boolean update(UpdateProductDTO productDTO) {
-        if (productDTO == null || productDTO.getProductId() == null) {
-            logger.warning("Product or product ID cannot be null or empty");
+        if (ValidationUtil.isNullOrBlank(productDTO.getProductName())) {
+            log.warn("productName cannot be null");
             return false;
         }
 
-        try (EntityManager em = EntityManagerUtil.getEntityManager()) {
-            EntityTransaction tx = em.getTransaction();
-            try {
-                Product existingProduct = em.find(Product.class, productDTO.getProductId());
-                if (existingProduct != null) {
-                    tx.begin();
-                    if (productDTO.getProductName() != null) existingProduct.setProductName(productDTO.getProductName());
-                    tx.commit();
-                    logger.info("Product with id " + productDTO.getProductId() + " updated successfully.");
-                    return true;
-                } else {
-                    logger.warning("Product with id " + productDTO.getProductId() + " not found for update.");
-                    return false;
-                }
-            } catch (Exception e) {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-                logger.log(Level.SEVERE, "Error updating product", e);
-                return false;
-            }
-        }
-    }
+        Category category = categoryRepository.findById(productDTO.getCategoryId())
+                .orElse(null);
 
-    @Override
-    public boolean delete(Integer productId) {
-        if (productId == null) {
-            logger.warning("ID cannot be null");
+        if (category == null) {
+            log.warn("Category not found");
             return false;
-        }
-
-        try(EntityManager em = EntityManagerUtil.getEntityManager()) {
-            EntityTransaction tx = em.getTransaction();
-
-            try {
-                tx.begin();
-
-                Product product = em.find(Product.class, productId);
-                if (product == null) {
-                    logger.warning("Product with id " + productId + " not found. Deletion skipped.");
-                    tx.rollback();
-                    return false;
-                }
-
-                Query countQuery = em.createQuery("select count(u) from User u where u.productId = :productId");
-                countQuery.setParameter("productId", productId);
-                Long userCount = (Long) countQuery.getSingleResult();
-
-                if (userCount > 0) {
-                    logger.warning("Cannot delete product " + productId + " - still assigned to " + userCount + " users");
-                    tx.rollback();
-                    return false;
-                }
-
-                //git  Safe to delete
-                em.remove(product);
-                tx.commit();
-                logger.info("Product with id " + productId + " successfully deleted");
-                return true;
-
-            } catch (Exception e) {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-                logger.log(Level.SEVERE, "Error deleting product with id " + productId, e);
-                return false;
-            }
-        }
-    }
-
-    public static Product findByProductName(EntityManager em, String productName) {
-        if (ValidationUtil.isNullOrBlank(productName)) {
-            return null;
         }
 
         try {
-            TypedQuery<Product> query = em.createQuery(
-                    "SELECT r FROM Product r WHERE r.productName = :productName",
-                    Product.class
-            );
-            query.setParameter("productName", productName);
+            Product product = ProductMapper.toEntity(productDTO, category);
+            productRepository.save(product);
+            log.info("Product created: {}", product);
+            return true;
+        } catch (Exception e) {
+            log.error("Error creating product", e);
+            return false;
+        }
+    }
 
-            List<Product> products = query.getResultList();
-            Product product = products.isEmpty() ? null : products.getFirst();
+    @Transactional
+    public boolean update(UpdateProductDTO productDTO) {
+        if (productDTO == null || productDTO.getProductId() == null) {
+            log.warn("Product or product ID cannot be null or empty");
+            return false;
+        }
 
-            logger.info("Product with name '" + productName + "'" + (product != null ? " found." : " not found."));
+        try {
+            return productRepository.findById(productDTO.getProductId())
+                    .map(existingProduct -> {
+                        if (productDTO.getProductName() != null) {
+                            existingProduct.setProductName(productDTO.getProductName());
+                        }
+                        productRepository.save(existingProduct);
+                        log.info("Product with id {} updated successfully.", productDTO.getProductId());
+                        return true;
+                    })
+                    .orElseGet(() -> {
+                        log.warn("Product with id {} not found for update.", productDTO.getProductId());
+                        return false;
+                    });
+        } catch (Exception e) {
+            log.error("Error updating product with id {}", productDTO.getProductId(), e);
+            return false;
+        }
+    }
 
-            return product;
-        } catch (PersistenceException e) {
-            logger.log(Level.SEVERE, "Error finding product by name: " + productName, e);
-            return null;
+    @Transactional
+    public boolean delete(Long productId) {
+        if (productId == null) {
+            log.warn("ID cannot be null");
+            return false;
+        }
+
+        try {
+            return productRepository.findById(productId)
+                    .map(product -> {
+                        productRepository.delete(product);
+                        log.info("Product with id {} successfully deleted", productId);
+                        return true;
+                    })
+                    .orElseGet(() -> {
+                        log.warn("Product with id {} not found. Deletion skipped.", productId);
+                        return false;
+                    });
+        } catch (Exception e) {
+            log.error("Error deleting product with id {}", productId, e);
+            return false;
         }
     }
 }

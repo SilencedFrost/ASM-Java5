@@ -16,7 +16,7 @@ public class EntityManagerUtil {
     static {
         try {
             ConfigLoader.loadDatabaseConfig();
-            emf = Persistence.createEntityManagerFactory("BackendStore");
+            emf = Persistence.createEntityManagerFactory("EasyEat");
             logger.info("EntityManagerFactory created successfully");
 
             // Shutdown hook
