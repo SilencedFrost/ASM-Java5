@@ -1,0 +1,3 @@
+db.url=jdbc:sqlserver://localhost:1433;databaseName=BackendStore;encrypt=true;trustServerCertificate=true
+db.user=
+db.password=

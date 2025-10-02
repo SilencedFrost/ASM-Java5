@@ -1,0 +1,7 @@
+email.username=minhnqts00553@fpt.edu.vn
+email.password=
+smtp.host=smtp.gmail.com
+smtp.port=587
+smtp.auth=true
+smtp.starttls.enable=true
+smtp.ssl.trust=smtp.gmail.com

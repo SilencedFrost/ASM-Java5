@@ -1,0 +1,201 @@
+package com.service;
+
+import com.dto.*;
+import com.entity.Role;
+import com.mapper.RoleMapper;
+import com.util.EntityManagerUtil;
+import com.util.ValidationUtil;
+import jakarta.persistence.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import java.util.List;
+
+public class RoleService implements Service<RoleDTO, Integer> {
+    private static final Logger logger = Logger.getLogger(RoleService.class.getName());
+
+    @Override
+    public List<RoleDTO> findAll() {
+        List<Role> roleList = null;
+        try (EntityManager em = EntityManagerUtil.getEntityManager()) {
+            roleList = em.createQuery("SELECT r FROM Role r", Role.class).getResultList();
+            logger.info("Fetched all roles: " + roleList.size() + " roles found.");
+            return RoleMapper.toDTOList(roleList);
+        } catch (PersistenceException e) {
+            logger.log(Level.SEVERE, "Error fetching roles", e);
+            return List.of();
+        }
+    }
+
+    @Override
+    public RoleDTO findById(Integer roleId) {
+        if (roleId == null) {
+            throw new IllegalArgumentException("ID cannot be null or empty");
+        }
+
+        Role role = null;
+        try (EntityManager em = EntityManagerUtil.getEntityManager()) {
+            role = em.find(Role.class, roleId);
+            logger.info("Role with id " + roleId + (role != null ? " found." : " not found."));
+            return role != null ? RoleMapper.toDTO(role) : null;
+        } catch (PersistenceException e) {
+            logger.log(Level.SEVERE, "Error finding role by ID", e);
+            return null;
+        }
+    }
+
+    // Manual creation method
+    public boolean create(String roleName) {
+        return create(new InboundRoleDTO(roleName));
+    }
+
+    @Override
+    public boolean create(RoleDTO roleDTO) {
+        if (!(roleDTO instanceof InboundRoleDTO)) {
+            logger.warning("Create requires InboundRoleDTO for security reasons");
+            return false;
+        }
+        return create((InboundRoleDTO) roleDTO);
+    }
+
+    // Object creation method
+    public boolean create(InboundRoleDTO roleDTO) {
+        if(roleDTO == null) {
+            logger.warning("Role cannot be null");
+            return false;
+        }
+        if(ValidationUtil.isNullOrBlank(roleDTO.getRoleName())) {
+            logger.warning("roleName cannot be null");
+            return false;
+        }
+
+        try (EntityManager em = EntityManagerUtil.getEntityManager()) {
+            Role role = RoleMapper.toEntity(roleDTO);
+
+            EntityTransaction tx = em.getTransaction();
+            try {
+                tx.begin();
+                em.persist(role);
+                tx.commit();
+                logger.info("Role created: " + role);
+                return true;
+            } catch (PersistenceException e) {
+                if (tx.isActive()) {
+                    tx.rollback();
+                }
+                logger.log(Level.SEVERE, "Error creating role", e);
+                return false;
+            }
+        }
+    }
+
+    @Override
+    public boolean update(RoleDTO roleDTO) {
+        if (!(roleDTO instanceof UpdateRoleDTO)) {
+            logger.warning("Update requires UpdateRoleDTO for security reasons");
+            return false;
+        }
+        return update((UpdateRoleDTO) roleDTO);
+    }
+
+    public boolean update(UpdateRoleDTO roleDTO) {
+        if (roleDTO == null || roleDTO.getRoleId() == null) {
+            logger.warning("Role or role ID cannot be null or empty");
+            return false;
+        }
+
+        try (EntityManager em = EntityManagerUtil.getEntityManager()) {
+            EntityTransaction tx = em.getTransaction();
+            try {
+                Role existingRole = em.find(Role.class, roleDTO.getRoleId());
+                if (existingRole != null) {
+                    tx.begin();
+                    if (roleDTO.getRoleName() != null) existingRole.setRoleName(roleDTO.getRoleName());
+                    tx.commit();
+                    logger.info("Role with id " + roleDTO.getRoleId() + " updated successfully.");
+                    return true;
+                } else {
+                    logger.warning("Role with id " + roleDTO.getRoleId() + " not found for update.");
+                    return false;
+                }
+            } catch (Exception e) {
+                if (tx.isActive()) {
+                    tx.rollback();
+                }
+                logger.log(Level.SEVERE, "Error updating role", e);
+                return false;
+            }
+        }
+    }
+
+    @Override
+    public boolean delete(Integer roleId) {
+        if (roleId == null) {
+            logger.warning("ID cannot be null");
+            return false;
+        }
+
+        try(EntityManager em = EntityManagerUtil.getEntityManager()) {
+            EntityTransaction tx = em.getTransaction();
+
+            try {
+                tx.begin();
+
+                Role role = em.find(Role.class, roleId);
+                if (role == null) {
+                    logger.warning("Role with id " + roleId + " not found. Deletion skipped.");
+                    tx.rollback();
+                    return false;
+                }
+
+                Query countQuery = em.createQuery("select count(u) from User u where u.roleId = :roleId");
+                countQuery.setParameter("roleId", roleId);
+                Long userCount = (Long) countQuery.getSingleResult();
+
+                if (userCount > 0) {
+                    logger.warning("Cannot delete role " + roleId + " - still assigned to " + userCount + " users");
+                    tx.rollback();
+                    return false;
+                }
+
+                //git  Safe to delete
+                em.remove(role);
+                tx.commit();
+                logger.info("Role with id " + roleId + " successfully deleted");
+                return true;
+
+            } catch (Exception e) {
+                if (tx.isActive()) {
+                    tx.rollback();
+                }
+                logger.log(Level.SEVERE, "Error deleting role with id " + roleId, e);
+                return false;
+            }
+        }
+    }
+
+    public static Role findByRoleName(EntityManager em, String roleName) {
+        if (ValidationUtil.isNullOrBlank(roleName)) {
+            return null;
+        }
+
+        try {
+            TypedQuery<Role> query = em.createQuery(
+                    "SELECT r FROM Role r WHERE r.roleName = :roleName",
+                    Role.class
+            );
+            query.setParameter("roleName", roleName);
+
+            List<Role> roles = query.getResultList();
+            Role role = roles.isEmpty() ? null : roles.getFirst();
+
+            logger.info("Role with name '" + roleName + "'" + (role != null ? " found." : " not found."));
+
+            return role;
+        } catch (PersistenceException e) {
+            logger.log(Level.SEVERE, "Error finding role by name: " + roleName, e);
+            return null;
+        }
+    }
+}
