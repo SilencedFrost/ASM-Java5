@@ -11,16 +11,19 @@ import com.security.PasswordHasher;
 import com.util.EntityManagerUtil;
 import com.util.ValidationUtil;
 import jakarta.persistence.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserService implements Service<UserDTO, Long>{
+@Service
+@RequiredArgsConstructor
+public class UserService {
     private static final Logger logger = Logger.getLogger(UserService.class.getName());
 
-    @Override
     public List<UserDTO> findAll() {
         List<User> userList;
         try (EntityManager em = EntityManagerUtil.getEntityManager()) {
@@ -33,7 +36,6 @@ public class UserService implements Service<UserDTO, Long>{
         }
     }
 
-    @Override
     public UserDTO findById(Long userId) {
         if (userId == null) {
             logger.warning("userId cannot be null");
@@ -126,7 +128,6 @@ public class UserService implements Service<UserDTO, Long>{
         return create(new InboundUserDTO(username, email, passwordHash, roleName, active));
     }
 
-    @Override
     public boolean create(UserDTO userDTO) {
         if (!(userDTO instanceof InboundUserDTO)) {
             logger.warning("Create requires InboundUserDTO for security reasons");
@@ -166,7 +167,6 @@ public class UserService implements Service<UserDTO, Long>{
         }
     }
 
-    @Override
     public boolean update(UserDTO userDTO) {
         if (!(userDTO instanceof UpdateUserDTO)) {
             logger.warning("Update requires UpdateUserDTO for security reasons");
@@ -246,7 +246,6 @@ public class UserService implements Service<UserDTO, Long>{
     }
 
     //Manual delete method
-    @Override
     public boolean delete(Long userId) {
         if (userId == null) {
             logger.warning("ID cannot be null");

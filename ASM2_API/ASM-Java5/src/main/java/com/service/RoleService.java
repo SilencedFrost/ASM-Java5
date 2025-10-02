@@ -6,16 +6,19 @@ import com.mapper.RoleMapper;
 import com.util.EntityManagerUtil;
 import com.util.ValidationUtil;
 import jakarta.persistence.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.util.List;
 
-public class RoleService implements Service<RoleDTO, Integer> {
+@Service
+@RequiredArgsConstructor
+public class RoleService {
     private static final Logger logger = Logger.getLogger(RoleService.class.getName());
 
-    @Override
     public List<RoleDTO> findAll() {
         List<Role> roleList = null;
         try (EntityManager em = EntityManagerUtil.getEntityManager()) {
@@ -28,7 +31,6 @@ public class RoleService implements Service<RoleDTO, Integer> {
         }
     }
 
-    @Override
     public RoleDTO findById(Integer roleId) {
         if (roleId == null) {
             throw new IllegalArgumentException("ID cannot be null or empty");
@@ -50,7 +52,6 @@ public class RoleService implements Service<RoleDTO, Integer> {
         return create(new InboundRoleDTO(roleName));
     }
 
-    @Override
     public boolean create(RoleDTO roleDTO) {
         if (!(roleDTO instanceof InboundRoleDTO)) {
             logger.warning("Create requires InboundRoleDTO for security reasons");
@@ -90,7 +91,6 @@ public class RoleService implements Service<RoleDTO, Integer> {
         }
     }
 
-    @Override
     public boolean update(RoleDTO roleDTO) {
         if (!(roleDTO instanceof UpdateRoleDTO)) {
             logger.warning("Update requires UpdateRoleDTO for security reasons");
@@ -129,7 +129,6 @@ public class RoleService implements Service<RoleDTO, Integer> {
         }
     }
 
-    @Override
     public boolean delete(Integer roleId) {
         if (roleId == null) {
             logger.warning("ID cannot be null");

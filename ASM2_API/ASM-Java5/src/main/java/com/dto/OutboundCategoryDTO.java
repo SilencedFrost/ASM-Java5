@@ -1,15 +1,11 @@
 package com.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OutboundCategoryDTO implements  CategoryDTO{
+public class OutboundCategoryDTO implements CategoryDTO{
     private Integer categoryId;
     private String categoryName;
     private Integer productCount;
