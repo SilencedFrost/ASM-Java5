@@ -4,24 +4,27 @@ go
 use EasyEat
 go
 
-create table Roles(
-	RoleId int primary key identity(1, 1),
-	RoleName nvarchar(30) not null,
-)
-go
-
 create table Users(
 	UserId bigint primary key identity(1000, 1),
 	Username nvarchar(32) not null unique,
 	Email nvarchar(254) not null unique,
 	PasswordHash nvarchar(64) not null,
 	CreationDate datetime2(3) not null,
-	RoleId int not null,
 	IsActive bit not null,
 	LastLoginDate datetime2(3),
 	foreign key (RoleId) references Roles(RoleId)
 )
 go
+
+create table admins (
+	user_id
+)
+
+create table customers (
+)
+
+create table sellers (
+)
 
 create table Categories(
 	CategoryId int primary key identity(1, 1),
