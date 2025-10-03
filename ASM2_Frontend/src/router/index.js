@@ -8,15 +8,22 @@ import ProductDetail from '@/components/pages/ProductDetail.vue'
 import Login from '@/components/pages/Login.vue'
 import Search from '@/components/pages/Search.vue'
 import Signup from '@/components/pages/Signup.vue'
+import Generic from '@/components/router-views/Generic.vue'
 
 const routes = [
-  { path: '/', component: Home, alias: '/home', meta: { title: 'Homepage' } },
-  { path: '/profile', component: Profile, meta: { title: 'User profile', requiresAuth: true } },
-  { path: '/cart', component: Cart, meta: { title: 'Cart', requiresAuth: true } },
-  { path: '/product/:id', component: ProductDetail, meta: { title: 'Product detail' } },
   { path: '/login', component: Login, meta: { title: 'Login' } },
-  { path: '/search/:keyword', component: Search, meta: { title: 'Search' } },
   { path: '/register', component: Signup, meta: { title: 'Signup' } },
+  {
+    path: '/',
+    component: Generic,
+    children: [
+      { path: '/', component: Home, alias: '/home', meta: { title: 'Homepage' } },
+      { path: '/search/:keyword', component: Search, meta: { title: 'Search' } },
+      { path: '/product/:id', component: ProductDetail, meta: { title: 'Product detail' } },
+      { path: '/cart', component: Cart, meta: { title: 'Cart', requiresAuth: true } },
+      { path: '/profile', component: Profile, meta: { title: 'User profile', requiresAuth: true } },
+    ],
+  },
 ]
 
 const router = createRouter({
