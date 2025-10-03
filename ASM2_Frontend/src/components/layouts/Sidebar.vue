@@ -24,7 +24,7 @@ onMounted(fetchCategories)
 
 <template>
   <!-- Sidebar -->
-  <div class="bg-white w-100 p-0">
+  <div class="w-100 p-0">
     <!-- Product Categories -->
     <ul class="list-unstyled mb-0">
       <!-- Điện thoại -->

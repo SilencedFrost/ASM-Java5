@@ -21,7 +21,7 @@ function goHome() {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
     <div class="container-fluid d-flex align-items-center">
       <!-- Logo -->
       <div class="navbar-brand flex-shrink-0">
