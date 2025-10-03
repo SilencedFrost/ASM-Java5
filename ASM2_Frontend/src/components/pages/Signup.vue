@@ -1,7 +1,7 @@
 <template>
-  <div class="container d-flex justify-content-center align-items-center min-vh-100 py-4">
-    <div class="card shadow-sm p-4" style="max-width: 500px; width: 100%;">
-      <h3 class="mb-4 text-center text-success">Đăng ký tài khoản</h3>
+  <div class="container d-flex justify-content-center align-items-center min-vh-100 py-4 bg-warning">
+    <div class="card shadow-sm p-4 bg-light" style="max-width: 500px; width: 100%;">
+      <h3 class="mb-4 text-center text-primary">Đăng ký tài khoản</h3>
       
       <form @submit.prevent="onRegister">
         <div class="row">
@@ -113,7 +113,7 @@
           </label>
         </div>
 
-        <button type="submit" class="btn btn-success w-100 mb-3" :disabled="isLoading || !isFormValid">
+        <button type="submit" class="btn btn-dark w-100 mb-3" :disabled="isLoading || !isFormValid">
           <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
           <i v-else class="bi bi-person-plus me-2"></i>
           {{ isLoading ? 'Đang đăng ký...' : 'Đăng ký tài khoản' }}
@@ -133,7 +133,7 @@
         </div>
       </div>
 
-      <button class="btn btn-danger w-100 mt-3" @click="registerWithGoogle" :disabled="isLoading">
+      <button class="btn btn-primary text-white w-100 mt-3" @click="registerWithGoogle" :disabled="isLoading">
         <i class="fab fa-google me-2"></i> 
         Đăng ký bằng Google
       </button>
