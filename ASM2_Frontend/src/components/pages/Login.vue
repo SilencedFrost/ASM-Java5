@@ -71,9 +71,9 @@ function loginWithGoogle() {}
 </script>
 
 <template>
-  <div class="container d-flex justify-content-center align-items-center h-100 bg-warning">
-    <div class="card shadow-sm p-3 bg-light" style="max-width: 400px; width: 100%;">
-      <h2 class="mb-3 text-center" style="color: #2e1d0f;">Đăng nhập</h2>
+  <div class="container-fluid d-flex justify-content-center align-items-center h-100 bg-warning">
+    <div class="card shadow-sm p-3 bg-light" style="max-width: 400px; width: 100%">
+      <h2 class="mb-3 text-center" style="color: #2e1d0f">Đăng nhập</h2>
       <hr class="p-0 m-2" />
       <form @submit.prevent="onLogin">
         <div class="mb-3">
@@ -107,13 +107,21 @@ function loginWithGoogle() {}
           {{ isLoading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
         </button>
       </form>
-        <button class="btn w-100 mt-3 bg-primary text-white" @click="loginWithGoogle" :disabled="isLoading">
-          <i class="fab fa-google me-2"></i> Đăng nhập bằng Email
+      <button
+        class="btn w-100 mt-3 bg-primary text-white"
+        @click="loginWithGoogle"
+        :disabled="isLoading"
+      >
+        <i class="fab fa-google me-2"></i> Đăng nhập bằng Email
       </button>
       <div class="mt-3 text-center">
-        <router-link to="/forgot-password" class="text-decoration-none text-black">Quên mật khẩu?</router-link>
+        <router-link to="/forgot-password" class="text-decoration-none text-black"
+          >Quên mật khẩu?</router-link
+        >
         <span class="mx-2">|</span>
-        <router-link to="/register" class="text-decoration-none text-black">Đăng ký tài khoản</router-link>
+        <router-link to="/register" class="text-decoration-none text-black"
+          >Đăng ký tài khoản</router-link
+        >
       </div>
     </div>
   </div>
