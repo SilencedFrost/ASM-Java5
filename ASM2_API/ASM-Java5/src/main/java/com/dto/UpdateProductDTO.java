@@ -4,7 +4,8 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class UpdateProductDTO extends InboundProductDTO{
     private Long productId;
