@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 export const useAuthStore = defineStore('auth', () => {
-  const isLoggedIn = ref(true)
+  const isLoggedIn = ref(false)
   const userId = ref(-1)
   const username = ref('')
   const email = ref()
