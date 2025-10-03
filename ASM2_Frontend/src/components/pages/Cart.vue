@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-4 text-md-end mt-3 mt-md-0">
               <button
-                class="btn btn-outline-danger btn-sm"
+                class="btn btn-outline-secondary btn-sm"
                 @click="clearCart"
                 v-if="cartItems.length > 0"
               >
@@ -33,11 +33,11 @@
             <table class="table table-hover mb-0">
               <thead class="table-primary">
                 <tr>
-                  <th class="border-0 py-3">Sản phẩm</th>
-                  <th class="border-0 py-3 text-center">Giá</th>
-                  <th class="border-0 py-3 text-center">Số lượng</th>
-                  <th class="border-0 py-3 text-center">Tổng</th>
-                  <th class="border-0 py-3 text-center">Thao tác</th>
+                  <th class="border-0 py-3 text-dark">Sản phẩm</th>
+                  <th class="border-0 py-3 text-center text-dark">Giá</th>
+                  <th class="border-0 py-3 text-center text-dark">Số lượng</th>
+                  <th class="border-0 py-3 text-center text-dark">Tổng</th>
+                  <th class="border-0 py-3 text-center text-dark">Thao tác</th>
                 </tr>
               </thead>
               <tbody>
@@ -59,7 +59,7 @@
                     </div>
                   </td>
                   <td class="border-0 py-4 text-center">
-                    <span class="fw-bold text-danger">{{ formatCurrency(item.price) }}</span>
+                    <span class="fw-bold text-dark">{{ formatCurrency(item.price) }}</span>
                   </td>
                   <td class="border-0 py-4">
                     <div class="d-flex justify-content-center align-items-center">
@@ -71,7 +71,7 @@
                       </button>
                       <input
                         type="number"
-                        class="form-control form-control-sm text-center fw-bold"
+                        class="form-control form-control-sm text-center fw-bold text-dark"
                         style="width: 60px"
                         v-model.number="item.quantity"
                         min="1"
@@ -86,12 +86,12 @@
                     </div>
                   </td>
                   <td class="border-0 py-4 text-center">
-                    <span class="fw-bold text-success fs-5">{{
+                    <span class="fw-bold text-primary fs-5">{{
                       formatCurrency(item.price * item.quantity)
                     }}</span>
                   </td>
                   <td class="border-0 py-4 text-center">
-                    <button class="btn btn-danger btn-sm" @click="removeItem(item.id)">Xóa</button>
+                    <button class="btn btn-secondary btn-sm" @click="removeItem(item.id)">Xóa</button>
                   </td>
                 </tr>
               </tbody>
@@ -116,8 +116,8 @@
                   <h6 class="card-title mb-1 fw-bold">{{ item.name }}</h6>
                   <small class="text-muted d-block mb-2">Mã SP: #{{ item.id }}</small>
                   <div class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="fw-bold text-danger">{{ formatCurrency(item.price) }}</span>
-                    <button class="btn btn-danger btn-sm" @click="removeItem(item.id)">Xóa</button>
+                    <span class="fw-bold text-secondary">{{ formatCurrency(item.price) }}</span>
+                    <button class="btn btn-secondary btn-sm" @click="removeItem(item.id)">Xóa</button>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group" role="group">
@@ -158,15 +158,15 @@
               <div class="col-lg-6">
                 <div class="d-flex justify-content-between mb-2">
                   <span class="text-muted">Tạm tính ({{ cartItems.length }} sản phẩm):</span>
-                  <span class="fw-bold">{{ formatCurrency(subtotal) }}</span>
+                  <span class="fw-bold text-dark">{{ formatCurrency(subtotal) }}</span>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                   <span class="text-muted">Phí vận chuyển:</span>
-                  <span class="text-success fw-bold">Miễn phí</span>
+                  <span class="text-secondary fw-bold">Miễn phí</span>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                   <span class="text-muted">Thuế VAT (10%):</span>
-                  <span class="fw-bold">{{ formatCurrency(subtotal * 0.1) }}</span>
+                  <span class="fw-bold text-dark">{{ formatCurrency(subtotal * 0.1) }}</span>
                 </div>
               </div>
               <div class="col-lg-6">
@@ -216,7 +216,7 @@
 
               <div class="col-lg-4 text-end mt-4 mt-lg-0">
                 <div class="d-grid gap-2">
-                  <button class="btn btn-primary btn-lg fw-bold" @click="checkout">
+                  <button class="btn btn-primary text-light btn-lg fw-bold" @click="checkout">
                     <i class="fas fa-credit-card me-2"></i>
                     Thanh toán ngay
                   </button>
@@ -231,10 +231,10 @@
         </div>
 
         <!-- Shipping Info -->
-        <div class="alert alert-info border-0 shadow-sm mt-4" role="alert">
+        <div class="alert alert-primary border-0 shadow-sm mt-4" role="alert">
           <div class="d-flex">
             <div class="me-3">
-              <i class="fas fa-truck fa-2x text-info"></i>
+              <i class="fas fa-truck fa-2x text-primary"></i>
             </div>
             <div>
               <h6 class="alert-heading">Thông tin giao hàng</h6>
@@ -257,7 +257,7 @@
             <p class="card-text text-muted mb-4">
               Hãy thêm một số sản phẩm vào giỏ hàng để bắt đầu mua sắm!
             </p>
-            <button class="btn btn-primary btn-lg px-4" @click="continueShopping">
+            <button class="btn btn-primary text-light fw-bold btn-lg px-4" @click="continueShopping">
               <i class="fas fa-shopping-bag me-2"></i>
               Bắt đầu mua sắm
             </button>
