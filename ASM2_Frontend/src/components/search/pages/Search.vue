@@ -3,7 +3,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 
-import DisplayItem from '@/components/sections/DisplayItem.vue'
+import DisplayItem from '@/components/product/sections/DisplayItem.vue'
 
 // Lấy ID sản phẩm từ URL
 const route = useRoute()

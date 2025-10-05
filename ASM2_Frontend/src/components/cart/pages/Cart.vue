@@ -91,7 +91,9 @@
                     }}</span>
                   </td>
                   <td class="border-0 py-4 text-center">
-                    <button class="btn btn-secondary btn-sm" @click="removeItem(item.id)">Xóa</button>
+                    <button class="btn btn-secondary btn-sm" @click="removeItem(item.id)">
+                      Xóa
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -117,7 +119,9 @@
                   <small class="text-muted d-block mb-2">Mã SP: #{{ item.id }}</small>
                   <div class="d-flex justify-content-between align-items-center mb-3">
                     <span class="fw-bold text-secondary">{{ formatCurrency(item.price) }}</span>
-                    <button class="btn btn-secondary btn-sm" @click="removeItem(item.id)">Xóa</button>
+                    <button class="btn btn-secondary btn-sm" @click="removeItem(item.id)">
+                      Xóa
+                    </button>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group" role="group">
@@ -257,7 +261,10 @@
             <p class="card-text text-muted mb-4">
               Hãy thêm một số sản phẩm vào giỏ hàng để bắt đầu mua sắm!
             </p>
-            <button class="btn btn-primary text-light fw-bold btn-lg px-4" @click="continueShopping">
+            <button
+              class="btn btn-primary text-light fw-bold btn-lg px-4"
+              @click="continueShopping"
+            >
               <i class="fas fa-shopping-bag me-2"></i>
               Bắt đầu mua sắm
             </button>

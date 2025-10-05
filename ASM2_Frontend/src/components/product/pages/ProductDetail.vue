@@ -3,7 +3,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 
-import ExtraProducts from '@/components/sections/ExtraProducts.vue'
+import ExtraProducts from '@/components/product/sections/ExtraProducts.vue'
 
 const quantity = ref(1)
 

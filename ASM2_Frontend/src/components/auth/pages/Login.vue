@@ -71,13 +71,13 @@ function loginWithGoogle() {}
 </script>
 
 <template>
-  <div class="container-fluid d-flex justify-content-center align-items-center h-100 bg-warning">
+  <div class="d-flex flex-fill justify-content-center align-items-center bg-warning">
     <div class="card shadow-sm p-3 bg-light" style="max-width: 400px; width: 100%">
-      <h2 class="mb-3 text-center" style="color: #2e1d0f">Đăng nhập</h2>
-      <hr class="p-0 m-2" />
+      <h2 class="text-center text-dark">Đăng nhập</h2>
+      <hr />
       <form @submit.prevent="onLogin">
         <div class="mb-3">
-          <label for="username" class="form-label">Tên đăng nhập hoặc email</label>
+          <label for="username" class="form-label text-dark">Email</label>
           <input
             type="text"
             id="username"
@@ -85,12 +85,11 @@ function loginWithGoogle() {}
             class="form-control"
             required
             autocomplete="username"
-            placeholder="Username or email"
             :disabled="isLoading"
           />
         </div>
         <div class="mb-3">
-          <label for="password" class="form-label">Mật khẩu</label>
+          <label for="password" class="form-label text-dark">Mật khẩu</label>
           <input
             type="password"
             id="password"
@@ -98,11 +97,10 @@ function loginWithGoogle() {}
             class="form-control"
             required
             autocomplete="current-password"
-            placeholder="Password"
             :disabled="isLoading"
           />
         </div>
-        <button type="submit" class="btn w-100 bg-dark text-white" :disabled="isLoading">
+        <button type="submit" class="btn w-100 btn-dark text-white" :disabled="isLoading">
           <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
           {{ isLoading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
         </button>
@@ -112,14 +110,17 @@ function loginWithGoogle() {}
         @click="loginWithGoogle"
         :disabled="isLoading"
       >
-        <i class="fab fa-google me-2"></i> Đăng nhập bằng Email
+        Đăng nhập bằng Google
       </button>
-      <div class="mt-3 text-center">
-        <router-link to="/forgot-password" class="text-decoration-none text-black"
+
+      <hr />
+
+      <div class="text-center">
+        <router-link to="/forgot-password" class="text-decoration-none text-muted"
           >Quên mật khẩu?</router-link
         >
         <span class="mx-2">|</span>
-        <router-link to="/register" class="text-decoration-none text-black"
+        <router-link to="/register" class="text-decoration-none text-muted"
           >Đăng ký tài khoản</router-link
         >
       </div>
