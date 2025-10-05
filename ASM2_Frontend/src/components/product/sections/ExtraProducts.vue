@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
-import DisplayItem from '@/components/sections/DisplayItem.vue'
+import DisplayItem from '@/components/product/sections/DisplayItem.vue'
 
 // Reactive state
 const category = ref([])
