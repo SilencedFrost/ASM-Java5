@@ -23,19 +23,15 @@ onMounted(fetchCategories)
 </script>
 
 <template>
-  <!-- Sidebar -->
-  <div class="w-100 p-0">
-    <!-- Product Categories -->
+  <aside class="flex-fill bg-primary">
     <ul class="list-unstyled mb-0">
-      <!-- Điện thoại -->
       <li v-for="category in categories">
-        <a
-          :href="'#category' + category.categoryId"
-          class="d-flex align-items-center justify-content-between px-3 py-3 text-decoration-none text-black"
-        >
-          <div class="d-flex align-items-center">{{ category.categoryName }}</div>
+        <a :href="'#category' + category.categoryId" class="d-flex px-3 py-3">
+          <div class="align-items-center text-white fw-bold">
+            {{ category.categoryName }}
+          </div>
         </a>
       </li>
     </ul>
-  </div>
+  </aside>
 </template>
