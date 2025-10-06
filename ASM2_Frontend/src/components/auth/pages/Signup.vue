@@ -78,7 +78,7 @@ function registerWithGoogle() {}
 
       <div class="text-center">
         <span class="text-muted">Đã có tài khoản? </span>
-        <router-link to="/login" class="text-decoration-none">Đăng nhập ngay</router-link>
+        <router-link to="/auth/login" class="text-decoration-none">Đăng nhập ngay</router-link>
       </div>
     </div>
   </div>
