@@ -37,7 +37,8 @@ function onSubmit() {
           {{ isLoading ? 'Đang gửi...' : 'Gửi email' }}
         </button>
       </form>
-
+      
+      <hr/>
       <div class="text-center">
         <span class="text-muted">Nhớ mật khẩu?</span>
         <router-link to="/login" class="text-decoration-none ms-1">
