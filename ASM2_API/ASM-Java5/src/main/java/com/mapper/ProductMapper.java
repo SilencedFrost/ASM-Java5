@@ -62,12 +62,4 @@ public class ProductMapper {
                 productDTO.getSpecifications()
         );
     }
-
-    public static List<OutboundProductDTO> toDTOList(List<Product> entityList) {
-        List<OutboundProductDTO> dtoList = new ArrayList<>();
-        for (Product product : entityList) {
-            dtoList.add(ProductMapper.toDTO(product));
-        }
-        return dtoList;
-    }
 }

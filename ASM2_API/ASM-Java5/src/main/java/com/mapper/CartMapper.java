@@ -31,12 +31,4 @@ public class CartMapper {
         cart.setQuantity(cartDTO.getQuantity());
         return cart;
     }
-
-    public static List<CartDTO> toDTOList(List<Cart> entityList) {
-        List<CartDTO> dtoList = new ArrayList<>();
-        for (Cart cart : entityList) {
-            dtoList.add(CartMapper.toDTO(cart));
-        }
-        return dtoList;
-    }
 }

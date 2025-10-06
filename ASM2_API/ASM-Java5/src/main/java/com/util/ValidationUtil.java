@@ -1,9 +1,11 @@
 package com.util;
 
 import com.service.UserService;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class ValidationUtil {
-    private static final UserService userService = new UserService();
+    private static UserService userService;
 
     public static boolean isNullOrBlank(String str) {
         return str == null || str.trim().isBlank();

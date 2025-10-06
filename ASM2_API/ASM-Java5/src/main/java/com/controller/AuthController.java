@@ -42,7 +42,7 @@ public class AuthController {
                     .body(Map.of("error", "Missing credentials"));
         }
 
-        OutboundUserDTO userDTO = userService.findByUsernameOrEmail(usernameOrEmail);
+        OutboundUserDTO userDTO = userService.findByUsernameOrEmail(usernameOrEmail).orElse(null);
         if (userDTO != null && userService.validateUser(password, userDTO.getUserId())) {
             userService.updateLoginDate(userDTO.getUserId());
             userDTO.setLastLoginDate(LocalDateTime.now());

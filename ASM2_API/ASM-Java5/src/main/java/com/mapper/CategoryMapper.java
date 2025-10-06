@@ -30,12 +30,4 @@ public class CategoryMapper {
                 categoryDTO.getCategoryName()
         );
     }
-
-    public static List<OutboundCategoryDTO> toDTOList(List<Category> entityList) {
-        List<OutboundCategoryDTO> dtoList = new ArrayList<>();
-        for (Category category : entityList) {
-            dtoList.add(CategoryMapper.toDTO(category));
-        }
-        return dtoList;
-    }
 }
