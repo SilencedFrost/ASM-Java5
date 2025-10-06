@@ -18,6 +18,11 @@ function goHome() {
     window.scrollTo({ top: 0, behavior: 'smooth' }) // scroll to top
   })
 }
+
+const authenticatedList = [
+  { url: '/status', text: 'Đơn hàng' },
+  { url: '/account', text: 'Tài khoản' },
+]
 </script>
 
 <template>
@@ -82,21 +87,21 @@ function goHome() {
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
               <div v-if="!authStore.isLoggedIn">
                 <li>
-                  <router-link class="dropdown-item" to="/login">Đăng nhập</router-link>
+                  <router-link class="dropdown-item" to="/auth/login">Đăng nhập</router-link>
                 </li>
                 <li>
-                  <router-link class="dropdown-item" to="/register">Đăng ký</router-link>
+                  <router-link class="dropdown-item" to="/auth/register">Đăng ký</router-link>
                 </li>
               </div>
               <div v-if="authStore.isLoggedIn">
                 <li>
                   <div class="dropdown-item">Welcome, {{ authStore.username }}</div>
                 </li>
-                <li class="nav-item">
+                <li>
                   <div class="dropdown-item" @click="authStore.logOut">Đăng xuất</div>
                 </li>
-                <li>
-                  <router-link class="dropdown-item" to="">Quản lý tài khoản</router-link>
+                <li v-for="item in authenticatedList" :key="item.url">
+                  <router-link class="dropdown-item" :to="item.url">{{ item.text }}</router-link>
                 </li>
               </div>
             </ul>
@@ -119,10 +124,10 @@ function goHome() {
           <ul class="navbar-nav">
             <div v-if="!authStore.isLoggedIn">
               <li class="nav-item">
-                <router-link class="nav-link ps-4" to="/login">Đăng nhập</router-link>
+                <router-link class="nav-link ps-4" to="/auth/login">Đăng nhập</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link ps-4" to="/register">Đăng ký</router-link>
+                <router-link class="nav-link ps-4" to="/auth/register">Đăng ký</router-link>
               </li>
             </div>
             <div v-if="authStore.isLoggedIn">
@@ -132,8 +137,8 @@ function goHome() {
               <li class="nav-item">
                 <div class="nav-link ps-4" @click="authStore.logOut">Đăng xuất</div>
               </li>
-              <li class="nav-item">
-                <router-link class="nav-link ps-4" to="">Quản lý tài khoản</router-link>
+              <li class="nav-item" v-for="item in authenticatedList" :key="item.url">
+                <router-link class="nav-link ps-4" :to="item.url">{{ item.text }}</router-link>
               </li>
             </div>
           </ul>

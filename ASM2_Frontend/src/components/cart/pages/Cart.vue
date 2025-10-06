@@ -349,27 +349,7 @@ export default {
         this.showToast('Đã xóa tất cả sản phẩm khỏi giỏ hàng', 'info')
       }
     },
-    checkout() {
-      // Simulate checkout process
-      if (this.cartItems.length === 0) {
-        alert('Giỏ hàng trống! Vui lòng thêm sản phẩm trước khi thanh toán.')
-        return
-      }
-
-      // Show loading state
-      const originalText = event.target.innerHTML
-      event.target.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang xử lý...'
-      event.target.disabled = true
-
-      setTimeout(() => {
-        alert(
-          `Thanh toán thành công!\nTổng tiền: ${this.formatCurrency(this.totalPrice)}\nCảm ơn bạn đã mua sắm!`,
-        )
-        this.cartItems = []
-        event.target.innerHTML = originalText
-        event.target.disabled = false
-      }, 2000)
-    },
+    checkout() {},
     continueShopping() {
       // Navigate back to products page
       alert('Chuyển hướng về trang sản phẩm...')

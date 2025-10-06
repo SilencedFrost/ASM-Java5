@@ -17,12 +17,19 @@ import ChangePass from '@/components/profile/pages/ChangePass.vue'
 import ForgotPassword from '@/components/auth/pages/ForgotPassword.vue'
 import OrderDetail from '@/components/order/pages/OrderDetail.vue'
 import OrderStatus from '@/components/order/pages/OrderStatus.vue'
+import AuthLayout from '@/components/auth/layout/AuthLayout.vue'
 
 const routes = [
-  { path: '/login', component: Login, meta: { title: 'Login' } },
-  { path: '/register', component: Signup, meta: { title: 'Register' } },
-  { path: '/forgot-password', component: ForgotPassword, meta: { title: 'Forgot password' } },
   { path: '/order', component: OrderDetail, meta: { title: 'Order detail' } },
+  {
+    path: '/auth',
+    component: AuthLayout,
+    children: [
+      { path: 'login', component: Login, meta: { title: 'Login' } },
+      { path: 'register', component: Signup, meta: { title: 'Register' } },
+      { path: 'forgot-password', component: ForgotPassword, meta: { title: 'Forgot password' } },
+    ],
+  },
   {
     path: '/',
     component: Generic,
@@ -39,9 +46,9 @@ const routes = [
         children: [{ path: '', component: Homepage }],
       },
       {
-        path: '/profile',
+        path: '/account',
         component: ProfileLayout,
-        meta: { title: 'User profile', requiresAuth: true },
+        meta: { title: 'My account', requiresAuth: true },
         children: [
           { path: '', component: Profile },
           { path: 'payment', component: Payment },
@@ -59,7 +66,7 @@ const router = createRouter({
 })
 
 // Navigation guard for authentication
-/* router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
 
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
@@ -71,7 +78,7 @@ const router = createRouter({
   } else {
     next()
   }
-}) */
+})
 
 router.afterEach((to) => {
   if (to.meta.title) {
