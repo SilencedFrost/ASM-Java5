@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RoleMapper {
 
-    public static RoleDTO toDTO(Role role) {
+    public static OutboundRoleDTO toDTO(Role role) {
         if (role == null) {
             return null;
         }
@@ -28,13 +28,5 @@ public class RoleMapper {
         return new Role(
                 roleDTO.getRoleName()
         );
-    }
-
-    public static List<RoleDTO> toDTOList(List<Role> entityList) {
-        List<RoleDTO> dtoList = new ArrayList<>();
-        for (Role role : entityList) {
-            dtoList.add(RoleMapper.toDTO(role));
-        }
-        return dtoList;
     }
 }

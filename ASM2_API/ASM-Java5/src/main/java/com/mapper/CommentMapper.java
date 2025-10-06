@@ -36,12 +36,4 @@ public class CommentMapper {
                 commentDTO.getCommentContent()
         );
     }
-
-    public static List<CommentDTO> toDTOList(List<Comment> entityList) {
-        List<CommentDTO> dtoList = new ArrayList<>();
-        for (Comment comment : entityList) {
-            dtoList.add(CommentMapper.toDTO(comment));
-        }
-        return dtoList;
-    }
 }
