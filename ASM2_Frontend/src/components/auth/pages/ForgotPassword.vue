@@ -10,8 +10,8 @@ function onSubmit() {
   <div class="d-flex flex-fill justify-content-center align-items-center bg-warning min-vh-100">
     <div class="card shadow-sm p-3 bg-light" style="max-width: 400px; width: 100%;">
       <h2 class="text-center text-dark">Quên mật khẩu</h2>
-      <hr class="mt-0 mb-3" />
-      
+      <hr/>
+
       <form @submit.prevent="onSubmit">
         <div class="mb-3">
           <label for="email" class="form-label text-dark">Email</label>
