@@ -43,18 +43,18 @@
           <h6 class="fw-bold mb-2 mt-3">Lịch sử trạng thái</h6>
           <ul class="list-group small">
             <li class="list-group-item border-0 ps-2 d-flex align-items-center">
-              <span class="rounded-circle me-2"
-                style="width:10px; height:10px; background:#FFA500; display:inline-block;"></span>
+              <span class="rounded-circle me-2 bg-warning"
+                style="width:10px; height:10px; display:inline-block;"></span>
               05/10/2025 09:12 — Xác nhận đơn hàng
             </li>
             <li class="list-group-item border-0 ps-2 d-flex align-items-center">
-              <span class="rounded-circle me-2"
-                style="width:10px; height:10px; background:#FFA500; display:inline-block;"></span>
+              <span class="rounded-circle me-2 bg-warning"
+                style="width:10px; height:10px; display:inline-block;"></span>
               05/10/2025 10:00 — Chuẩn bị hàng
             </li>
             <li class="list-group-item border-0 ps-2 d-flex align-items-center">
-              <span class="rounded-circle me-2"
-                style="width:10px; height:10px; background:#FFA500; display:inline-block;"></span>
+              <span class="rounded-circle me-2 bg-warning"
+                style="width:10px; height:10px; display:inline-block;"></span>
               Đang chờ giao
             </li>
           </ul>
