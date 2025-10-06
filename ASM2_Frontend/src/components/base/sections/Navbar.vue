@@ -21,16 +21,30 @@ function goHome() {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid d-flex align-items-center">
       <!-- Logo -->
       <div class="navbar-brand flex-shrink-0">
         <img :src="logoImage" alt="" style="width: 50px" @click="goHome" />
       </div>
 
+      <!-- Search -->
+      <form class="d-flex flex-fill" @submit.prevent="onSearch">
+        <input
+          class="form-control me-2 bg-light rounded-5"
+          type="search"
+          v-model="searchQuery"
+          placeholder="Tìm kiếm"
+          aria-label="Search"
+        />
+        <button class="btn btn-primary rounded-5" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+
       <!-- Burger button -->
       <button
-        class="navbar-toggler flex-shrink-0"
+        class="navbar-toggler flex-shrink-0 border-0"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNavDropdown"
@@ -44,21 +58,6 @@ function goHome() {
       <!-- Navbar content -->
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <!-- Search -->
-            <form class="d-flex w-100" @submit.prevent="onSearch">
-              <input
-                class="form-control me-2"
-                type="search"
-                v-model="searchQuery"
-                placeholder="Tìm kiếm"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-secondary" type="submit">
-                <i class="bi bi-search"></i>
-              </button>
-            </form>
-          </li>
           <!-- Giỏ hàng -->
           <li class="nav-item">
             <router-link class="nav-link d-flex align-items-center" to="/cart">
@@ -123,7 +122,7 @@ function goHome() {
                 <router-link class="nav-link ps-4" to="/login">Đăng nhập</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link ps-4" to="/register">Đăng ký thành viên</router-link>
+                <router-link class="nav-link ps-4" to="/register">Đăng ký</router-link>
               </li>
             </div>
             <div v-if="authStore.isLoggedIn">
@@ -143,3 +142,12 @@ function goHome() {
     </div>
   </nav>
 </template>
+
+<style scoped>
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline: none;
+  box-shadow: none;
+}
+</style>

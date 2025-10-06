@@ -23,7 +23,7 @@ onMounted(fetchCategories)
 </script>
 
 <template>
-  <aside class="flex-fill bg-primary">
+  <aside class="flex-fill bg-secondary">
     <ul class="list-unstyled mb-0">
       <li v-for="category in categories">
         <a :href="'#category' + category.categoryId" class="d-flex px-3 py-3">

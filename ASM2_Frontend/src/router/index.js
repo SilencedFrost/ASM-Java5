@@ -59,7 +59,7 @@ const router = createRouter({
 })
 
 // Navigation guard for authentication
-router.beforeEach((to, from, next) => {
+/* router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
 
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
@@ -71,7 +71,7 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-})
+}) */
 
 router.afterEach((to) => {
   if (to.meta.title) {
