@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-light min-vh-100 py-4">
+  <div class="bg-light min-vh-100 py-4 flex-fill">
     <div class="container">
       <!-- Cart Header -->
       <div class="card mb-4 border-0 shadow-sm">

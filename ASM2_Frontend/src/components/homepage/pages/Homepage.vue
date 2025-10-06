@@ -4,8 +4,7 @@ import ProductByCat from '@/components/homepage/sections/ProductByCat.vue'
 </script>
 
 <template>
-  <div class="flex-fill">
-    <carousel />
+  <div class="flex-fill bg-light p-2">
     <product-by-cat />
   </div>
 </template>

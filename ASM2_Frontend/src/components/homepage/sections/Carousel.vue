@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
   <!-- Promotion Carousel -->
-  <section class="py-5 bg-white">
+  <section class="py-5">
     <div class="container-fluid">
       <div class="text-center mb-4">
         <h2 class="fw-bold">🔥 Ưu đãi hấp dẫn</h2>
