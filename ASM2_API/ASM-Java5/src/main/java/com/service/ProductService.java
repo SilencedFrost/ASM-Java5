@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -42,7 +43,7 @@ public class ProductService {
         try {
             List<Product> productList = productRepository.findByCategoryCategoryId(categoryId);
             log.info("Fetched all products: {} products found.", productList.size());
-            return ProductMapper.toDTOList(productList);
+            return productList.stream().map(ProductMapper::toDTO).collect(Collectors.toList());
         } catch (Exception e) {
             log.error("Error fetching products for category {}", categoryId, e);
             return new ArrayList<>();
@@ -52,9 +53,8 @@ public class ProductService {
     public List<OutboundProductDTO> findByNameLike(String keyword) {
         try {
             List<Product> productList = productRepository.searchByNameLike(keyword);
-            return ProductMapper.toDTOList(productList);
+            return productList.stream().map(ProductMapper::toDTO).collect(Collectors.toList());
         } catch (Exception e) {
-            // log it instead of swallowing
             log.error("Error fetching products", e);
             return new ArrayList<>();
         }

@@ -8,6 +8,7 @@ import com.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserMapper {
 
@@ -38,13 +39,5 @@ public class UserMapper {
                 role,
                 userDTO.isActive()
         );
-    }
-
-    public static List<UserDTO> toDTOList(List<User> entityList) {
-        List<UserDTO> dtoList = new ArrayList<>();
-        for (User user : entityList) {
-            dtoList.add(UserMapper.toDTO(user));
-        }
-        return dtoList;
     }
 }
