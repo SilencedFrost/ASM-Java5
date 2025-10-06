@@ -6,12 +6,10 @@ const isLoading = ref(false)
 function onSubmit() {
 }
 </script>
-
 <template>
   <div class="d-flex flex-fill justify-content-center align-items-center bg-warning min-vh-100">
     <div class="card shadow-sm p-3 bg-light" style="max-width: 400px; width: 100%;">
-      <h2 class="text-center text-dark mb-3">Quên mật khẩu</h2>
-      <hr class="mt-0 mb-3" />
+      <h2 class="text-center text-dark">Quên mật khẩu</h2>
 
       <form @submit.prevent="onSubmit">
         <div class="mb-3">
