@@ -3,6 +3,7 @@
 DROP TABLE IF EXISTS public.product;
 DROP TABLE IF EXISTS public.category;
 DROP TABLE IF EXISTS public.seller;
+DROP TABLE IF EXISTS public.address;
 DROP TABLE IF EXISTS public.admin;
 DROP TABLE IF EXISTS public.customer;
 DROP TABLE IF EXISTS public.users;
@@ -33,6 +34,7 @@ CREATE TABLE IF NOT EXISTS public.users
     email character varying(254) COMPRESSION lz4 COLLATE pg_catalog."default" UNIQUE,
 	role_id bigint,
 	username character varying(64),
+	birthday date,
 	password_hash character varying(64),
 	is_active bit NOT NULL,
     creation_date date,
@@ -84,6 +86,20 @@ CREATE TABLE IF NOT EXISTS public.seller
 );
 
 ALTER TABLE IF EXISTS public.seller
+    OWNER to postgres;
+
+-- Table: address
+
+CREATE TABLE IF NOT EXISTS public.address
+(
+	address_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+    user_id bigint NOT NULL,
+    CONSTRAINT address_pk PRIMARY KEY (address_id),
+	CONSTRAINT address_fk_user FOREIGN KEY (user_id) 
+        REFERENCES public.users (user_id)
+);
+
+ALTER TABLE IF EXISTS public.address
     OWNER to postgres;
 
 -- Table: category
