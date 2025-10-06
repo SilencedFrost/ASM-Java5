@@ -116,11 +116,11 @@ function loginWithGoogle() {}
       <hr />
 
       <div class="text-center">
-        <router-link to="/forgot-password" class="text-decoration-none text-muted"
+        <router-link to="/auth/forgot-password" class="text-decoration-none text-muted"
           >Quên mật khẩu?</router-link
         >
         <span class="mx-2">|</span>
-        <router-link to="/register" class="text-decoration-none text-muted"
+        <router-link to="/auth/register" class="text-decoration-none text-muted"
           >Đăng ký tài khoản</router-link
         >
       </div>
