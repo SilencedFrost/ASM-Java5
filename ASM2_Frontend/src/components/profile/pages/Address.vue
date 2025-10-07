@@ -6,7 +6,7 @@
 
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="fw-semibold mb-0">Địa chỉ của tôi</h5>
-                <button class="btn btn-warning text-light fw-semibold px-3 py-1">
+                <button class="btn btn-primary text-light fw-semibold px-3 py-1">
                     + Thêm địa chỉ mới
                 </button>
             </div>

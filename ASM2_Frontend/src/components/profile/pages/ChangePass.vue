@@ -13,7 +13,7 @@
                 <label class="form-label">Xác nhận mật khẩu</label>
                 <input type="password" class="form-control w-50">
             </div>
-            <button type="submit" class="btn btn-warning text-light">Xác nhận</button>
+            <button type="submit" class="btn btn-primary text-light">Xác nhận</button>
         </form>
     </div>
     </div>
