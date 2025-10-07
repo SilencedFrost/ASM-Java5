@@ -61,7 +61,7 @@ onBeforeUnmount(() => {
           </div>
           <div class="card-body d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center flex-fill">
-              <img src="#" alt="Avatar" class="rounded-circle me-3" style="width: 60px; height: 60px; border: 2px solid #fdb833;">
+              <img src="#" alt="Avatar" class="rounded-circle me-3 border border-2 border-warning flex-shrink-0" style="width: 60px; height: 60px;">
               <div class="flex-fill">
                 <h5 class="card-title mb-1 text-dark">Nguyễn Trọng Phúc, 170, 70kg</h5>
                 <p class="card-text mb-0 small text-secondary">Easy Eat > 05 tháng 10 Đ giao</p>
@@ -89,7 +89,7 @@ onBeforeUnmount(() => {
           </div>
           <div class="card-body d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center flex-fill">
-              <img src="#" alt="Avatar" class="rounded-circle me-3" style="width: 60px; height: 60px; border: 2px solid #fdb833;">
+              <img src="#" alt="Avatar" class="rounded-circle me-3 border border-2 border-warning flex-shrink-0" style="width: 60px; height: 60px;">
               <div class="flex-fill">
                 <h5 class="card-title mb-1 text-dark">Lê Thị Hoa, 160, 55kg</h5>
                 <p class="card-text mb-0 small text-secondary">Healthy Meal > 04 tháng 10 Giao nhanh</p>
@@ -231,13 +231,5 @@ onBeforeUnmount(() => {
 
 .content-with-headers {
   padding-top: var(--status-navbar-height, 56px);
-  background-color: #f8f5e9; /* $light theo theme */
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  font-family: 'Open Sans', sans-serif;
-  min-height: 100vh;
 }
 </style>
