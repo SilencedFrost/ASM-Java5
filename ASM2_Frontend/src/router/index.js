@@ -72,7 +72,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
     // Save the target route so we can redirect later
     next({
-      path: '/login',
+      path: '/auth/login',
       query: { redirect: to.fullPath },
     })
   } else {
