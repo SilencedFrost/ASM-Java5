@@ -75,7 +75,7 @@
 
                         <div class="col-md-4">
                             <div class="d-flex flex-column align-items-center">
-                                <div class="border rounded p-3 text-center mb-3" style="width:120px; height:150px; background-color: #f8f9fa;">
+                                <div class="border rounded p-3 text-center mb-3 bg-light" style="width:120px; height:150px;">
                                     <span class="text-muted">Ảnh đại diện</span>
                                 </div>
                                 <div class="text-center mb-4">
@@ -86,7 +86,7 @@
                                 </div>
 
                                 <div class="mt-5 w-50">
-                                    <button type="submit" class="btn btn-warning text-light w-100">
+                                    <button type="submit" class="btn btn-primary text-light w-100">
                                         Lưu thay đổi
                                     </button>
                                 </div>

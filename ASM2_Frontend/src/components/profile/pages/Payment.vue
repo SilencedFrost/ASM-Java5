@@ -9,7 +9,7 @@
     <div class="bg-light shadow-sm p-4 mb-4">
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="fw-semibold mb-0">Thẻ Tín Dụng/Ghi nợ</h5>
-        <button class="btn btn-warning text-light fw-semibold px-3 py-1">
+        <button class="btn btn-primary text-light fw-semibold px-3 py-1">
           + Thêm thẻ mới
         </button>
       </div>
@@ -52,9 +52,9 @@
     <div class="bg-light shadow-sm p-4 mb-4">
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="fw-semibold mb-0">Tài khoản Ngân Hàng của tôi</h5>
-        <button class="btn btn-warning text-light fw-semibold px-3 py-1">
+        <button class="btn btn-primary text-light fw-semibold px-3 py-1">
           + Thêm Ngân Hàng liên kết
-        </button>
+        </button> 
       </div>
       <hr class="mt-3">
       <div style="max-height: 200px; overflow-y: auto;">
