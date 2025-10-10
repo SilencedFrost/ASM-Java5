@@ -1,6 +1,7 @@
 package com.dto.session
 
-data class CreateSessionRequest(
+data class SessionCreateRequest(
     val userId: Long,
     val sessionToken: String,
+    val userAgent: String
 )
