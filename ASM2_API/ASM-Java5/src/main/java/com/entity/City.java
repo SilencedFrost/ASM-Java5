@@ -5,9 +5,9 @@ import lombok.*;
 
 @Entity
 @Table(name = "city", schema = "public")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class City {
 
     @Id
