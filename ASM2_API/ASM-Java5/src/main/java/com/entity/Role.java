@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Roles")
+@Table(name = "role", schema = "public")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,16 +15,16 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RoleId")
+    @Column(name = "role_id", nullable = false)
     private Integer roleId;
 
-    @Column(name = "RoleName", nullable = false, length = 30)
+    @Column(name = "role_name", nullable = false, length = 32)
     private String roleName;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-    private List<User> users = new ArrayList<>();
-
-    public Role(String roleName) {
-        this.roleName = roleName;
-    }
+//    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+//    private List<User> users = new ArrayList<>();
+//
+//    public Role(String roleName) {
+//        this.roleName = roleName;
+//    }
 }
