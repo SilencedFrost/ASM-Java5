@@ -10,11 +10,10 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "seller", schema = "public")
 public class Seller {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "seller_id", nullable = false)
-//    private long sellerId;
+    @Column(name = "seller_id", nullable = false)
+    private long sellerId;
 //
 //    @Column(name = "user_id", nullable = false, unique = true)
 //    private long userId;
