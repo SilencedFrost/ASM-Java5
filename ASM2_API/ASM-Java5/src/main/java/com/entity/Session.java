@@ -12,11 +12,11 @@ import java.time.OffsetDateTime;
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "session_id", nullable = false)
-        private long sessionId;
-
-        @Column(name = "user_id", nullable = false)
-        private long userId;  // Tham chiếu tới role(role_id) theo script (không chỉnh)
+//        @Column(name = "session_id", nullable = false)
+//        private long sessionId;
+//
+//        @Column(name = "user_id", nullable = false)
+//           private long userId;  // Tham chiếu tới role(role_id) theo script (không chỉnh)
 
         @Column(name = "session_hash", length = 64)
         private String sessionHash;
