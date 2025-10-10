@@ -1,8 +1,11 @@
 -- Drops
 
+DROP TABLE IF EXISTS public.cart;
 DROP TABLE IF EXISTS public.product;
 DROP TABLE IF EXISTS public.category;
 DROP TABLE IF EXISTS public.seller;
+DROP TABLE IF EXISTS public.address;
+DROP TABLE IF EXISTS public.city;
 DROP TABLE IF EXISTS public.admin;
 DROP TABLE IF EXISTS public.customer;
 DROP TABLE IF EXISTS public.users;
@@ -12,8 +15,8 @@ DROP TABLE IF EXISTS public.role;
 
 CREATE TABLE IF NOT EXISTS public.role
 (
-	role_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
-    role_name character varying(32) NOT NULL,
+	role_id int NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+    role_name varchar(32) NOT NULL,
     CONSTRAINT role_pk PRIMARY KEY (role_id)
 );
 
@@ -29,13 +32,19 @@ INSERT INTO public.role (role_name) VALUES ('admin');
 
 CREATE TABLE IF NOT EXISTS public.users
 (
-    user_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 MAXVALUE 999999 CACHE 1 ),
-    email character varying(254) COMPRESSION lz4 COLLATE pg_catalog."default" UNIQUE,
-	role_id bigint,
-	username character varying(64),
-	password_hash character varying(64),
-	is_active bit NOT NULL,
-    creation_date date,
+    user_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
+    email varchar(254) COMPRESSION lz4 COLLATE pg_catalog."default" UNIQUE,
+	role_id int,
+	username varchar(64),
+	first_name varchar(32),
+	last_name varchar(32),
+	birthday date,
+	password_hash varchar(64),
+	is_active boolean NOT NULL,
+	phone_number varchar(15),
+	updated_at timestamptz,
+	last_login timestamptz,
+    creation_date timestamptz DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT user_pk PRIMARY KEY (user_id),
 	CONSTRAINT user_fk_role FOREIGN KEY (role_id) 
 		REFERENCES public.role (role_id)
@@ -48,7 +57,7 @@ ALTER TABLE IF EXISTS public.users
 
 CREATE TABLE IF NOT EXISTS public.customer
 (
-	customer_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 MAXVALUE 999999 CACHE 1 ),
+	customer_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
     user_id bigint NOT NULL UNIQUE,
     CONSTRAINT customer_pk PRIMARY KEY (customer_id),
     CONSTRAINT customer_fk_user FOREIGN KEY (user_id)
@@ -62,7 +71,7 @@ ALTER TABLE IF EXISTS public.customer
 
 CREATE TABLE IF NOT EXISTS public.admin
 (
-	admin_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 MAXVALUE 999999 CACHE 1 ),
+	admin_id int NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
     user_id bigint NOT NULL UNIQUE,
     CONSTRAINT admin_pk PRIMARY KEY (admin_id),
     CONSTRAINT admin_fk_user FOREIGN KEY (user_id) 
@@ -76,8 +85,13 @@ ALTER TABLE IF EXISTS public.admin
 
 CREATE TABLE IF NOT EXISTS public.seller
 (
-	seller_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 MAXVALUE 999999 CACHE 1 ),
+	seller_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
     user_id bigint NOT NULL UNIQUE,
+	shop_name varchar(64),
+	shop_description text,
+	rating decimal(3,2) CHECK (rating >= 0 AND rating <= 5),
+	total_sales bigint,
+	verification_status boolean,
     CONSTRAINT seller_pk PRIMARY KEY (seller_id),
     CONSTRAINT seller_fk_user FOREIGN KEY (user_id) 
         REFERENCES public.users (user_id)
@@ -86,12 +100,46 @@ CREATE TABLE IF NOT EXISTS public.seller
 ALTER TABLE IF EXISTS public.seller
     OWNER to postgres;
 
+-- Table: city
+
+CREATE TABLE IF NOT EXISTS public.city
+(
+	city_id int NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+    city_name varchar(64),
+    CONSTRAINT city_pk PRIMARY KEY (city_id)
+);
+
+ALTER TABLE IF EXISTS public.city
+    OWNER to postgres;
+
+-- Table: address
+
+CREATE TABLE IF NOT EXISTS public.address
+(
+	address_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+    user_id bigint NOT NULL,
+	address_line1 varchar(64),
+	address_line2 varchar(64),
+	city_id int,
+	is_default boolean,
+    CONSTRAINT address_pk PRIMARY KEY (address_id),
+	CONSTRAINT address_fk_user FOREIGN KEY (user_id) 
+        REFERENCES public.users (user_id),
+	CONSTRAINT address_fk_city FOREIGN KEY (city_id) 
+        REFERENCES public.city (city_id)
+);
+
+ALTER TABLE IF EXISTS public.address
+    OWNER to postgres;
+
 -- Table: category
 
 CREATE TABLE IF NOT EXISTS public.category
 (
-	category_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
-    category_name bigint NOT NULL UNIQUE,
+	category_id int NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+    category_name varchar(64) NOT NULL UNIQUE,
+	description varchar(256),
+	is_active boolean,
     CONSTRAINT category_pk PRIMARY KEY (category_id)
 );
 
@@ -102,14 +150,29 @@ ALTER TABLE IF EXISTS public.category
 
 CREATE TABLE IF NOT EXISTS public.product
 (
-	product_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 MAXVALUE 999999 CACHE 1 ),
-    seller_id bigint NOT NULL,
-	category_id bigint NOT NULL,
+	product_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
+    product_name character varying(128),
+	parent_id bigint,
+	seller_id bigint NOT NULL,
+	category_id int NOT NULL,
+	date_added timestamptz DEFAULT CURRENT_TIMESTAMP,
+	stock_count integer NOT NULL,
+	thumbnail_extension varchar(5),
+	product_size varchar(32),
+	variation varchar(32),
+	description text NOT NULL,
+	price numeric(15,2) NOT NULL,
+	is_active boolean,
+	view_count int,
+	updated_at timestamptz,
+	total_sales int,
     CONSTRAINT product_pk PRIMARY KEY (product_id),
     CONSTRAINT product_fk_seller FOREIGN KEY (seller_id) 
         REFERENCES public.seller (seller_id),
 	CONSTRAINT product_fk_category FOREIGN KEY (category_id) 
-        REFERENCES public.category (category_id)
+        REFERENCES public.category (category_id),
+	CONSTRAINT product_parent_id FOREIGN KEY (parent_id)
+		REFERENCES public.product (product_id)
 );
 
 ALTER TABLE IF EXISTS public.product
@@ -121,13 +184,14 @@ CREATE TABLE IF NOT EXISTS public.cart
 (
 	user_id bigint NOT NULL,
 	product_id bigint NOT NULL,
-    amount bigint,
-	date_added date,
+    quantity int NOT NULL,
+	date_added timestamptz DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT cart_pk PRIMARY KEY (user_id, product_id),
     CONSTRAINT cart_fk_user FOREIGN KEY (user_id) 
         REFERENCES public.users (user_id),
 	CONSTRAINT cart_fk_product FOREIGN KEY (product_id) 
-        REFERENCES public.product (product_id)
+        REFERENCES public.product (product_id),
+	CONSTRAINT cart_quantity_positive CHECK (quantity > 0)
 );
 
 ALTER TABLE IF EXISTS public.cart
