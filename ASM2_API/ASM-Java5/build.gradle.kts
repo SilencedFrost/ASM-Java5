@@ -1,5 +1,8 @@
 plugins {
     id("java")
+    kotlin("jvm") version "1.9.22"
+    kotlin("plugin.spring") version "1.9.22"
+    kotlin("plugin.jpa") version "1.9.22"
     id("org.springframework.boot") version "4.0.0-M2"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -37,6 +40,11 @@ dependencies {
 
     // Mail
     implementation("org.springframework.boot:spring-boot-starter-mail")
+
+    // Kotlin
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     // Testing
     testImplementation("org.springframework.boot:spring-boot-starter-test")
