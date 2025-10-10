@@ -8,7 +8,6 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Address {
 
     @Id
@@ -16,8 +15,8 @@ public class Address {
     @Column(name = "address_id")
     private long addressId;
 
-    @Column(name = "user_id", nullable = false)
-    private long userId;
+//    @Column(name = "user_id", nullable = false)
+//    private long userId;
 
     @Column(name = "address_line1", length = 64)
     private String addressLine1;
