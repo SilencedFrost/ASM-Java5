@@ -1,32 +1,15 @@
 package com.mapper;
 
-import com.dto.InboundRoleDTO;
-import com.dto.OutboundRoleDTO;
-import com.dto.RoleDTO;
+import com.dto.role.RoleCreateRequest;
+import com.dto.role.RoleResponse;
 import com.entity.Role;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import java.util.ArrayList;
-import java.util.List;
+@Mapper(componentModel = "spring")
+public interface RoleMapper {
+    RoleResponse toDTO(Role role);
 
-public class RoleMapper {
-
-    public static OutboundRoleDTO toDTO(Role role) {
-        if (role == null) {
-            return null;
-        }
-        return new OutboundRoleDTO(
-                role.getRoleId(),
-                role.getRoleName()
-        );
-    }
-
-    public static Role toEntity(InboundRoleDTO roleDTO) {
-        if (roleDTO == null) {
-            return null;
-        }
-
-        return new Role(
-                roleDTO.getRoleName()
-        );
-    }
+    @Mapping(target = "roleId", ignore = true)
+    Role toEntity(RoleCreateRequest request);
 }
