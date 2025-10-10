@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS public.address;
 DROP TABLE IF EXISTS public.city;
 DROP TABLE IF EXISTS public.admin;
 DROP TABLE IF EXISTS public.customer;
+DROP TABLE IF EXISTS public.session;
 DROP TABLE IF EXISTS public.users;
 DROP TABLE IF EXISTS public.role;
 
@@ -39,11 +40,10 @@ CREATE TABLE IF NOT EXISTS public.users
 	first_name varchar(32),
 	last_name varchar(32),
 	birthday date,
-	password_hash varchar(64),
+	password_hash char(60),
 	is_active boolean NOT NULL,
 	phone_number varchar(15),
 	updated_at timestamptz,
-	last_login timestamptz,
     creation_date timestamptz DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT user_pk PRIMARY KEY (user_id),
 	CONSTRAINT user_fk_role FOREIGN KEY (role_id) 
@@ -51,6 +51,22 @@ CREATE TABLE IF NOT EXISTS public.users
 );
 
 ALTER TABLE IF EXISTS public.users
+    OWNER to postgres;
+
+-- Table: session
+
+CREATE TABLE IF NOT EXISTS public.session
+(
+    session_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+    user_id bigint NOT NULL,
+	session_hash char(64),
+	last_login timestamptz NOT NULL,
+    CONSTRAINT session_pk PRIMARY KEY (session_id),
+	CONSTRAINT session_fk_user FOREIGN KEY (user_id) 
+		REFERENCES public.users (user_id)
+);
+
+ALTER TABLE IF EXISTS public.session
     OWNER to postgres;
 
 -- Table: customer
@@ -156,12 +172,12 @@ CREATE TABLE IF NOT EXISTS public.product
 	seller_id bigint NOT NULL,
 	category_id int NOT NULL,
 	date_added timestamptz DEFAULT CURRENT_TIMESTAMP,
-	stock_count integer NOT NULL,
+	stock_count integer NOT NULL CHECK (stock_count >= 0),
 	thumbnail_extension varchar(5),
 	product_size varchar(32),
 	variation varchar(32),
 	description text NOT NULL,
-	price numeric(15,2) NOT NULL,
+	price numeric(15,2) NOT NULL CHECK (price >= 0),
 	is_active boolean,
 	view_count int,
 	updated_at timestamptz,
@@ -196,3 +212,29 @@ CREATE TABLE IF NOT EXISTS public.cart
 
 ALTER TABLE IF EXISTS public.cart
     OWNER to postgres;
+
+-- users
+CREATE INDEX idx_users_role_id ON public.users(role_id);
+CREATE INDEX idx_users_is_active ON public.users(is_active);
+
+-- session
+CREATE UNIQUE INDEX idx_session_hash ON public.session(session_hash);
+CREATE INDEX idx_session_user_id ON public.session(user_id);
+
+-- product
+CREATE INDEX idx_product_seller_id ON public.product(seller_id);
+CREATE INDEX idx_product_category_id ON public.product(category_id);
+CREATE INDEX idx_product_parent_id ON public.product(parent_id);
+CREATE INDEX idx_product_is_active ON public.product(is_active);
+CREATE INDEX idx_product_date_added ON public.product(date_added);
+
+-- category
+CREATE INDEX idx_category_is_active ON public.category(is_active);
+
+-- cart
+CREATE INDEX idx_cart_product_id ON public.cart(product_id);
+
+-- address
+CREATE INDEX idx_address_user_id ON public.address(user_id);
+CREATE INDEX idx_address_city_id ON public.address(city_id);
+CREATE INDEX idx_address_is_default ON public.address(is_default);
