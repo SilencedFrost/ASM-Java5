@@ -1,15 +1,13 @@
 package com.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @Entity
-@Table(name = "admin")
-@Data
+@Table(name = "admin", schema = "public")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Admin {
 
     @Id
@@ -17,8 +15,10 @@ public class Admin {
     @Column(name = "admin_id")
     private Integer adminId;
 
-    // TODO: Ánh xạ OneToOne với User
-    // @OneToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "user_id", nullable = false, unique = true)
-    // private User user;
+    /*
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
+    */
 }
