@@ -1,10 +1,11 @@
-package com.product;
+package com.dto.product;
 
 import java.math.BigDecimal;
 
-public record ProductUpdateRequest(
-        Long productId,
+public record ProductCreateRequest(
         String productName,
+        Long parentId,
+        Long sellerId,
         Integer categoryId,
         Integer stockCount,
         String thumbnailExtension,

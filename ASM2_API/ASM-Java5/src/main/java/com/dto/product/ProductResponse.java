@@ -1,4 +1,4 @@
-package com.product;
+package com.dto.product;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
