@@ -2,70 +2,46 @@ package com.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
-@NoArgsConstructor
+import java.time.OffsetDateTime;
+
 @Entity
-@Table(name = "Cart",
+@Table(
+        name = "cart",
+        schema = "public",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"UserId", "ProductId"})
+                @UniqueConstraint(columnNames = {"user_id", "product_id"})
         })
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cart {
 
+    @Id
     @Getter
-    @EmbeddedId
-    private CartPK id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cart_id", nullable = false)
+    private Long cartId;
 
+    /*
     @Getter
     @Setter
-    @Column(name = "Quantity", nullable = false)
-    private Integer quantity;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserId", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ProductId", insertable = false, updatable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+    */
 
-    public void setUser(User user) {
-        if (this.user != null) {
-            this.user.getCarts().remove(this);
-        }
+    @Getter
+    @Setter
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
-        if (id == null) id = new CartPK();
-        id.setUser(user);
-        this.user = user;
-
-        if (user != null) {
-            user.getCarts().add(this);
-        }
-    }
-
-    public void setProduct(Product product) {
-        if (this.product != null) {
-            this.product.getCarts().remove(this);
-        }
-
-        if (id == null) id = new CartPK();
-        id.setProduct(product);
-        this.product = product;
-
-        if (product != null) {
-            product.getCarts().add(this);
-        }
-    }
-
-    public void setId(CartPK id) {
-        if (this.id != null) {
-            setUser(null);
-            setProduct(null);
-        }
-
-        this.id = id;
-        if (id != null) {
-            setUser(id.getUser());
-            setProduct(id.getProduct());
-        }
-    }
+    @Getter
+    @CreationTimestamp
+    @Column(name = "date_added", nullable = false, columnDefinition = "timestamptz")
+    private OffsetDateTime dateAdded;
 }
