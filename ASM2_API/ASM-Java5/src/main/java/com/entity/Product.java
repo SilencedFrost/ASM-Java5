@@ -2,14 +2,16 @@ package com.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Products")
+@Table(name = "product")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,37 +19,51 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ProductId")
+    @Column(name = "product_id")
     private Long productId;
 
-    @Column(name = "ProductName", nullable = false, length = 100)
+    @Column(name = "product_name", nullable = false, length = 128)
     private String productName;
 
-    @Column(name = "Price", nullable = false, precision = 10, scale = 2)
+    @Column(name = "Price", nullable = false, precision = 15, scale = 2)
     private BigDecimal price;
 
-    @Column(name = "StockQuantity", nullable = false)
-    private Integer stockQuantity;
+    @Column(name = "stock_count", nullable = false)
+    private int stockQuantity;
 
-    @Column(name = "ImageUrl", nullable = false, length = 500)
-    private String imageUrl;
+    @Column(name = "is_active")
+    private Boolean active;
 
-    @Column(name = "IsActive", nullable = false)
-    private boolean active;
-
-    @Column(name = "ProductDescription", nullable = false, length = 1024)
+    @Lob
+    @Column(name = "description", nullable = false, columnDefinition = "text")
     private String productDescription;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CategoryId")
+    @JoinColumn(name = "category_id")
     private Category category;
 
-    @Lob
-    @Column(name = "Specifications", nullable = false)
-    private String specifications;
+    @Column(name = "thumbnail_extension", length = 5)
+    private String thumbnailExtension;
 
-    @Column(name = "CreationDate", nullable = false)
-    private LocalDateTime creationDate;
+    @Column(name = "product_size", length = 32)
+    private String productSize;
+
+    @Column(name = "variation", length = 32)
+    private String variation;
+
+    @Column(name = "view_count")
+    private int viewCount;
+
+    @Column(name = "total_sales")
+    private int totalSales;
+
+    @CreationTimestamp
+    @Column(name = "date_added", updatable = false)
+    private OffsetDateTime creationDate;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private OffsetDateTime updateDate;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cart> carts = new ArrayList<>();
@@ -65,21 +81,5 @@ public class Product {
         if (category != null) {
             category.getProducts().add(this);
         }
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        this.creationDate = LocalDateTime.now();
-    }
-
-    public Product(String productName, BigDecimal price, Integer stockQuantity, String imageUrl, boolean active, String productDescription, Category category, String specifications) {
-        this.productName = productName;
-        this.price = price;
-        this.stockQuantity = stockQuantity;
-        this.imageUrl = imageUrl;
-        this.active = active;
-        this.productDescription = productDescription;
-        setCategory(category);
-        this.specifications = specifications;
     }
 }
