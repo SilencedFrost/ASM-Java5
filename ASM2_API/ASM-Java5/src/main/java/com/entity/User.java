@@ -1,65 +1,71 @@
 package com.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
+@Getter
 @Entity
-@Table(name = "users")
-@Data
+@Table(name = "users", schema = "public")
 @NoArgsConstructor
-@AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private long userId;
 
-    @Column(name = "email", length = 254, unique = true)
+    @Setter
+    @Column(name = "email", nullable = false, length = 254)
     private String email;
 
-    // TODO: Ánh xạ ManyToOne với Role
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "role_id")
-    // private Role role;
+    /*
+    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+    */
 
-    @Column(name = "username", length = 64)
+    @Setter
+    @Column(name = "username", nullable = false, length = 64)
     private String username;
 
+    @Setter
     @Column(name = "first_name", length = 32)
     private String firstName;
 
+    @Setter
     @Column(name = "last_name", length = 32)
     private String lastName;
 
+    @Setter
     @Column(name = "birthday")
     private LocalDate birthday;
 
-    @Column(name = "password_hash", length = 60)
+    @Setter
+    @Column(name = "password_hash", nullable = false, length = 60, columnDefinition = "char(60)")
     private String passwordHash;
 
+    @Setter
     @Column(name = "is_active", nullable = false)
-    private boolean active;
+    private boolean isActive;
 
+    @Setter
     @Column(name = "phone_number", length = 15)
     private String phoneNumber;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Setter
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private OffsetDateTime updatedAt;
 
-    @Column(name = "creation_date")
-    private LocalDateTime creationDate;
-
-    // TODO: Ánh xạ OneToMany với Cart
-    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private List<Cart> carts = new ArrayList<>();
-
-    // TODO: Ánh xạ OneToMany với Comment
-    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private List<Comment> comments = new ArrayList<>();
+    @CreationTimestamp
+    @Column(name = "creation_date", nullable = false)
+    private OffsetDateTime creationDate;
 }

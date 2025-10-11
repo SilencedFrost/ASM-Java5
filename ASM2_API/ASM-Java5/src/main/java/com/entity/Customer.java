@@ -1,15 +1,14 @@
 package com.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @Entity
-@Table(name = "customer")
-@Data
+@Table(name = "customer", schema = "public")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Customer {
 
     @Id
@@ -17,8 +16,10 @@ public class Customer {
     @Column(name = "customer_id")
     private Long customerId;
 
-    // TODO: Ánh xạ OneToOne với User
-    // @OneToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "user_id", nullable = false, unique = true)
-    // private User user;
+    /*
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
+    */
 }

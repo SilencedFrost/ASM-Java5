@@ -1,13 +1,15 @@
 package com.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
 @Entity
 @Table(name = "address", schema = "public")
-@Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Address {
 
     @Id
@@ -15,18 +17,26 @@ public class Address {
     @Column(name = "address_id")
     private long addressId;
 
-//    @Column(name = "user_id", nullable = false)
-//    private long userId;
+    /*
+    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+    */
 
+    @Setter
     @Column(name = "address_line1", length = 64)
     private String addressLine1;
 
+    @Setter
     @Column(name = "address_line2", length = 64)
     private String addressLine2;
 
+    @Setter
     @Column(name = "city_id")
-    private Integer cityId;
+    private int cityId;
 
+    @Setter
     @Column(name = "is_default")
-    private Boolean isDefault;
+    private boolean isDefault;
 }
