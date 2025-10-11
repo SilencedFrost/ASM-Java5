@@ -1,74 +1,65 @@
 package com.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "Users")
-@Getter
-@Setter
+@Table(name = "users")
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserId")
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "Username", nullable = false, length = 32, unique = true)
-    private String username;
-
-    @Column(name = "Email", nullable = false, length = 254, unique = true)
+    @Column(name = "email", length = 254, unique = true)
     private String email;
 
-    @Column(name = "PasswordHash", nullable = false, length = 64)
+    // TODO: Ánh xạ ManyToOne với Role
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "role_id")
+    // private Role role;
+
+    @Column(name = "username", length = 64)
+    private String username;
+
+    @Column(name = "first_name", length = 32)
+    private String firstName;
+
+    @Column(name = "last_name", length = 32)
+    private String lastName;
+
+    @Column(name = "birthday")
+    private LocalDate birthday;
+
+    @Column(name = "password_hash", length = 60)
     private String passwordHash;
 
-    @Column(name = "CreationDate", nullable = false)
-    private LocalDateTime creationDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "RoleId", nullable = false)
-    private Role role;
-
-    @Column(name = "IsActive", nullable = false)
+    @Column(name = "is_active", nullable = false)
     private boolean active;
 
-    @Column(name = "LastLoginDate")
-    private LocalDateTime lastLoginDate;
+    @Column(name = "phone_number", length = 15)
+    private String phoneNumber;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cart> carts = new ArrayList<>();
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
+    @Column(name = "creation_date")
+    private LocalDateTime creationDate;
 
-    public void setRole(Role role) {
-        if (this.role != null) {
-            this.role.getUsers().remove(this);
-        }
+    // TODO: Ánh xạ OneToMany với Cart
+    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    // private List<Cart> carts = new ArrayList<>();
 
-        this.role = role;
-
-        if (role != null) {
-            role.getUsers().add(this);
-        }
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        this.creationDate = LocalDateTime.now();
-    }
-
-    public User(String username, String email, String passwordHash, Role role, boolean active) {
-        this.username = username;
-        this.email = email;
-        this.passwordHash = passwordHash;
-        setRole(role);
-        this.active = active;
-    }
+    // TODO: Ánh xạ OneToMany với Comment
+    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    // private List<Comment> comments = new ArrayList<>();
 }
