@@ -111,9 +111,14 @@ CREATE TABLE IF NOT EXISTS public.seller
     user_id bigint NOT NULL UNIQUE,
 	shop_name varchar(64) NOT NULL,
 	shop_description text,
+<<<<<<< Updated upstream
 	rating decimal(3,2) NOT NULL CHECK (rating >= 0 AND rating <= 5),
 	total_sales bigint NOT NULL,
 	verification_status boolean NOT NULL,
+=======
+	rating decimal(3,2) CHECK (rating >= 0 AND rating <= 5),
+	total_sales bigint,
+>>>>>>> Stashed changes
     CONSTRAINT seller_pk PRIMARY KEY (seller_id),
     CONSTRAINT seller_fk_user FOREIGN KEY (user_id) 
         REFERENCES public.users (user_id)
