@@ -2,84 +2,92 @@ package com.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Products")
+@Table(name = "product", schema = "public")
 @Getter
-@Setter
 @NoArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ProductId")
+    @Column(name = "product_id")
     private Long productId;
 
-    @Column(name = "ProductName", nullable = false, length = 100)
+    @Setter
+    @Column(name = "product_name", nullable = false, length = 128)
     private String productName;
 
-    @Column(name = "Price", nullable = false, precision = 10, scale = 2)
+    @Setter
+    @Column(name = "price", nullable = false, precision = 15, scale = 2)
     private BigDecimal price;
 
-    @Column(name = "StockQuantity", nullable = false)
-    private Integer stockQuantity;
+    @Setter
+    @Column(name = "stock_count", nullable = false)
+    private int stockCount;
 
-    @Column(name = "ImageUrl", nullable = false, length = 500)
-    private String imageUrl;
+    @Setter
+    @Column(name = "is_active")
+    private Boolean isActive;
 
-    @Column(name = "IsActive", nullable = false)
-    private boolean active;
+    @Setter
+    @Column(name = "description", nullable = false, columnDefinition = "text")
+    private String description;
 
-    @Column(name = "ProductDescription", nullable = false, length = 1024)
-    private String productDescription;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "category_id")
+//    private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CategoryId")
-    private Category category;
+    @Setter
+    @Column(name = "thumbnail_extension", length = 5)
+    private String thumbnailExtension;
 
-    @Lob
-    @Column(name = "Specifications", nullable = false)
-    private String specifications;
+    @Setter
+    @Column(name = "product_size", length = 32)
+    private String productSize;
 
-    @Column(name = "CreationDate", nullable = false)
-    private LocalDateTime creationDate;
+    @Setter
+    @Column(name = "variation", length = 32)
+    private String variation;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cart> carts = new ArrayList<>();
+    @Setter
+    @Column(name = "view_count")
+    private int viewCount;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
+    @Setter
+    @Column(name = "total_sales")
+    private int totalSales;
 
-    public void setCategory(Category category) {
-        if (this.category != null) {
-            this.category.getProducts().remove(this);
-        }
+    @CreationTimestamp
+    @Column(name = "date_added", updatable = false)
+    private OffsetDateTime creationDate;
 
-        this.category = category;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private OffsetDateTime updateDate;
 
-        if (category != null) {
-            category.getProducts().add(this);
-        }
-    }
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Cart> carts = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Comment> comments = new ArrayList<>();
 
-    @PrePersist
-    protected void onCreate() {
-        this.creationDate = LocalDateTime.now();
-    }
-
-    public Product(String productName, BigDecimal price, Integer stockQuantity, String imageUrl, boolean active, String productDescription, Category category, String specifications) {
-        this.productName = productName;
-        this.price = price;
-        this.stockQuantity = stockQuantity;
-        this.imageUrl = imageUrl;
-        this.active = active;
-        this.productDescription = productDescription;
-        setCategory(category);
-        this.specifications = specifications;
-    }
+//    public void setCategory(Category category) {
+//        if (this.category != null) {
+//            this.category.getProducts().remove(this);
+//        }
+//
+//        this.category = category;
+//
+//        if (category != null) {
+//            category.getProducts().add(this);
+//        }
+//    }
 }
