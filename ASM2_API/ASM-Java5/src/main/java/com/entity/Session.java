@@ -19,12 +19,9 @@ public class Session {
     @Column(name = "session_id")
     private long sessionId;
 
-    /*
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    */
 
     @Setter
     @Column(name = "session_hash", nullable = false, length = 64, columnDefinition = "char(64)")
@@ -44,7 +41,7 @@ public class Session {
 
     @Setter
     @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    private boolean isActive = true;
 
     @Setter
     @Column(name = "revoked_at")

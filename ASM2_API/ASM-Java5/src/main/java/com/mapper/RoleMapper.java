@@ -4,12 +4,14 @@ import com.dto.role.RoleCreateRequest;
 import com.dto.role.RoleResponse;
 import com.entity.Role;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+        componentModel = "spring",
+        unmappedSourcePolicy = ReportingPolicy.IGNORE
+)
 public interface RoleMapper {
     RoleResponse toDTO(Role role);
 
-    @Mapping(target = "roleId", ignore = true)
-    Role toEntity(RoleCreateRequest request);
+    Role toEntity(RoleCreateRequest roleCreateRequest);
 }

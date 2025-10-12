@@ -25,12 +25,9 @@ public class User {
     @Column(name = "email", nullable = false, length = 254)
     private String email;
 
-    /*
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
-    */
 
     @Setter
     @Column(name = "username", nullable = false, length = 64)
