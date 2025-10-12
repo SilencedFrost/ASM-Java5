@@ -1,74 +1,71 @@
 package com.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
-@Entity
-@Table(name = "Users")
 @Getter
-@Setter
+@Entity
+@Table(name = "users", schema = "public")
 @NoArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserId")
-    private Long userId;
+    @Column(name = "user_id")
+    private long userId;
 
-    @Column(name = "Username", nullable = false, length = 32, unique = true)
-    private String username;
-
-    @Column(name = "Email", nullable = false, length = 254, unique = true)
+    @Setter
+    @Column(name = "email", nullable = false, length = 254)
     private String email;
 
-    @Column(name = "PasswordHash", nullable = false, length = 64)
+    /*
+    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+    */
+
+    @Setter
+    @Column(name = "username", nullable = false, length = 64)
+    private String username;
+
+    @Setter
+    @Column(name = "first_name", length = 32)
+    private String firstName;
+
+    @Setter
+    @Column(name = "last_name", length = 32)
+    private String lastName;
+
+    @Setter
+    @Column(name = "birthday")
+    private LocalDate birthday;
+
+    @Setter
+    @Column(name = "password_hash", nullable = false, length = 60, columnDefinition = "char(60)")
     private String passwordHash;
 
-    @Column(name = "CreationDate", nullable = false)
-    private LocalDateTime creationDate;
+    @Setter
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "RoleId", nullable = false)
-    private Role role;
+    @Setter
+    @Column(name = "phone_number", length = 15)
+    private String phoneNumber;
 
-    @Column(name = "IsActive", nullable = false)
-    private boolean active;
+    @Setter
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private OffsetDateTime updatedAt;
 
-    @Column(name = "LastLoginDate")
-    private LocalDateTime lastLoginDate;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cart> carts = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
-
-    public void setRole(Role role) {
-        if (this.role != null) {
-            this.role.getUsers().remove(this);
-        }
-
-        this.role = role;
-
-        if (role != null) {
-            role.getUsers().add(this);
-        }
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        this.creationDate = LocalDateTime.now();
-    }
-
-    public User(String username, String email, String passwordHash, Role role, boolean active) {
-        this.username = username;
-        this.email = email;
-        this.passwordHash = passwordHash;
-        setRole(role);
-        this.active = active;
-    }
+    @CreationTimestamp
+    @Column(name = "creation_date", nullable = false)
+    private OffsetDateTime creationDate;
 }

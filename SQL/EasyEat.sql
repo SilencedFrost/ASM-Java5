@@ -107,7 +107,6 @@ CREATE TABLE IF NOT EXISTS public.seller
 	shop_description text,
 	rating decimal(3,2) CHECK (rating >= 0 AND rating <= 5),
 	total_sales bigint,
-	verification_status boolean,
     CONSTRAINT seller_pk PRIMARY KEY (seller_id),
     CONSTRAINT seller_fk_user FOREIGN KEY (user_id) 
         REFERENCES public.users (user_id)
@@ -167,7 +166,7 @@ ALTER TABLE IF EXISTS public.category
 CREATE TABLE IF NOT EXISTS public.product
 (
 	product_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
-    product_name character varying(128),
+    product_name var(128),
 	parent_id bigint,
 	seller_id bigint NOT NULL,
 	category_id int NOT NULL,

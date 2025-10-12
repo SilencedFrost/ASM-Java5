@@ -7,22 +7,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Categories")
+@Table(name = "category", schema = "public")
 @Getter
-@Setter
 @NoArgsConstructor
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CategoryId")
-    private Integer categoryId;
+    @Column(name = "category_id")
+    private int categoryId;
 
-    @Column(name = "CategoryName", length = 100)
+    @Setter
+    @Column(name = "category_name", length = 64, nullable = false, unique = true)
     private String categoryName;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<Product> products = new ArrayList<>();
+    @Setter
+    @Column(name = "description", length = 256)
+    private String description;
+
+    @Setter
+    @Column(name = "is_active")
+    private Boolean isActive;
+
+//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = false)
+//    private List<Product> products = new ArrayList<>();
 
     public Category(String categoryName) {
         this.categoryName = categoryName;
