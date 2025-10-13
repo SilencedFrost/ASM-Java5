@@ -1,6 +1,6 @@
 package com.service;
 
-import com.dto.*;
+import com.dto.user.*;
 import com.entity.Role;
 import com.entity.User;
 import com.exception.RoleNotFoundException;
@@ -8,16 +8,14 @@ import com.exception.UserNotFoundException;
 import com.mapper.UserMapper;
 import com.repository.RoleRepository;
 import com.repository.UserRepository;
-import com.security.PasswordHasher;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,71 +24,64 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public Page<OutboundUserDTO> findAll(Pageable pageable) {
-        return userRepository.findAll(pageable).map(UserMapper::toDTO);
+    public Page<UserResponse> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable).map(userMapper::toDTO);
     }
 
-    public List<OutboundUserDTO> findAll() {
+    public List<UserResponse> findAll() {
         return findAll(PageRequest.of(0, 50)).getContent();
     }
 
-    public Optional<OutboundUserDTO> findById(Long userId) {
-        return userRepository.findById(userId).map(UserMapper::toDTO);
+    public Optional<UserResponse> findById(Long userId) {
+        return userRepository.findById(userId).map(userMapper::toDTO);
     }
 
-    public Optional<OutboundUserDTO> findByUsernameOrEmail(String usernameOrEmail) {
+    public Optional<UserResponse> findByUsernameOrEmail(String usernameOrEmail) {
         return userRepository.findByUsernameIgnoreCaseOrEmailIgnoreCase(usernameOrEmail, usernameOrEmail)
-                .map(UserMapper::toDTO);
+                .map(userMapper::toDTO);
     }
 
     public boolean validateUser(String password, Long userId) {
         return userRepository.findById(userId)
-                .map(user -> PasswordHasher.verify(password, user.getPasswordHash()))
+                .map(user -> passwordEncoder.matches(password, user.getPasswordHash()))
                 .orElse(false);
     }
 
     @Transactional
-    public OutboundUserDTO create(InboundUserDTO userDTO) {
-        Role role = roleRepository.findByRoleName(userDTO.getRoleName()).orElseThrow(() -> new RoleNotFoundException("Role not found: " + userDTO.getRoleName()));
+    public UserResponse create(UserCreateRequest userCreateRequest) {
+        Role role = roleRepository.findById(userCreateRequest.roleId()).orElseThrow(() -> new RoleNotFoundException("Role not found: " + userCreateRequest.roleId()));
 
-        User user = UserMapper.toEntity(userDTO, role);
+        User user = userMapper.toEntity(userCreateRequest, passwordEncoder);
+        user.assignRole(role);
         User savedUser = userRepository.save(user);
 
-        return UserMapper.toDTO(savedUser);
+        return userMapper.toDTO(savedUser);
     }
 
     @Transactional
-    public boolean updateLoginDate(Long userId) {
-        return userRepository.findById(userId)
-                .map(user -> {
-                    user.setLastLoginDate(LocalDateTime.now());
-                    return true;
-                })
-                .orElse(false);
-    }
+    public UserResponse update(UserUpdateRequest userUpdateRequest) {
+        User existingUser = userRepository.findById(userUpdateRequest.userId())
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + userUpdateRequest.userId()));
 
-    @Transactional
-    public OutboundUserDTO update(UpdateUserDTO userDTO) {
-        User existingUser = userRepository.findById(userDTO.getUserId())
-                .orElseThrow(() -> new UserNotFoundException("User not found: " + userDTO.getUserId()));
-
-        if (userDTO.getUsername() != null && !userDTO.getUsername().isBlank()) {
-            existingUser.setUsername(userDTO.getUsername());
+        if (userUpdateRequest.username() != null && !userUpdateRequest.username().isBlank()) {
+            existingUser.setUsername(userUpdateRequest.username());
         }
-        if (userDTO.getPasswordHash() != null && !userDTO.getPasswordHash().isBlank()) {
-            existingUser.setPasswordHash(userDTO.getPasswordHash());
+        if (userUpdateRequest.password() != null && !userUpdateRequest.password().isBlank()) {
+            existingUser.setPasswordHash(passwordEncoder.encode(userUpdateRequest.password()));
         }
-        if (userDTO.getEmail() != null && !userDTO.getEmail().isBlank()) {
-            existingUser.setEmail(userDTO.getEmail());
+        if (userUpdateRequest.email() != null && !userUpdateRequest.email().isBlank()) {
+            existingUser.setEmail(userUpdateRequest.email());
         }
-        if (userDTO.getRoleName() != null && !userDTO.getRoleName().isBlank()) {
-            Role role = roleRepository.findByRoleName(userDTO.getRoleName())
+        if (userUpdateRequest.roleId() != null) {
+            Role role = roleRepository.findById(userUpdateRequest.roleId())
                     .orElse(null);
-            existingUser.setRole(role);
+            existingUser.assignRole(role);
         }
 
-        return UserMapper.toDTO(existingUser);
+        return userMapper.toDTO(existingUser);
     }
 
     @Transactional

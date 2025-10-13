@@ -1,6 +1,6 @@
 package com.service;
 
-import com.dto.*;
+import com.dto.role.*;
 import com.entity.Role;
 import com.exception.RoleNotFoundException;
 import com.mapper.RoleMapper;
@@ -20,36 +20,37 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoleService {
     public final RoleRepository roleRepository;
+    public final RoleMapper roleMapper;
 
-    public Page<OutboundRoleDTO> findAll(Pageable pageable) {
-        return roleRepository.findAll(pageable).map(RoleMapper::toDTO);
+    public Page<RoleResponse> findAll(Pageable pageable) {
+        return roleRepository.findAll(pageable).map(roleMapper::toDTO);
     }
 
-    public List<OutboundRoleDTO> findAll() {
+    public List<RoleResponse> findAll() {
         return findAll(PageRequest.of(0, 50)).getContent();
     }
 
-    public Optional<OutboundRoleDTO> findById(Integer roleId) {
-        return roleRepository.findById(roleId).map(RoleMapper::toDTO);
+    public Optional<RoleResponse> findById(Integer roleId) {
+        return roleRepository.findById(roleId).map(roleMapper::toDTO);
     }
 
     @Transactional
-    public OutboundRoleDTO create(InboundRoleDTO roleDTO) {
-        Role role = RoleMapper.toEntity(roleDTO);
+    public RoleResponse create(RoleCreateRequest roleCreateRequest) {
+        Role role = roleMapper.toEntity(roleCreateRequest);
         Role savedRole = roleRepository.save(role);
-        return RoleMapper.toDTO(savedRole);
+        return roleMapper.toDTO(savedRole);
     }
 
     @Transactional
-    public OutboundRoleDTO update(UpdateRoleDTO roleDTO) {
-        Role existingRole = roleRepository.findById(roleDTO.getRoleId())
-                .orElseThrow(() -> new RoleNotFoundException("Role not found: " + roleDTO.getRoleId()));
+    public RoleResponse update(RoleUpdateRequest roleUpdateRequest) {
+        Role existingRole = roleRepository.findById(roleUpdateRequest.roleId())
+                .orElseThrow(() -> new RoleNotFoundException("Role not found: " + roleUpdateRequest.roleId()));
 
-        Optional.ofNullable(roleDTO.getRoleName())
+        Optional.ofNullable(roleUpdateRequest.roleName())
                 .filter(s -> !s.isBlank())
                 .ifPresent(existingRole::setRoleName);
 
-        return RoleMapper.toDTO(existingRole);
+        return roleMapper.toDTO(existingRole);
     }
 
     public void delete(Integer roleId) {

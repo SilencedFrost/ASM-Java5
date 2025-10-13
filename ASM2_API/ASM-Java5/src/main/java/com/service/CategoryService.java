@@ -1,8 +1,6 @@
 package com.service;
 
-import com.dto.InboundCategoryDTO;
-import com.dto.OutboundCategoryDTO;
-import com.dto.UpdateCategoryDTO;
+import com.dto.category.*;
 import com.entity.Category;
 import com.exception.CategoryDeletionException;
 import com.mapper.CategoryMapper;
@@ -23,31 +21,32 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CategoryService {
     private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
 
-    public Page<OutboundCategoryDTO> findAll(Pageable pageable) {
-        return categoryRepository.findAll(pageable).map(CategoryMapper::toDTO);
+    public Page<CategoryResponse> findAll(Pageable pageable) {
+        return categoryRepository.findAll(pageable).map(categoryMapper::toDTO);
     }
 
-    public List<OutboundCategoryDTO> findAll() {
+    public List<CategoryResponse> findAll() {
         return findAll(PageRequest.of(0, 50)).getContent();
     }
 
-    public Optional<OutboundCategoryDTO> findById(Integer categoryId) {
-        return categoryRepository.findById(categoryId).map(CategoryMapper::toDTO);
+    public Optional<CategoryResponse> findById(Integer categoryId) {
+        return categoryRepository.findById(categoryId).map(categoryMapper::toDTO);
     }
 
-    public OutboundCategoryDTO create(InboundCategoryDTO categoryDTO) {
-        Category saved = categoryRepository.save(CategoryMapper.toEntity(categoryDTO));
+    public CategoryResponse create(CategoryCreateRequest categoryCreateRequest) {
+        Category saved = categoryRepository.save(categoryMapper.toEntity(categoryCreateRequest));
         log.info("Category created with ID {}", saved.getCategoryId());
-        return CategoryMapper.toDTO(saved);
+        return categoryMapper.toDTO(saved);
     }
 
-    public OutboundCategoryDTO update(UpdateCategoryDTO categoryDTO) {
-        Category category = categoryRepository.findById(categoryDTO.getCategoryId()).orElseThrow(() -> new EntityNotFoundException("Category not found with id " + categoryDTO.getCategoryId()));
+    public CategoryResponse update(CategoryUpdateRequest categoryUpdateRequest) {
+        Category category = categoryRepository.findById(categoryUpdateRequest.categoryId()).orElseThrow(() -> new EntityNotFoundException("Category not found with id " + categoryUpdateRequest.getCategoryId()));
 
-        if (categoryDTO.getCategoryName() != null) category.setCategoryName(categoryDTO.getCategoryName());
+        if (categoryUpdateRequest.categoryName() != null) category.setCategoryName(categoryUpdateRequest.categoryName());
 
-        return CategoryMapper.toDTO(categoryRepository.save(category));
+        return categoryMapper.toDTO(categoryRepository.save(category));
     }
 
     public void delete(Integer categoryId) {

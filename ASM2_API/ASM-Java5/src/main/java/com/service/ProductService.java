@@ -1,12 +1,11 @@
 package com.service;
 
-import com.dto.*;
+import com.dto.product.*;
 import com.entity.Category;
 import com.entity.Product;
 import com.mapper.ProductMapper;
 import com.repository.CategoryRepository;
 import com.repository.ProductRepository;
-import com.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,34 +25,35 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ProductMapper productMapper;
 
-    public Page<OutboundProductDTO> findAll(Pageable pageable) {
-        return productRepository.findAll(pageable).map(ProductMapper::toDTO);
+    public Page<ProductResponse> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable).map(productMapper::toDTO);
     }
 
-    public List<OutboundProductDTO> findAll() {
+    public List<ProductResponse> findAll() {
         return findAll(PageRequest.of(0, 50)).getContent();
     }
 
-    public Optional<OutboundProductDTO> findById(Long productId) {
-        return productRepository.findById(productId).map(ProductMapper::toDTO);
+    public Optional<ProductResponse> findById(Long productId) {
+        return productRepository.findById(productId).map(productMapper::toDTO);
     }
 
-    public List<OutboundProductDTO> findByCategory(Integer categoryId) {
+    public List<ProductResponse> findByCategory(Integer categoryId) {
         try {
             List<Product> productList = productRepository.findByCategoryCategoryId(categoryId);
             log.info("Fetched all products: {} products found.", productList.size());
-            return productList.stream().map(ProductMapper::toDTO).collect(Collectors.toList());
+            return productList.stream().map(productMapper::toDTO).collect(Collectors.toList());
         } catch (Exception e) {
             log.error("Error fetching products for category {}", categoryId, e);
             return new ArrayList<>();
         }
     }
 
-    public List<OutboundProductDTO> findByNameLike(String keyword) {
+    public List<ProductResponse> findByNameLike(String keyword) {
         try {
             List<Product> productList = productRepository.searchByNameLike(keyword);
-            return productList.stream().map(ProductMapper::toDTO).collect(Collectors.toList());
+            return productList.stream().map(productMapper::toDTO).collect(Collectors.toList());
         } catch (Exception e) {
             log.error("Error fetching products", e);
             return new ArrayList<>();
@@ -61,17 +61,17 @@ public class ProductService {
     }
 
     @Transactional
-    public boolean create(InboundProductDTO productDTO) {
-        if (productDTO == null) {
+    public boolean create(ProductCreateRequest productCreateRequest) {
+        if (productCreateRequest == null) {
             log.warn("Product cannot be null");
             return false;
         }
-        if (ValidationUtil.isNullOrBlank(productDTO.getProductName())) {
+        if (ValidationUtil.isNullOrBlank(productCreateRequest.productName())) {
             log.warn("productName cannot be null");
             return false;
         }
 
-        Category category = categoryRepository.findById(productDTO.getCategoryId())
+        Category category = categoryRepository.findById(productCreateRequest.categoryId())
                 .orElse(null);
 
         if (category == null) {
@@ -80,7 +80,7 @@ public class ProductService {
         }
 
         try {
-            Product product = ProductMapper.toEntity(productDTO, category);
+            Product product = productMapper.toEntity(productCreateRequest, category);
             productRepository.save(product);
             log.info("Product created: {}", product);
             return true;
@@ -91,28 +91,28 @@ public class ProductService {
     }
 
     @Transactional
-    public boolean update(UpdateProductDTO productDTO) {
-        if (productDTO == null || productDTO.getProductId() == null) {
+    public boolean update(ProductUpdateRequest productUpdateRequest) {
+        if (productUpdateRequest == null || productUpdateRequest.productId() == null) {
             log.warn("Product or product ID cannot be null or empty");
             return false;
         }
 
         try {
-            return productRepository.findById(productDTO.getProductId())
+            return productRepository.findById(productUpdateRequest.productId())
                     .map(existingProduct -> {
-                        if (productDTO.getProductName() != null) {
-                            existingProduct.setProductName(productDTO.getProductName());
+                        if (productUpdateRequest.productName() != null) {
+                            existingProduct.setProductName(productUpdateRequest.productName());
                         }
                         productRepository.save(existingProduct);
-                        log.info("Product with id {} updated successfully.", productDTO.getProductId());
+                        log.info("Product with id {} updated successfully.", productUpdateRequest.productId());
                         return true;
                     })
                     .orElseGet(() -> {
-                        log.warn("Product with id {} not found for update.", productDTO.getProductId());
+                        log.warn("Product with id {} not found for update.", productUpdateRequest.productId());
                         return false;
                     });
         } catch (Exception e) {
-            log.error("Error updating product with id {}", productDTO.getProductId(), e);
+            log.error("Error updating product with id {}", productUpdateRequest.productId(), e);
             return false;
         }
     }
