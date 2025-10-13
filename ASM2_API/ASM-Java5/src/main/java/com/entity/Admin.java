@@ -3,6 +3,7 @@ package com.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Entity
@@ -15,10 +16,10 @@ public class Admin {
     @Column(name = "admin_id")
     private Integer adminId;
 
-    /*
+
     @Setter
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
-    */
+
 }
