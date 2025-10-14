@@ -126,7 +126,7 @@ ALTER TABLE IF EXISTS public.seller
 CREATE TABLE IF NOT EXISTS public.city
 (
 	city_id int GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
-    city_name varchar(64),
+    city_name varchar(64) NOT NULL,
     CONSTRAINT city_pk PRIMARY KEY (city_id)
 );
 
