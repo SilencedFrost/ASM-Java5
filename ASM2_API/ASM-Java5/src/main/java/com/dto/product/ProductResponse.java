@@ -1,7 +1,6 @@
 package com.dto.product;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 public record ProductResponse(
