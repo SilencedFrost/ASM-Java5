@@ -24,10 +24,6 @@ public class Cart {
     @Column(name = "cart_id", nullable = false)
     private Long cartId;
 
-<<<<<<< HEAD
-=======
-    @Setter
->>>>>>> 7b71dfe (feat: add mapper and repo cart category product #61)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
