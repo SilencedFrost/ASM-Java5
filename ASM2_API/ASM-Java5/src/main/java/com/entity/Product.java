@@ -11,11 +11,6 @@ import java.time.OffsetDateTime;
 @Table(name = "product", schema = "public")
 @Getter
 @NoArgsConstructor
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 7b71dfe (feat: add mapper and repo cart category product #61)
 public class Product {
 
     @Id
