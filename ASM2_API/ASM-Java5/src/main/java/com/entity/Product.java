@@ -12,6 +12,10 @@ import java.time.OffsetDateTime;
 @Getter
 @NoArgsConstructor
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7b71dfe (feat: add mapper and repo cart category product #61)
 public class Product {
 
     @Id
