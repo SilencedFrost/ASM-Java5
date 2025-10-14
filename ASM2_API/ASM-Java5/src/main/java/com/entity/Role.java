@@ -15,14 +15,13 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id", nullable = false)
+    @Column(name = "role_id")
     private int roleId;
 
     @Setter
     @Column(name = "role_name", nullable = false, length = 32)
     private String roleName;
 
-    @Setter
     @OneToMany(mappedBy = "role")
-    private List<User> users = new ArrayList<>();
+    private final List<User> users = new ArrayList<>();
 }

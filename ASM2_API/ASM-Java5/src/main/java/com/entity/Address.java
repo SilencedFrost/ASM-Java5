@@ -17,12 +17,9 @@ public class Address {
     @Column(name = "address_id")
     private long addressId;
 
-    /*
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    */
 
     @Setter
     @Column(name = "address_line1", length = 64)
@@ -32,11 +29,11 @@ public class Address {
     @Column(name = "address_line2", length = 64)
     private String addressLine2;
 
-    @Setter
-    @Column(name = "city_id")
-    private int cityId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id", nullable = false)
+    private City city;
 
     @Setter
-    @Column(name = "is_default")
-    private boolean isDefault;
+    @Column(name = "is_default", nullable = false)
+    private Boolean isDefault;
 }

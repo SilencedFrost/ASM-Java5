@@ -6,15 +6,12 @@ import com.entity.Session;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 
-@Mapper(
-        componentModel = "spring",
-        unmappedSourcePolicy = ReportingPolicy.IGNORE
-)
+@Mapper(componentModel = "spring")
 public interface SessionMapper {
 
     @Mapping(target = "userId", source = "user.userId")
+    @Mapping(target = "isActive", ignore = true)
     SessionResponse toDTO(Session session);
 
     @Mapping(target = "sessionHash", expression = "java(hashToken(sessionCreateRequest.sessionToken()))")

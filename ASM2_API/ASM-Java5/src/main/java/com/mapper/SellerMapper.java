@@ -5,12 +5,10 @@ import com.dto.seller.SellerResponse;
 import com.entity.Seller;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 
 @Mapper(
         componentModel = "spring",
-        uses = UserMapper.class,
-        unmappedSourcePolicy = ReportingPolicy.IGNORE
+        uses = UserMapper.class
 )
 
 public interface SellerMapper {

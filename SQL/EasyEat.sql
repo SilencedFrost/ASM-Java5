@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS public.role;
 
 CREATE TABLE IF NOT EXISTS public.role
 (
-	role_id int NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+	role_id int GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
     role_name varchar(32) NOT NULL,
     CONSTRAINT role_pk PRIMARY KEY (role_id)
 );
@@ -33,17 +33,17 @@ INSERT INTO public.role (role_name) VALUES ('admin');
 
 CREATE TABLE IF NOT EXISTS public.users
 (
-    user_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
-    email varchar(254) NOT NULL,
-	role_id int NOT NULL,
-	username varchar(64) NOT NULL,
+    user_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
+    email varchar(254) NOT NULL UNIQUE,
+	role_id int,
+	username varchar(64),
 	first_name varchar(32),
 	last_name varchar(32),
 	birthday date,
 	password_hash char(60) NOT NULL,
 	is_active boolean NOT NULL,
 	phone_number varchar(15),
-	updated_at timestamptz NOT NULL,
+	updated_at timestamptz,
     creation_date timestamptz NOT NULL,
     CONSTRAINT user_pk PRIMARY KEY (user_id),
 	CONSTRAINT user_fk_role FOREIGN KEY (role_id) 
@@ -57,7 +57,7 @@ ALTER TABLE IF EXISTS public.users
 
 CREATE TABLE IF NOT EXISTS public.session
 (
-    session_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+    session_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
     user_id bigint NOT NULL,
 	session_hash char(64) NOT NULL,
 	last_accessed timestamptz NOT NULL,
@@ -79,7 +79,7 @@ ALTER TABLE IF EXISTS public.session
 
 CREATE TABLE IF NOT EXISTS public.customer
 (
-	customer_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
+	customer_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
     user_id bigint NOT NULL UNIQUE,
     CONSTRAINT customer_pk PRIMARY KEY (customer_id),
     CONSTRAINT customer_fk_user FOREIGN KEY (user_id)
@@ -93,7 +93,7 @@ ALTER TABLE IF EXISTS public.customer
 
 CREATE TABLE IF NOT EXISTS public.admin
 (
-	admin_id int NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
+	admin_id int GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
     user_id bigint NOT NULL UNIQUE,
     CONSTRAINT admin_pk PRIMARY KEY (admin_id),
     CONSTRAINT admin_fk_user FOREIGN KEY (user_id) 
@@ -107,18 +107,12 @@ ALTER TABLE IF EXISTS public.admin
 
 CREATE TABLE IF NOT EXISTS public.seller
 (
-	seller_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
+	seller_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
     user_id bigint NOT NULL UNIQUE,
 	shop_name varchar(64) NOT NULL,
 	shop_description text,
-<<<<<<< Updated upstream
-	rating decimal(3,2) NOT NULL CHECK (rating >= 0 AND rating <= 5),
-	total_sales bigint NOT NULL,
-	verification_status boolean NOT NULL,
-=======
 	rating decimal(3,2) CHECK (rating >= 0 AND rating <= 5),
 	total_sales bigint,
->>>>>>> Stashed changes
     CONSTRAINT seller_pk PRIMARY KEY (seller_id),
     CONSTRAINT seller_fk_user FOREIGN KEY (user_id) 
         REFERENCES public.users (user_id)
@@ -131,7 +125,7 @@ ALTER TABLE IF EXISTS public.seller
 
 CREATE TABLE IF NOT EXISTS public.city
 (
-	city_id int NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+	city_id int GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
     city_name varchar(64) NOT NULL,
     CONSTRAINT city_pk PRIMARY KEY (city_id)
 );
@@ -143,7 +137,7 @@ ALTER TABLE IF EXISTS public.city
 
 CREATE TABLE IF NOT EXISTS public.address
 (
-	address_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+	address_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
     user_id bigint NOT NULL,
 	address_line1 varchar(64),
 	address_line2 varchar(64),
@@ -163,10 +157,10 @@ ALTER TABLE IF EXISTS public.address
 
 CREATE TABLE IF NOT EXISTS public.category
 (
-	category_id int NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+	category_id int GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
     category_name varchar(64) NOT NULL UNIQUE,
 	description varchar(256),
-	is_active boolean NOT NULL,
+	is_active boolean,
     CONSTRAINT category_pk PRIMARY KEY (category_id)
 );
 
@@ -177,22 +171,22 @@ ALTER TABLE IF EXISTS public.category
 
 CREATE TABLE IF NOT EXISTS public.product
 (
-	product_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
-    product_name character varying(128) NOT NULL,
+	product_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
+    product_name varchar(128) NOT NULL,
 	parent_id bigint,
 	seller_id bigint NOT NULL,
 	category_id int NOT NULL,
-	date_added timestamptz,
+	date_added timestamptz NOT NULL,
 	stock_count integer NOT NULL CHECK (stock_count >= 0),
-	thumbnail_extension varchar(5) NOT NULL,
+	thumbnail_extension varchar(5),
 	product_size varchar(32),
 	variation varchar(32),
 	description text NOT NULL,
 	price numeric(15,2) NOT NULL CHECK (price >= 0),
 	is_active boolean NOT NULL,
-	view_count int NOT NULL,
+	view_count int,
 	updated_at timestamptz,
-	total_sales int NOT NULL,
+	total_sales int,
     CONSTRAINT product_pk PRIMARY KEY (product_id),
     CONSTRAINT product_fk_seller FOREIGN KEY (seller_id) 
         REFERENCES public.seller (seller_id),
@@ -209,7 +203,7 @@ ALTER TABLE IF EXISTS public.product
 
 CREATE TABLE IF NOT EXISTS public.cart
 (
-	cart_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+	cart_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
 	user_id bigint NOT NULL,
 	product_id bigint NOT NULL,
     quantity int NOT NULL CHECK (quantity > 0),

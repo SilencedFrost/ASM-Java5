@@ -1,7 +1,7 @@
 package com.controller;
 
-import com.constants.CategoryFields;
-import com.dto.OutboundCategoryDTO;
+import com.dto.category.CategoryResponse;
+import com.dto.category.CategoryWithProductResponse;
 import com.service.CategoryService;
 import com.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +24,8 @@ public class CategoryController {
      * Fetch all categories
      */
     @GetMapping
-    public ResponseEntity<List<OutboundCategoryDTO>> getAllCategories() {
-        log.info("Fetching all categories");
+    public ResponseEntity<List<CategoryResponse>> getAllCategories() {
+        log.debug("Fetching all categories");
         return ResponseEntity.ok(categoryService.findAll());
     }
 
@@ -34,7 +34,8 @@ public class CategoryController {
      * Fetch category by ID
      */
     @GetMapping("/{id}")
-    public ResponseEntity<OutboundCategoryDTO> getCategoryById(@PathVariable Integer id) {
+    public ResponseEntity<CategoryResponse> getCategoryById(@PathVariable Integer id) {
+        log.debug("Fetching all categories with Id of: {}", id);
         return categoryService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -45,20 +46,9 @@ public class CategoryController {
      * Fetch all categories with their products
      */
     @GetMapping("/products")
-    public ResponseEntity<List<Map<String, Object>>> getAllCategoriesWithProducts() {
-        List<OutboundCategoryDTO> categoryList = categoryService.findAll();
-        List<Map<String, Object>> dataList = new ArrayList<>();
-
-        for (OutboundCategoryDTO categoryDTO : categoryList) {
-            Map<String, Object> dataMap = new HashMap<>();
-            dataMap.put(CategoryFields.CATEGORY_ID.getPropertyKey(), categoryDTO.getCategoryId());
-            dataMap.put(CategoryFields.CATEGORY_NAME.getPropertyKey(), categoryDTO.getCategoryName());
-            dataMap.put(CategoryFields.PRODUCT_COUNT.getPropertyKey(), categoryDTO.getProductCount());
-            dataMap.put("products", productService.findByCategory(categoryDTO.getCategoryId()));
-            dataList.add(dataMap);
-        }
-
-        return ResponseEntity.ok(dataList);
+    public ResponseEntity<List<CategoryWithProductResponse>> getAllCategoriesWithProducts() {
+        log.debug("Fetching all categories along with products");
+        return ResponseEntity.ok(categoryService.findAllWithProduct());
     }
 
     /**
@@ -66,14 +56,10 @@ public class CategoryController {
      * Fetch one category with its products
      */
     @GetMapping("/{id}/products")
-    public ResponseEntity<Map<String, Object>> getCategoryWithProducts(@PathVariable Integer id) {
-        return categoryService.findById(id).map(categoryDTO -> {
-            Map<String, Object> dataMap = new HashMap<>();
-            dataMap.put(CategoryFields.CATEGORY_ID.getPropertyKey(), categoryDTO.getCategoryId());
-            dataMap.put(CategoryFields.CATEGORY_NAME.getPropertyKey(), categoryDTO.getCategoryName());
-            dataMap.put(CategoryFields.PRODUCT_COUNT.getPropertyKey(), categoryDTO.getProductCount());
-            dataMap.put("products", productService.findByCategory(categoryDTO.getCategoryId()));
-            return ResponseEntity.ok(dataMap);
-        }).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<CategoryWithProductResponse> getCategoryWithProducts(@PathVariable Integer id) {
+        log.debug("Fetching category Id: {} with all it's products", id);
+        return categoryService.findByIdWithProduct(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

@@ -20,11 +20,11 @@ public class Session {
     private long sessionId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
     @Setter
-    @Column(name = "session_hash", nullable = false, length = 64, columnDefinition = "char(64)")
+    @Column(name = "session_hash", nullable = false, updatable = false, length = 64, columnDefinition = "char(64)")
     private String sessionHash;
 
     @Setter
@@ -41,7 +41,7 @@ public class Session {
 
     @Setter
     @Column(name = "is_active", nullable = false)
-    private boolean isActive = true;
+    private Boolean isActive = true;
 
     @Setter
     @Column(name = "revoked_at")
