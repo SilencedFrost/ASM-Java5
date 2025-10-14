@@ -12,7 +12,7 @@ import org.mapstruct.ReportingPolicy;
         unmappedSourcePolicy = ReportingPolicy.IGNORE
 )
 public interface AddressMapper {
-    AddressResponse toDTO(Address adress);
+    AddressResponse toDTO(Address address);
 
     Address toEntity(AddressCreateRequest addressCreateRequest);
 }
