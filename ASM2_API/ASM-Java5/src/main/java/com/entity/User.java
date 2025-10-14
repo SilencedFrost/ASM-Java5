@@ -53,7 +53,7 @@ public class User {
 
     @Setter
     @Column(name = "is_active", nullable = false)
-    private boolean isActive = true;
+    private Boolean isActive = true;
 
     @Setter
     @Column(name = "phone_number", length = 15)
@@ -69,4 +69,15 @@ public class User {
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private final List<Session> sessions = new ArrayList<>();
+
+    public void assignRole(Role role) {
+        if(this.role != null) {
+            this.role.getUsers().remove(this);
+        }
+
+        this.role = role;
+        if(role != null) {
+            role.getUsers().add(this);
+        }
+    }
 }

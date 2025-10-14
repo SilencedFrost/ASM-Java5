@@ -30,7 +30,7 @@ public class Category {
 
     @Setter
     @Column(name = "is_active", nullable = false)
-    private boolean isActive = true;
+    private Boolean isActive = true;
 
     @OneToMany(mappedBy = "category", orphanRemoval = true)
     private final List<Product> products = new ArrayList<>();

@@ -5,12 +5,8 @@ import com.dto.cart.CartResponse;
 import com.entity.Cart;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 
-@Mapper(
-        componentModel = "spring",
-        unmappedSourcePolicy = ReportingPolicy.IGNORE
-)
+@Mapper(componentModel = "spring")
 public interface CartMapper {
     @Mapping(target = "userId", source = "user.userId")
     @Mapping(target = "productId", source = "product.productId")

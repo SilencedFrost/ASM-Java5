@@ -83,21 +83,14 @@ public class Product {
     @Column(name = "updated_at")
     private OffsetDateTime updateDate;
 
-//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Cart> carts = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Comment> comments = new ArrayList<>();
+    public void assignCategory(Category category) {
+        if(this.category != null) {
+            this.category.getProducts().remove(this);
+        }
 
-//    public void setCategory(Category category) {
-//        if (this.category != null) {
-//            this.category.getProducts().remove(this);
-//        }
-//
-//        this.category = category;
-//
-//        if (category != null) {
-//            category.getProducts().add(this);
-//        }
-//    }
+        this.category = category;
+        if(category != null) {
+            category.getProducts().add(this);
+        }
+    }
 }

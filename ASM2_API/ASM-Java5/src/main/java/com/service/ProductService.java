@@ -3,6 +3,7 @@ package com.service;
 import com.dto.product.*;
 import com.entity.Category;
 import com.entity.Product;
+import com.exception.CategoryNotFoundException;
 import com.mapper.ProductMapper;
 import com.repository.CategoryRepository;
 import com.repository.ProductRepository;
@@ -62,25 +63,12 @@ public class ProductService {
 
     @Transactional
     public boolean create(ProductCreateRequest productCreateRequest) {
-        if (productCreateRequest == null) {
-            log.warn("Product cannot be null");
-            return false;
-        }
-        if (ValidationUtil.isNullOrBlank(productCreateRequest.productName())) {
-            log.warn("productName cannot be null");
-            return false;
-        }
-
         Category category = categoryRepository.findById(productCreateRequest.categoryId())
-                .orElse(null);
-
-        if (category == null) {
-            log.warn("Category not found");
-            return false;
-        }
+                .orElseThrow(() -> new CategoryNotFoundException("Category not found"));
 
         try {
-            Product product = productMapper.toEntity(productCreateRequest, category);
+            Product product = productMapper.toEntity(productCreateRequest);
+            product.assignCategory(category);
             productRepository.save(product);
             log.info("Product created: {}", product);
             return true;

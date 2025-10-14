@@ -5,12 +5,10 @@ import com.dto.customer.CustomerResponse;
 import com.entity.Customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 
 @Mapper(
         componentModel = "spring",
-        uses = UserMapper.class,
-        unmappedSourcePolicy = ReportingPolicy.IGNORE
+        uses = UserMapper.class
 )
 public interface CustomerMapper {
     @Mapping(target = "userResponse", source = "user")

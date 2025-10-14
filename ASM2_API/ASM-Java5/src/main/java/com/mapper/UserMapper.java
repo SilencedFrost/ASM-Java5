@@ -6,13 +6,9 @@ import com.entity.User;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Mapper(
-        componentModel = "spring",
-        unmappedSourcePolicy = ReportingPolicy.IGNORE
-)
+@Mapper(componentModel = "spring")
 public interface UserMapper {
     @Mapping(target = "roleId", source = "role.roleId")
     UserResponse toDTO(User user);

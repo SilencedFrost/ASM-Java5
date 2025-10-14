@@ -6,12 +6,10 @@ import com.dto.category.CategoryWithProductResponse;
 import com.entity.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 
 @Mapper(
         componentModel = "spring",
-        uses = ProductMapper.class,
-        unmappedSourcePolicy = ReportingPolicy.IGNORE
+        uses = ProductMapper.class
 )
 public interface CategoryMapper {
     CategoryResponse toDTO(Category category);

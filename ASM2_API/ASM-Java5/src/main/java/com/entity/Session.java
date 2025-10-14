@@ -41,7 +41,7 @@ public class Session {
 
     @Setter
     @Column(name = "is_active", nullable = false)
-    private boolean isActive = true;
+    private Boolean isActive = true;
 
     @Setter
     @Column(name = "revoked_at")
