@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS public.cart
 	product_id bigint NOT NULL,
     quantity int NOT NULL,
 	date_added timestamptz NOT NULL,
-    CONSTRAINT cart_pk PRIMARY KEY (user_id, product_id),
+    CONSTRAINT cart_pk PRIMARY KEY (cart_id),
     CONSTRAINT cart_fk_user FOREIGN KEY (user_id) 
         REFERENCES public.users (user_id),
 	CONSTRAINT cart_fk_product FOREIGN KEY (product_id) 
