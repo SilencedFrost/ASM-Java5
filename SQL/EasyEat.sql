@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS public.seller
 (
 	seller_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 100000 MINVALUE 100000 CACHE 1 ),
     user_id bigint NOT NULL UNIQUE,
-	shop_name varchar(64),
+	shop_name varchar(64) NOT NULL,
 	shop_description text,
 	rating decimal(3,2) CHECK (rating >= 0 AND rating <= 5),
 	total_sales bigint,
