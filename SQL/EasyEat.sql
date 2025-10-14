@@ -214,6 +214,7 @@ CREATE TABLE IF NOT EXISTS public.cart
 	CONSTRAINT cart_fk_product FOREIGN KEY (product_id) 
         REFERENCES public.product (product_id),
 	CONSTRAINT cart_quantity_positive CHECK (quantity > 0)
+	UNIQUE (user_id, product_id)
 );
 
 ALTER TABLE IF EXISTS public.cart
