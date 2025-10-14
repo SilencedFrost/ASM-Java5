@@ -9,14 +9,14 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(
-        componentModel = "spring", uses = UserMapper.class,
+        componentModel = "spring",
+        uses = UserMapper.class,
         unmappedSourcePolicy = ReportingPolicy.IGNORE
 )
 public interface AdminMapper {
 
-    @Mapping(source = "user", target = "userResponse")
+    @Mapping(target = "userResponse", source = "user")
     AdminResponse toDTO(Admin admin);
 
-    @Mapping(source = "userId", target = "user.userId")
     Admin toEntity(AdminCreateRequest AdminCreateRequest);
 }

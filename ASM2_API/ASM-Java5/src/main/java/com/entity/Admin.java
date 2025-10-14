@@ -16,10 +16,8 @@ public class Admin {
     @Column(name = "admin_id")
     private Integer adminId;
 
-
     @Setter
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
-
 }
