@@ -8,13 +8,13 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(
-        componentModel = "spring", uses = UserMapper.class,
+        componentModel = "spring",
+        uses = UserMapper.class,
         unmappedSourcePolicy = ReportingPolicy.IGNORE
 )
 public interface CustomerMapper {
-    @Mapping(source = "user", target = "userResponse")
+    @Mapping(target = "userResponse", source = "user")
     CustomerResponse toDTO(Customer customer);
 
-    @Mapping(source = "userId", target = "user.userId")
     Customer toEntity(CustomerCreateRequest customerCreateRequest);
 }
