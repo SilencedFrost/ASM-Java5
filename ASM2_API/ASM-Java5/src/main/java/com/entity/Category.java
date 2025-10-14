@@ -1,11 +1,17 @@
 package com.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
 @Entity
 @Table(name = "category", schema = "public")
-@Getter
 @NoArgsConstructor
 public class Category {
 
@@ -19,18 +25,14 @@ public class Category {
     private String categoryName;
 
     @Setter
-    @Column(name = "description", length = 256)
+    @Column(name = "description", length = 256, nullable = false)
     private String description;
 
     @Setter
-    @Column(name = "is_active")
-    private Boolean isActive;
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive = true;
 
-//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = false)
-//    private List<Product> products = new ArrayList<>();
-
-    public Category(String categoryName) {
-        this.categoryName = categoryName;
-    }
+    @OneToMany(mappedBy = "category", orphanRemoval = true)
+    private final List<Product> products = new ArrayList<>();
 }
 

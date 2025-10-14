@@ -35,6 +35,18 @@ public class CategoryService {
         return categoryRepository.findById(categoryId).map(categoryMapper::toDTO);
     }
 
+    public Page<CategoryWithProductResponse> findAllWithProduct(Pageable pageable) {
+        return categoryRepository.findAll(pageable).map(categoryMapper::toDTOWithProduct);
+    }
+
+    public List<CategoryWithProductResponse> findAllWithProduct() {
+        return findAllWithProduct(PageRequest.of(0, 50)).getContent();
+    }
+
+    public Optional<CategoryWithProductResponse> findByIdWithProduct(Integer categoryId) {
+        return categoryRepository.findById(categoryId).map(categoryMapper::toDTOWithProduct);
+    }
+
     public CategoryResponse create(CategoryCreateRequest categoryCreateRequest) {
         Category saved = categoryRepository.save(categoryMapper.toEntity(categoryCreateRequest));
         log.info("Category created with ID {}", saved.getCategoryId());
@@ -42,7 +54,7 @@ public class CategoryService {
     }
 
     public CategoryResponse update(CategoryUpdateRequest categoryUpdateRequest) {
-        Category category = categoryRepository.findById(categoryUpdateRequest.categoryId()).orElseThrow(() -> new EntityNotFoundException("Category not found with id " + categoryUpdateRequest.getCategoryId()));
+        Category category = categoryRepository.findById(categoryUpdateRequest.categoryId()).orElseThrow(() -> new EntityNotFoundException("Category not found with id " + categoryUpdateRequest.categoryId()));
 
         if (categoryUpdateRequest.categoryName() != null) category.setCategoryName(categoryUpdateRequest.categoryName());
 
