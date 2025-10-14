@@ -10,6 +10,7 @@ import org.mapstruct.ReportingPolicy;
         componentModel = "spring",
         unmappedSourcePolicy = ReportingPolicy.IGNORE
 )
+
 public interface RoleMapper {
     RoleResponse toDTO(Role role);
 

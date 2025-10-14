@@ -17,12 +17,10 @@ public class Seller {
     @Column(name = "seller_id", nullable = false)
     private long sellerId;
 
-
     @Setter
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
-
 
     @Setter
     @Column(name = "shop_name", length = 64)
