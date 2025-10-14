@@ -24,7 +24,6 @@ public class Cart {
     @Column(name = "cart_id", nullable = false)
     private Long cartId;
 
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

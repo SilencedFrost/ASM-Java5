@@ -12,7 +12,6 @@ import java.time.OffsetDateTime;
 @Getter
 @NoArgsConstructor
 
-
 public class Product {
 
     @Id
