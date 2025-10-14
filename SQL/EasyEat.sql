@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS public.users
 	is_active boolean NOT NULL,
 	phone_number varchar(15),
 	updated_at timestamptz,
-    creation_date timestamptz DEFAULT CURRENT_TIMESTAMP,
+    creation_date timestamptz NOT NULL,
     CONSTRAINT user_pk PRIMARY KEY (user_id),
 	CONSTRAINT user_fk_role FOREIGN KEY (role_id) 
 		REFERENCES public.role (role_id)
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS public.product
 	parent_id bigint,
 	seller_id bigint NOT NULL,
 	category_id int NOT NULL,
-	date_added timestamptz DEFAULT CURRENT_TIMESTAMP,
+	date_added timestamptz NOT NULL,
 	stock_count integer NOT NULL CHECK (stock_count >= 0),
 	thumbnail_extension varchar(5),
 	product_size varchar(32),
@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS public.cart
 	user_id bigint NOT NULL,
 	product_id bigint NOT NULL,
     quantity int NOT NULL,
-	date_added timestamptz DEFAULT CURRENT_TIMESTAMP,
+	date_added timestamptz NOT NULL,
     CONSTRAINT cart_pk PRIMARY KEY (user_id, product_id),
     CONSTRAINT cart_fk_user FOREIGN KEY (user_id) 
         REFERENCES public.users (user_id),
