@@ -206,14 +206,13 @@ CREATE TABLE IF NOT EXISTS public.cart
 	cart_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
 	user_id bigint NOT NULL,
 	product_id bigint NOT NULL,
-    quantity int NOT NULL,
+    quantity int NOT NULL CHECK (quantity > 0),
 	date_added timestamptz NOT NULL,
     CONSTRAINT cart_pk PRIMARY KEY (cart_id),
     CONSTRAINT cart_fk_user FOREIGN KEY (user_id) 
         REFERENCES public.users (user_id),
 	CONSTRAINT cart_fk_product FOREIGN KEY (product_id) 
         REFERENCES public.product (product_id),
-	CONSTRAINT cart_quantity_positive CHECK (quantity > 0)
 	UNIQUE (user_id, product_id)
 );
 
