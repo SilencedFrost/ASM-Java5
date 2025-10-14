@@ -2,6 +2,7 @@ package com.dto.product;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 public record ProductResponse(
         Long productId,
@@ -9,7 +10,7 @@ public record ProductResponse(
         Long parentId,
         Long sellerId,
         Integer categoryId,
-        LocalDateTime dateAdded,
+        OffsetDateTime creationDate,
         Integer stockCount,
         String thumbnailExtension,
         String productSize,
@@ -18,7 +19,7 @@ public record ProductResponse(
         BigDecimal price,
         Boolean isActive,
         Integer viewCount,
-        LocalDateTime updatedAt,
+        OffsetDateTime updateDate,
         Integer totalSales
 ) {
 }

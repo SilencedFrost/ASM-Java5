@@ -24,7 +24,6 @@ public class Cart {
     @Column(name = "cart_id", nullable = false)
     private Long cartId;
 
-    /*
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -33,7 +32,6 @@ public class Cart {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
-    */
 
     @Setter
     @Column(name = "quantity", nullable = false)
