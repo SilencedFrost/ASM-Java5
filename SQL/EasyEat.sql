@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS public.role
 ALTER TABLE IF EXISTS public.role
     OWNER to postgres;
 
-INSERT INTO public.role (role_name) VALUES ('guest');
 INSERT INTO public.role (role_name) VALUES ('customer');
 INSERT INTO public.role (role_name) VALUES ('seller');
 INSERT INTO public.role (role_name) VALUES ('admin');
@@ -184,7 +183,7 @@ CREATE TABLE IF NOT EXISTS public.product
 	description text NOT NULL,
 	price numeric(15,2) NOT NULL CHECK (price >= 0),
 	is_active boolean NOT NULL,
-	view_count int,
+	view_count int ,
 	updated_at timestamptz,
 	total_sales int,
     CONSTRAINT product_pk PRIMARY KEY (product_id),
@@ -244,3 +243,72 @@ CREATE INDEX idx_cart_product_id ON public.cart(product_id);
 CREATE INDEX idx_address_user_id ON public.address(user_id);
 CREATE INDEX idx_address_city_id ON public.address(city_id);
 CREATE INDEX idx_address_is_default ON public.address(is_default);
+
+-- Insert fake data for users table
+-- 1 admin, 1 seller, 18 customers = 20 total users
+
+-- Admin user (role_id = 3)
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('thnrgbefv0987@gmail.com', 3, 'admin_master', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2023-02-15 10:30:00+00');
+
+-- Seller user (role_id = 2)
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('minhnqts00553@fpt.edu.vn', 2, 'seller_pro', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2023-05-22 14:45:00+00');
+
+-- Customer users (role_id = 1)
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('alex.morgan@email.com', 1, 'alex_m', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2023-03-10 08:20:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('jamie.chen@email.com', 1, 'jamie_c', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2023-06-18 16:55:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('taylor.smith@email.com', 1, 'taylor_s', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2023-08-05 11:30:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('morgan.lee@email.com', 1, 'morgan_l', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2023-09-12 09:15:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('jordan.patel@email.com', 1, 'jordan_p', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2023-11-28 13:40:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('casey.williams@email.com', 1, 'casey_w', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2024-01-14 15:22:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('riley.nguyen@email.com', 1, 'riley_n', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2024-02-20 10:05:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('avery.garcia@email.com', 1, 'avery_g', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2024-03-17 12:50:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('dakota.jones@email.com', 1, 'dakota_j', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2024-04-08 08:33:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('skylar.martin@email.com', 1, 'skylar_m', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2024-05-25 14:18:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('quinn.rodriguez@email.com', 1, 'quinn_r', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2024-06-11 16:42:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('peyton.kim@email.com', 1, 'peyton_k', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2024-07-03 09:27:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('charlie.davis@email.com', 1, 'charlie_d', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2024-08-19 11:55:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('reese.wilson@email.com', 1, 'reese_w', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2024-09-07 13:12:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('sage.thompson@email.com', 1, 'sage_t', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2024-10-22 15:38:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('cameron.brown@email.com', 1, 'cameron_b', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2024-11-30 10:44:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('river.lopez@email.com', 1, 'river_l', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2025-01-18 08:59:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('phoenix.anderson@email.com', 1, 'phoenix_a', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', true, '2025-03-09 14:25:00+00');
+
+INSERT INTO public.users (email, role_id, username, password_hash, is_active, creation_date) 
+VALUES ('hunter.white@email.com', 1, 'hunter_w', '$2a$12$t/XkaAl.A.RqOj2ZsLBOxuyxPmMwQmXZFJ71jM0Rv7yju2A888XPG', false, '2025-09-28 16:10:00+00');

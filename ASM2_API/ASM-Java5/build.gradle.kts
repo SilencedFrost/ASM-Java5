@@ -24,8 +24,9 @@ dependencies {
     // Spring dev tools
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
-    // MSSQL JDBC driver
-    implementation("com.microsoft.sqlserver:mssql-jdbc:12.10.1.jre11")
+
+    // Postgres driver
+    implementation("org.postgresql:postgresql:42.7.8")
 
     // Lombok
     compileOnly("org.projectlombok:lombok:1.18.38")

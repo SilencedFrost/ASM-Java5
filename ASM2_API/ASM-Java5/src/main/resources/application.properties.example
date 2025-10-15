@@ -1,13 +1,12 @@
 # Database Configuration
-spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=your_database_name;trustServerCertificate=true
+spring.datasource.url=jdbc:postgresql://localhost:5432/EasyEat
 spring.datasource.username=your_username
 spring.datasource.password=your_password
-spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
+spring.datasource.driver-class-name=org.postgresql.Driver
 
 # JPA/Hibernate Configuration
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
-spring.jpa.database-platform=org.hibernate.dialect.SQLServerDialect
 
 # Enable DevTools
 spring.devtools.restart.enabled=true
