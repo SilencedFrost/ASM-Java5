@@ -17,7 +17,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-mail")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
@@ -42,6 +41,9 @@ dependencies {
 
     // Commons codec (for SHA256)
     implementation("commons-codec:commons-codec:1.19.0")
+
+    //BCrypt
+    implementation("at.favre.lib:bcrypt:0.10.2")
 }
 
 tasks.test {

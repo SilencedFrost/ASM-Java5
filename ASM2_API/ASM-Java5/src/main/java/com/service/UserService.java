@@ -1,5 +1,6 @@
 package com.service;
 
+import com.dto.auth.LoginRequest;
 import com.dto.user.*;
 import com.entity.Role;
 import com.entity.User;
@@ -8,11 +9,11 @@ import com.exception.UserNotFoundException;
 import com.mapper.UserMapper;
 import com.repository.RoleRepository;
 import com.repository.UserRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +26,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
+    private final HashService hashService;
 
     public Page<UserResponse> findAll(Pageable pageable) {
         return userRepository.findAll(pageable).map(userMapper::toDTO);
@@ -39,26 +40,28 @@ public class UserService {
         return userRepository.findById(userId).map(userMapper::toDTO);
     }
 
-    public Optional<UserResponse> findByUsernameOrEmail(String usernameOrEmail) {
-        return userRepository.findByUsernameIgnoreCaseOrEmailIgnoreCase(usernameOrEmail, usernameOrEmail)
-                .map(userMapper::toDTO);
+    public Optional<UserResponse> findByEmail(String email) {
+        return userRepository.findByEmailIgnoreCase(email).map(userMapper::toDTO);
     }
 
-    public boolean validateUser(String password, Long userId) {
-        return userRepository.findById(userId)
-                .map(user -> passwordEncoder.matches(password, user.getPasswordHash()))
-                .orElse(false);
+    public Optional<UserResponse> authenticate(LoginRequest loginRequest) {
+        return userRepository.findByEmailIgnoreCase(loginRequest.email())
+                .filter(user -> hashService.verifyPassword(loginRequest.password(), user.getPasswordHash())).map(userMapper::toDTO);
     }
 
     @Transactional
     public UserResponse create(UserCreateRequest userCreateRequest) {
         Role role = roleRepository.findById(userCreateRequest.roleId()).orElseThrow(() -> new RoleNotFoundException("Role not found: " + userCreateRequest.roleId()));
 
-        User user = userMapper.toEntity(userCreateRequest, passwordEncoder);
+        User user = userMapper.toEntity(userCreateRequest, hashService);
         user.assignRole(role);
         User savedUser = userRepository.save(user);
 
         return userMapper.toDTO(savedUser);
+    }
+
+    public Optional<UserResponse> createIfNotExist(@Valid UserCreateRequest userCreateRequest) {
+        return null;
     }
 
     @Transactional
@@ -70,7 +73,7 @@ public class UserService {
             existingUser.setUsername(userUpdateRequest.username());
         }
         if (userUpdateRequest.password() != null && !userUpdateRequest.password().isBlank()) {
-            existingUser.setPasswordHash(passwordEncoder.encode(userUpdateRequest.password()));
+            existingUser.setPasswordHash(hashService.hashPassword(userUpdateRequest.password()));
         }
         if (userUpdateRequest.email() != null && !userUpdateRequest.email().isBlank()) {
             existingUser.setEmail(userUpdateRequest.email());
