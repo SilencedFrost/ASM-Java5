@@ -13,5 +13,6 @@ import org.mapstruct.Mapping;
 public interface CustomerMapper {
     CustomerResponse toDTO(Customer customer);
 
+    @Mapping(target = "user", ignore = true)
     Customer toEntity(CustomerCreateRequest customerCreateRequest);
 }

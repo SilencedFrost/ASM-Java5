@@ -3,16 +3,22 @@ package com.service;
 import com.dto.auth.LoginRequest;
 import com.dto.customer.CustomerCreateRequest;
 import com.dto.customer.CustomerResponse;
-import com.dto.user.*;
+import com.dto.user.UserCreateRequest;
+import com.dto.user.UserResponse;
+import com.dto.user.UserUpdateRequest;
+import com.entity.Customer;
 import com.entity.Role;
 import com.entity.User;
 import com.exception.RoleNotFoundException;
 import com.exception.UserNotFoundException;
+import com.mapper.CustomerMapper;
 import com.mapper.UserMapper;
+import com.repository.CustomerRepository;
 import com.repository.RoleRepository;
 import com.repository.UserRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,12 +28,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
+    private final CustomerMapper customerMapper;
     private final HashService hashService;
 
     public Page<UserResponse> findAll(Pageable pageable) {
@@ -62,8 +71,26 @@ public class UserService {
         return userMapper.toDTO(savedUser);
     }
 
-    public Optional<CustomerResponse> createCustomerIfNotExist(@Valid CustomerCreateRequest customerCreateRequest) {
-        return null;
+    @Transactional
+    public Optional<CustomerResponse> createCustomerIfNotExist(CustomerCreateRequest customerCreateRequest) {
+        UserCreateRequest userRequest = customerCreateRequest.user();
+
+        if (userRepository.existsByEmail(userRequest.email())) {
+            log.info("User with email {} already exists. Skipping creation.", userRequest.email());
+            return Optional.empty();
+        }
+
+        User user = userMapper.toEntity(userRequest, hashService);
+        Role customerRole = roleRepository.findByRoleName("customer")
+                .orElseThrow(() -> new RoleNotFoundException("'customer' role not found"));
+        user.assignRole(customerRole);
+        user = userRepository.save(user);
+
+        Customer customer = customerMapper.toEntity(customerCreateRequest);
+        customer.setUser(user);
+        customer = customerRepository.save(customer);
+
+        return Optional.of(customerMapper.toDTO(customer));
     }
 
     @Transactional

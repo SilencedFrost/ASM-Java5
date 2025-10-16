@@ -23,7 +23,6 @@ dependencies {
     // Spring dev tools
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
-
     // Postgres driver
     implementation("org.postgresql:postgresql:42.7.8")
 

@@ -3,9 +3,7 @@ package com.controller;
 import com.dto.auth.LoginRequest;
 import com.dto.customer.CustomerCreateRequest;
 import com.dto.customer.CustomerResponse;
-import com.dto.user.UserCreateRequest;
 import com.dto.user.UserResponse;
-import com.entity.User;
 import com.exception.InvalidLoginException;
 import com.exception.UserAlreadyExistException;
 import com.service.UserService;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
