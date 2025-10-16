@@ -1,11 +1,14 @@
 package com.service;
 
-import com.dto.category.*;
+import com.dto.category.CategoryCreateRequest;
+import com.dto.category.CategoryResponse;
+import com.dto.category.CategoryUpdateRequest;
+import com.dto.category.CategoryWithProductResponse;
 import com.entity.Category;
 import com.exception.CategoryDeletionException;
 import com.mapper.CategoryMapper;
 import com.repository.CategoryRepository;
-import jakarta.persistence.*;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

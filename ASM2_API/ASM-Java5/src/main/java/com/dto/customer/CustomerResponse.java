@@ -4,6 +4,6 @@ import com.dto.user.UserResponse;
 
 public record CustomerResponse(
         Long customerId,
-        UserResponse userResponse
+        UserResponse user
 ) {
 }

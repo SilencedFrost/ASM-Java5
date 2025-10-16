@@ -4,6 +4,6 @@ import com.dto.user.UserResponse;
 
 public record AdminResponse(
         Long adminId,
-        UserResponse userResponse
+        UserResponse user
 ) {
 }

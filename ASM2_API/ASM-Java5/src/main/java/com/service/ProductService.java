@@ -1,6 +1,8 @@
 package com.service;
 
-import com.dto.product.*;
+import com.dto.product.ProductCreateRequest;
+import com.dto.product.ProductResponse;
+import com.dto.product.ProductUpdateRequest;
 import com.entity.Category;
 import com.entity.Product;
 import com.exception.CategoryNotFoundException;

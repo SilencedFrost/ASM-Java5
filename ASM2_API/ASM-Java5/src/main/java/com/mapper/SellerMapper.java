@@ -12,8 +12,10 @@ import org.mapstruct.Mapping;
 )
 
 public interface SellerMapper {
-    @Mapping(target = "userResponse" ,source = "user")
     SellerResponse toDTO(Seller seller);
 
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "rating", ignore = true)
+    @Mapping(target = "totalSales", ignore = true)
     Seller toEntity(SellerCreateRequest sellerCreateRequest);
 }

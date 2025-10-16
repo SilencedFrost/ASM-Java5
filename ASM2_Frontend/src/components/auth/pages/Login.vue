@@ -8,18 +8,10 @@ const authStore = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 
-const username = ref('')
+const email = ref('')
 const password = ref('')
 const isLoading = ref(false)
 const errorMessage = ref('')
-
-function validateUsernameOrEmail() {
-  return username.value != null && username.value.trim() !== ''
-}
-
-function validatePassword() {
-  return password.value != null && password.value.trim() !== ''
-}
 
 function redirectAfterLogin() {
   const redirectPath = route.query.redirect || '/'
@@ -36,17 +28,12 @@ onMounted(async () => {
 async function onLogin() {
   errorMessage.value = ''
 
-  if (!validateUsernameOrEmail() || !validatePassword()) {
-    errorMessage.value = 'Please enter both username/email and password.'
-    return
-  }
-
   isLoading.value = true
   try {
     const res = await axios.post(
       import.meta.env.VITE_API_BASE + '/auth/login',
       {
-        usernameOrEmail: username.value,
+        email: email.value,
         password: password.value,
       },
       { withCredentials: true },
@@ -56,11 +43,9 @@ async function onLogin() {
       authStore.setUser(res.data)
       redirectAfterLogin()
     } else {
-      errorMessage.value = 'Invalid credentials or user not found.'
       authStore.clearUser()
     }
   } catch (err) {
-    errorMessage.value = 'Login failed. Please check your credentials.'
     authStore.clearUser()
   } finally {
     isLoading.value = false
@@ -77,14 +62,14 @@ function loginWithGoogle() {}
       <hr />
       <form @submit.prevent="onLogin">
         <div class="mb-3">
-          <label for="username" class="form-label text-dark">Email</label>
+          <label for="email" class="form-label text-dark">Email</label>
           <input
-            type="text"
-            id="username"
-            v-model="username"
+            type="email"
+            id="email"
+            v-model="email"
             class="form-control"
             required
-            autocomplete="username"
+            autocomplete="email"
             :disabled="isLoading"
           />
         </div>

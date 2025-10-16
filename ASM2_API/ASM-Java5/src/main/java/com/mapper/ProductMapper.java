@@ -13,5 +13,7 @@ public interface ProductMapper {
     @Mapping(target = "sellerId", source = "seller.sellerId")
     ProductResponse toDTO(Product product);
 
+    @Mapping(target = "viewCount", ignore = true)
+    @Mapping(target = "totalSales", ignore = true)
     Product toEntity(ProductCreateRequest productCreateRequest);
 }

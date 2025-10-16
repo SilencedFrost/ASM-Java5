@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 public interface AddressMapper {
 
     @Mapping(target = "userId", source = "user.userId")
+    @Mapping(target = "cityId", source = "city.cityId")
     AddressResponse toDTO(Address address);
 
     Address toEntity(AddressCreateRequest addressCreateRequest);

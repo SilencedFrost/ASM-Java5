@@ -1,12 +1,12 @@
 package com.repository;
 
-import com.entity.Role;
+import com.entity.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface RoleRepository extends JpaRepository <Role, Integer> {
-    Optional<Role> findByRoleName(String roleName);
+public interface SessionRepository extends JpaRepository <Session, Long> {
+    Optional<Session> findBySessionHash(String sessionToken);
 }

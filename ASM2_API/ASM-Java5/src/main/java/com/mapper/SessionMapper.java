@@ -15,6 +15,11 @@ public interface SessionMapper {
     SessionResponse toDTO(Session session);
 
     @Mapping(target = "sessionHash", expression = "java(hashToken(sessionCreateRequest.sessionToken()))")
+    @Mapping(target = "lastAccessed", ignore = true)
+    @Mapping(target = "expiresAt", ignore = true)
+    @Mapping(target = "isActive", ignore = true)
+    @Mapping(target = "revokedAt", ignore = true)
+    @Mapping(target = "revokeReason", ignore = true)
     Session toEntity(SessionCreateRequest sessionCreateRequest);
 
     default String hashToken(String token) {
