@@ -54,4 +54,28 @@ public class Session {
     @Setter
     @Column(name = "user_agent", nullable = false, columnDefinition = "text")
     private String userAgent;
+
+    public void assignUser(User user) {
+        if(this.user != null) {
+            this.user.getSessions().remove(this);
+        }
+
+        this.user = user;
+        if(user != null) {
+            user.getSessions().add(this);
+        }
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) {
+            createdAt = OffsetDateTime.now();
+        }
+        if (expiresAt == null) {
+            expiresAt = createdAt.plusDays(7);
+        }
+        if (lastAccessed == null) {
+            lastAccessed = OffsetDateTime.now();
+        }
+    }
 }

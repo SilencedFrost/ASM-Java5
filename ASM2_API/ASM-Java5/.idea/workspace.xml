@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b747e5f-7515-42b6-8f3f-73f8fae352f5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/exception/SessionNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/repository/SessionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/service/SessionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/util/SessionCookieUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/util/TokenGeneratorUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/entity/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/entity/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/service/HashService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/service/HashService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ASM2_Frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../ASM2_Frontend/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ASM2_Frontend/src/components/auth/pages/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../ASM2_Frontend/src/components/auth/pages/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ASM2_Frontend/src/stores/authStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../ASM2_Frontend/src/stores/authStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +30,13 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -41,10 +58,19 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "feature/auth-api",
     "ignore.virus.scanning.warn.message": "true",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
     "settings.editor.splitter.proportion": "0.19787718"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.exception" />
+      <recent name="com.repository" />
+    </key>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="3b747e5f-7515-42b6-8f3f-73f8fae352f5" name="Changes" comment="" />
