@@ -12,7 +12,6 @@ import org.mapstruct.Mapping;
 )
 
 public interface SellerMapper {
-    @Mapping(target = "userResponse" ,source = "user")
     SellerResponse toDTO(Seller seller);
 
     Seller toEntity(SellerCreateRequest sellerCreateRequest);

@@ -12,8 +12,6 @@ import org.mapstruct.Mapping;
         uses = UserMapper.class
 )
 public interface AdminMapper {
-
-    @Mapping(target = "userResponse", source = "user")
     AdminResponse toDTO(Admin admin);
 
     @Mapping(target = "user", ignore = true)

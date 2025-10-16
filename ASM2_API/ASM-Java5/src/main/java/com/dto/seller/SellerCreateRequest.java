@@ -5,7 +5,7 @@ import com.dto.user.UserCreateRequest;
 import java.math.BigDecimal;
 
 public record SellerCreateRequest(
-        UserCreateRequest userCreateRequest,
+        UserCreateRequest user,
         String shopName,
         String shopDescription
 ) {

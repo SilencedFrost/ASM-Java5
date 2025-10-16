@@ -11,7 +11,6 @@ import org.mapstruct.Mapping;
         uses = UserMapper.class
 )
 public interface CustomerMapper {
-    @Mapping(target = "userResponse", source = "user")
     CustomerResponse toDTO(Customer customer);
 
     Customer toEntity(CustomerCreateRequest customerCreateRequest);

@@ -1,6 +1,8 @@
 package com.service;
 
 import com.dto.auth.LoginRequest;
+import com.dto.customer.CustomerCreateRequest;
+import com.dto.customer.CustomerResponse;
 import com.dto.user.*;
 import com.entity.Role;
 import com.entity.User;
@@ -60,7 +62,7 @@ public class UserService {
         return userMapper.toDTO(savedUser);
     }
 
-    public Optional<UserResponse> createIfNotExist(@Valid UserCreateRequest userCreateRequest) {
+    public Optional<CustomerResponse> createCustomerIfNotExist(@Valid CustomerCreateRequest customerCreateRequest) {
         return null;
     }
 

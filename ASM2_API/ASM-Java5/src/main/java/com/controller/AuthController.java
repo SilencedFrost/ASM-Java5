@@ -1,6 +1,8 @@
 package com.controller;
 
 import com.dto.auth.LoginRequest;
+import com.dto.customer.CustomerCreateRequest;
+import com.dto.customer.CustomerResponse;
 import com.dto.user.UserCreateRequest;
 import com.dto.user.UserResponse;
 import com.entity.User;
@@ -26,14 +28,21 @@ public class AuthController {
     /**
      * POST /api/auth/login
      * Validate user login and return the user DTO
+     * @param loginRequest
+     * @return User
      */
     @PostMapping("/login")
     public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         return userService.authenticate(loginRequest).map(ResponseEntity::ok).orElseThrow(() -> new InvalidLoginException("Incorrect login credentials"));
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<UserResponse> register(@Valid @RequestBody UserCreateRequest userCreateRequest) {
-        return userService.createIfNotExist(userCreateRequest).map(ResponseEntity::ok).orElseThrow(() -> new UserAlreadyExistException("Email already exists"));
+    /**
+     * POST/api/auth/register/customer
+     * @param customerCreateRequest
+     * @return Customer
+     */
+    @PostMapping("/register/customer")
+    public ResponseEntity<CustomerResponse> registerCustomer(@Valid @RequestBody CustomerCreateRequest customerCreateRequest) {
+        return userService.createCustomerIfNotExist(customerCreateRequest).map(ResponseEntity::ok).orElseThrow(() -> new UserAlreadyExistException("User email already exists"));
     }
 }

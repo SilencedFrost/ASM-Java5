@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 public record SellerUpdateRequest(
         Long sellerId,
-        UserUpdateRequest userUpdateRequest,
+        UserUpdateRequest user,
         String shopName,
         String shopDescription,
         BigDecimal rating,
