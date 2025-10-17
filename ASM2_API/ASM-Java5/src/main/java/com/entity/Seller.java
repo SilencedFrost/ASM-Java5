@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -18,7 +20,6 @@ public class Seller {
     @Column(name = "seller_id", nullable = false)
     private long sellerId;
 
-    @Setter
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
@@ -38,4 +39,7 @@ public class Seller {
     @Setter
     @Column(name = "total_sales")
     private long totalSales;
+
+    @OneToMany(mappedBy = "seller", orphanRemoval = true)
+    private final List<Product> products = new ArrayList<>();
 }

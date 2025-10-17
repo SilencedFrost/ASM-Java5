@@ -1,17 +1,16 @@
 package com.dto.product;
 
-import java.math.BigDecimal;
+import com.dto.product.variation.ProductVariationUpdateRequest;
+
+import java.util.List;
 
 public record ProductUpdateRequest(
         Long productId,
         String productName,
         Integer categoryId,
-        Integer stockCount,
-        String thumbnailExtension,
-        String productSize,
-        String variation,
+        String thumbnail,
         String description,
-        BigDecimal price,
-        Boolean isActive
+        Boolean isActive,
+        List<ProductVariationUpdateRequest> productVariations
 ) {
 }
