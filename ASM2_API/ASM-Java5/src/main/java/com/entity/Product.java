@@ -7,8 +7,9 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product", schema = "public")
@@ -25,53 +26,13 @@ public class Product {
     @Column(name = "product_name", nullable = false, length = 128)
     private String productName;
 
-    @Setter
-    @Column(name = "price", nullable = false, precision = 15, scale = 2)
-    private BigDecimal price;
-
-    @Setter
-    @Column(name = "stock_count", nullable = false)
-    private int stockCount;
-
-    @Setter
-    @Column(name = "is_active")
-    private Boolean isActive;
-
-    @Setter
-    @Column(name = "description", nullable = false, columnDefinition = "text")
-    private String description;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private Product parentProduct;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private Seller seller;
 
-    @Setter
-    @Column(name = "thumbnail_extension", length = 5)
-    private String thumbnailExtension;
-
-    @Setter
-    @Column(name = "product_size", length = 32)
-    private String productSize;
-
-    @Setter
-    @Column(name = "variation", length = 32)
-    private String variation;
-
-    @Setter
-    @Column(name = "view_count")
-    private int viewCount;
-
-    @Setter
-    @Column(name = "total_sales")
-    private int totalSales;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @CreationTimestamp
     @Column(name = "date_added", updatable = false)
@@ -81,6 +42,29 @@ public class Product {
     @Column(name = "updated_at")
     private OffsetDateTime updateDate;
 
+    @Setter
+    @Column(name = "thumbnail_extension", length = 5)
+    private String thumbnailExtension;
+
+    @Setter
+    @Column(name = "description", nullable = false, columnDefinition = "text")
+    private String description;
+
+    @Setter
+    @Column(name = "is_active")
+    private Boolean isActive;
+
+    @Setter
+    @Column(name = "view_count")
+    private Integer viewCount;
+
+    @Setter
+    @Column(name = "total_sales")
+    private Integer totalSales;
+
+    @OneToMany(mappedBy = "product", orphanRemoval = true)
+    private final List<ProductVariation> productVariations = new ArrayList<>();
+
     public void assignCategory(Category category) {
         if(this.category != null) {
             this.category.getProducts().remove(this);
@@ -89,6 +73,17 @@ public class Product {
         this.category = category;
         if(category != null) {
             category.getProducts().add(this);
+        }
+    }
+
+    public void assignSeller(Seller seller) {
+        if(this.seller != null) {
+            this.seller.getProducts().remove(this);
+        }
+
+        this.seller = seller;
+        if(seller != null) {
+            seller.getProducts().add(this);
         }
     }
 }

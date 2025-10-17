@@ -1,14 +1,4 @@
-import org.jetbrains.gradle.ext.*
-import groovy.util.Node
-import groovy.util.NodeList
-import groovy.xml.XmlParser
-import groovy.xml.XmlNodePrinter
-import java.io.StringWriter
-import java.io.PrintWriter
-
 plugins {
-    idea
-    id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.10"
     id("java")
     id("org.springframework.boot") version "4.0.0-M3"
     id("io.spring.dependency-management") version "1.1.7"
@@ -69,46 +59,4 @@ tasks.withType<JavaCompile> {
 
 tasks.bootRun {
     sourceResources(sourceSets["main"])
-}
-
-tasks.register("disableAnnotationProcessorInIntelliJ") {
-    doLast {
-        val isIntelliJ = System.getProperty("idea.active") == "true"
-        if (isIntelliJ) {
-            val compilerXmlFile = file(".idea/compiler.xml")
-            if (!compilerXmlFile.exists()) {
-                logger.warn(".idea/compiler.xml not found; skipping modification.")
-                return@doLast
-            }
-
-            val parser = XmlParser()
-            val compilerXml = parser.parse(compilerXmlFile)
-            val compilerConfiguration = (compilerXml as Node)
-                .children()
-                .find { it is Node && (it as Node).attribute("name") == "CompilerConfiguration" } as? Node
-
-            val annotationProcessing = compilerConfiguration?.get("annotationProcessing") as? NodeList
-            annotationProcessing?.forEach {
-                compilerConfiguration.remove(it as Node)
-            }
-
-            val stringWriter = StringWriter()
-            val nodePrinter = XmlNodePrinter(PrintWriter(stringWriter)).apply {
-            }
-            nodePrinter.print(compilerXml)
-
-            compilerXmlFile.writeText(stringWriter.toString())
-            logger.lifecycle("Disabled annotation processor in IntelliJ compiler.xml")
-        }
-    }
-}
-
-idea {
-    project {
-        settings {
-            taskTriggers {
-                afterSync(tasks.named("disableAnnotationProcessorInIntelliJ"))
-            }
-        }
-    }
 }

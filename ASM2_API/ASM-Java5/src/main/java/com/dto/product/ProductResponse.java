@@ -1,24 +1,22 @@
 package com.dto.product;
 
-import java.math.BigDecimal;
+import com.dto.product.variation.ProductVariationResponse;
+
 import java.time.OffsetDateTime;
+import java.util.List;
 
 public record ProductResponse(
         Long productId,
         String productName,
-        Long parentId,
         Long sellerId,
         Integer categoryId,
         OffsetDateTime creationDate,
-        Integer stockCount,
-        String thumbnailExtension,
-        String productSize,
-        String variation,
+        OffsetDateTime updateDate,
+        String thumbnail,
         String description,
-        BigDecimal price,
         Boolean isActive,
         Integer viewCount,
-        OffsetDateTime updateDate,
-        Integer totalSales
+        Integer totalSales,
+        List<ProductVariationResponse> productVariations
 ) {
 }

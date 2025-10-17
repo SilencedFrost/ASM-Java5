@@ -17,5 +17,6 @@ public interface SellerMapper {
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "rating", ignore = true)
     @Mapping(target = "totalSales", ignore = true)
+    @Mapping(target = "products", ignore = true)
     Seller toEntity(SellerCreateRequest sellerCreateRequest);
 }
