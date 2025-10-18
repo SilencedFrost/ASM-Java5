@@ -39,6 +39,14 @@ public class ProductService {
         return findAll(PageRequest.of(0, 50)).getContent();
     }
 
+    public Page<ProductSummaryResponse> findAllSummary(Pageable pageable) {
+        return productRepository.findAll(pageable).map(productMapper::toSummaryDTO);
+    }
+
+    public List<ProductSummaryResponse> findAllSummary() {
+        return findAllSummary(PageRequest.of(0, 50)).getContent();
+    }
+
     public Optional<ProductResponse> findById(Long productId) {
         return productRepository.findById(productId).map(productMapper::toDTO);
     }

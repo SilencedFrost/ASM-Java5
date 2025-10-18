@@ -63,8 +63,14 @@ public class AuthController {
      * @return Customer
      */
     @PostMapping("/register/customer")
-    public ResponseEntity<CustomerResponse> registerCustomer(@Valid @RequestBody CustomerCreateRequest customerCreateRequest) {
-        return userService.createCustomerIfNotExist(customerCreateRequest).map(ResponseEntity::ok).orElseThrow(() -> new UserAlreadyExistException("User email already exists"));
+    public ResponseEntity<CustomerResponse> registerCustomer(@Valid @RequestBody CustomerCreateRequest customerCreateRequest, @RequestHeader("User-Agent") String userAgent) {
+        CustomerResponse customerResponse = userService.createCustomerIfNotExist(customerCreateRequest).orElseThrow(() -> new UserAlreadyExistException("User email already exists"));
+
+        String ua = userAgent != null ? userAgent : "Unknown";
+
+        String sessionKey = sessionService.createSession(customerResponse.user().userId(), ua);
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, sessionCookieUtil.createSessionCookie(sessionKey).toString()).body(customerResponse);
     }
 
     /**

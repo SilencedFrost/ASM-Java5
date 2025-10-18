@@ -34,8 +34,8 @@ const routes = [
     path: '/',
     component: Generic,
     children: [
-      { path: '/search/:keyword', component: Search, meta: { title: 'Search' } },
-      { path: '/product/:id', component: ProductDetail, meta: { title: 'Product detail' } },
+      { path: '/search/:keyword?', component: Search, meta: { title: 'Search' } },
+      { path: '/product/:id?', component: ProductDetail, meta: { title: 'Product detail' } },
       { path: '/cart', component: Cart, meta: { title: 'Cart', requiresAuth: true } },
       { path: '/status', component: OrderStatus, meta: { title: 'Trạng thái đơn hàng' } },
       {

@@ -82,7 +82,7 @@ const authenticatedList = [
               aria-expanded="false"
             >
               <i class="bi bi-person-circle me-2" style="font-size: 20px"></i>
-              <span v-if="authStore.isLoggedIn">Tài khoản</span>
+              <span v-if="authStore.isLoggedIn">{{ authStore.username }}</span>
               <span v-else="!authStore.isLoggedIn">Đăng nhập</span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
@@ -95,9 +95,6 @@ const authenticatedList = [
                 </li>
               </div>
               <div v-if="authStore.isLoggedIn">
-                <li>
-                  <div class="dropdown-item">Welcome, {{ authStore.username }}</div>
-                </li>
                 <li>
                   <div class="dropdown-item" @click="authStore.logOut">Đăng xuất</div>
                 </li>

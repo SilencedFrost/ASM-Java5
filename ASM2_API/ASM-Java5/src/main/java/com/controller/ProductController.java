@@ -4,19 +4,13 @@ import com.dto.product.ProductResponse;
 import com.dto.product.ProductSummaryResponse;
 import com.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
-
-@Slf4j
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
@@ -26,8 +20,8 @@ public class ProductController {
 
     // GET /api/products -> return all products
     @GetMapping
-    public ResponseEntity<List<ProductResponse>> getAllProducts() {
-        return ResponseEntity.ok(productService.findAll());
+    public ResponseEntity<List<ProductSummaryResponse>> getAllProducts() {
+        return ResponseEntity.ok(productService.findAllSummary());
     }
 
     // GET /api/products/{id} -> return product by id
@@ -42,8 +36,8 @@ public class ProductController {
     }
 
     // GET /api/products/search/{keyword} -> search by keyword
-    @GetMapping("/search/{keyword}")
-    public ResponseEntity<List<ProductSummaryResponse>> searchProducts(@PathVariable String keyword) {
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductSummaryResponse>> searchProducts(@RequestParam(required = false, defaultValue = "") String keyword) {
         return ResponseEntity.ok(productService.findByNameLike(keyword));
     }
 }

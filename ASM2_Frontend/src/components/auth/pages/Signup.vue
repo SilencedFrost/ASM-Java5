@@ -1,9 +1,60 @@
 <script setup>
+import axios from 'axios'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
+
+const authStore = useAuthStore()
+
+const router = useRouter()
+
+const username = ref()
+const email = ref()
+const phoneNumber = ref()
+const password = ref()
+const passwordRetype = ref()
 
 const isLoading = ref(false)
+const fieldErrors = ref({})
 
-function onRegister() {}
+async function onRegister() {
+  fieldErrors.value = {}
+
+  if (password.value !== passwordRetype.value) {
+    fieldErrors.value.passwordRetype = 'Passwords do not match'
+    return
+  }
+
+  isLoading.value = true
+
+  try {
+    const res = await axios.post(
+      import.meta.env.VITE_API_BASE + '/auth/register/customer',
+      {
+        user: {
+          username: username.value,
+          email: email.value,
+          phoneNumber: phoneNumber.value,
+          password: password.value,
+        },
+      },
+      { withCredentials: true },
+    )
+    if (res.data && res.data.user.userId) {
+      authStore.setUser(res.data.user)
+      router.push('/')
+    } else {
+      authStore.clearUser()
+    }
+  } catch (err) {
+    authStore.clearUser()
+    if (err.response && err.response.data && err.response.data.user) {
+      fieldErrors.value = err.response.data.user
+    }
+  } finally {
+    isLoading.value = false
+  }
+}
 
 function registerWithGoogle() {}
 </script>
@@ -13,26 +64,56 @@ function registerWithGoogle() {}
     <div class="card shadow-sm p-4 bg-light" style="max-width: 500px; width: 100%">
       <h2 class="text-center text-dark">Đăng ký</h2>
       <hr />
-      <form @submit.prevent="onRegister">
+      <form @submit.prevent="onRegister" novalidate>
         <div class="mb-3">
           <label for="username" class="form-label text-dark"
             >Tên người dùng <span class="text-danger">*</span></label
           >
-          <input type="text" id="username" class="form-control" required :disabled="isLoading" />
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            required
+            :disabled="isLoading"
+            v-model="username"
+          />
+          <div v-if="fieldErrors.username" class="form-text text-danger">
+            {{ fieldErrors.username }}
+          </div>
         </div>
 
         <div class="mb-3">
           <label for="email" class="form-label text-dark"
             >Email <span class="text-danger">*</span></label
           >
-          <input type="email" id="email" class="form-control" required :disabled="isLoading" />
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            required
+            :disabled="isLoading"
+            v-model="email"
+          />
+          <div v-if="fieldErrors.email" class="form-text text-danger">
+            {{ fieldErrors.email }}
+          </div>
         </div>
 
         <div class="mb-3">
           <label for="phone" class="form-label text-dark"
             >Số điện thoại <span class="text-danger">*</span></label
           >
-          <input type="tel" id="phone" class="form-control" required :disabled="isLoading" />
+          <input
+            type="tel"
+            id="phone"
+            class="form-control"
+            required
+            :disabled="isLoading"
+            v-model="phoneNumber"
+          />
+          <div v-if="fieldErrors.phoneNumber" class="form-text text-danger">
+            {{ fieldErrors.phoneNumber }}
+          </div>
         </div>
 
         <div class="row">
@@ -41,7 +122,16 @@ function registerWithGoogle() {}
               >Mật khẩu <span class="text-danger">*</span></label
             >
             <div class="input-group">
-              <input id="password" class="form-control" required :disabled="isLoading" />
+              <input
+                id="password"
+                class="form-control"
+                required
+                :disabled="isLoading"
+                v-model="password"
+              />
+            </div>
+            <div v-if="fieldErrors.password" class="form-text text-danger">
+              {{ fieldErrors.password }}
             </div>
           </div>
 
@@ -55,7 +145,11 @@ function registerWithGoogle() {}
               class="form-control"
               required
               :disabled="isLoading"
+              v-model="passwordRetype"
             />
+            <div v-if="fieldErrors.passwordRetype" class="form-text text-danger">
+              {{ fieldErrors.passwordRetype }}
+            </div>
           </div>
         </div>
 
