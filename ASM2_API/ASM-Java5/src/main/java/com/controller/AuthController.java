@@ -44,7 +44,6 @@ public class AuthController {
     }
 
     /**
-     * TODO: implement validation code
      * GET /api/auth/login/session
      * Validate user's session via cookies
      * @return User
