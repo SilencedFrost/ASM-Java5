@@ -1,6 +1,6 @@
 package com.dto.category;
 
-import com.dto.product.ProductResponse;
+import com.dto.product.ProductSummaryResponse;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ public record CategoryWithProductResponse(
         String categoryName,
         String description,
         Boolean isActive,
-        List<ProductResponse> productResponses
+        List<ProductSummaryResponse> productSummaryResponses
 ) {
 }

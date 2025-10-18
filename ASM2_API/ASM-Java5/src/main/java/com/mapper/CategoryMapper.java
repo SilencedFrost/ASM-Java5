@@ -14,7 +14,7 @@ import org.mapstruct.Mapping;
 public interface CategoryMapper {
     CategoryResponse toDTO(Category category);
 
-    @Mapping(target = "productResponses", source = "products")
+    @Mapping(target = "productSummaryResponses", source = "products")
     CategoryWithProductResponse toDTOWithProduct(Category category);
 
     @Mapping(target = "isActive", ignore = true)
