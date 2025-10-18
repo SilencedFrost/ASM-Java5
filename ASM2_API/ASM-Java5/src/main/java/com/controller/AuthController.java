@@ -1,8 +1,7 @@
 package com.controller;
 
 import com.dto.auth.LoginRequest;
-import com.dto.customer.CustomerCreateRequest;
-import com.dto.customer.CustomerResponse;
+import com.dto.auth.RegisterRequest;
 import com.dto.user.UserResponse;
 import com.exception.InvalidLoginException;
 import com.exception.UserAlreadyExistException;
@@ -14,6 +13,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,11 +36,17 @@ public class AuthController {
     public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest loginRequest, @RequestHeader("User-Agent") String userAgent) {
         UserResponse userResponse = userService.authenticate(loginRequest).orElseThrow(() -> new InvalidLoginException("Incorrect login credentials"));
 
-        String ua = userAgent != null ? userAgent : "Unknown";
+        if (loginRequest.rememberMe()) {
+            String ua = userAgent != null ? userAgent : "Unknown";
+            String sessionKey = sessionService.createSession(userResponse.userId(), ua);
+            ResponseCookie sessionCookie = sessionCookieUtil.createSessionCookie(sessionKey);
 
-        String sessionKey = sessionService.createSession(userResponse.userId(), ua);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.SET_COOKIE, sessionCookie.toString())
+                    .body(userResponse);
+        }
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, sessionCookieUtil.createSessionCookie(sessionKey).toString()).body(userResponse);
+        return ResponseEntity.ok().body(userResponse);
     }
 
     /**
@@ -63,14 +69,20 @@ public class AuthController {
      * @return Customer
      */
     @PostMapping("/register/customer")
-    public ResponseEntity<CustomerResponse> registerCustomer(@Valid @RequestBody CustomerCreateRequest customerCreateRequest, @RequestHeader("User-Agent") String userAgent) {
-        CustomerResponse customerResponse = userService.createCustomerIfNotExist(customerCreateRequest).orElseThrow(() -> new UserAlreadyExistException("User email already exists"));
+    public ResponseEntity<UserResponse> registerCustomer(@Valid @RequestBody RegisterRequest registerRequest, @RequestHeader("User-Agent") String userAgent) {
+        UserResponse userResponse = userService.registerIfNotExist(registerRequest).orElseThrow(() -> new UserAlreadyExistException("account with this email already exists"));
 
-        String ua = userAgent != null ? userAgent : "Unknown";
+        if (registerRequest.rememberMe()) {
+            String ua = userAgent != null ? userAgent : "Unknown";
+            String sessionKey = sessionService.createSession(userResponse.userId(), ua);
+            ResponseCookie sessionCookie = sessionCookieUtil.createSessionCookie(sessionKey);
 
-        String sessionKey = sessionService.createSession(customerResponse.user().userId(), ua);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.SET_COOKIE, sessionCookie.toString())
+                    .body(userResponse);
+        }
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, sessionCookieUtil.createSessionCookie(sessionKey).toString()).body(customerResponse);
+        return ResponseEntity.ok().body(userResponse);
     }
 
     /**
