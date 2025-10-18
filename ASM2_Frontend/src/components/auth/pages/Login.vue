@@ -10,6 +10,7 @@ const route = useRoute()
 
 const email = ref('')
 const password = ref('')
+const rememberMe = ref(false)
 
 const isLoading = ref(false)
 const fieldErrors = ref({})
@@ -34,6 +35,7 @@ async function onLogin() {
       {
         email: email.value,
         password: password.value,
+        rememberMe: rememberMe.value,
       },
       { withCredentials: true },
     )
@@ -95,6 +97,18 @@ function loginWithGoogle() {}
           </div>
           <div v-if="fieldErrors.password" class="form-text text-danger">
             {{ fieldErrors.password }}
+          </div>
+        </div>
+        <div class="mb-3">
+          <div>
+            <input
+              type="checkbox"
+              id="rememberMe"
+              v-model="rememberMe"
+              class="form-check-input me-2"
+              :disabled="isLoading"
+            />
+            <label for="rememberMe" class="form-check-label text-dark">Remember Me</label>
           </div>
         </div>
         <div v-if="fieldErrors.error" class="form-text text-danger mb-3">

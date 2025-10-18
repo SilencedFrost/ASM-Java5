@@ -113,7 +113,8 @@ const authenticatedList = [
               aria-controls="userOptions"
             >
               <i class="bi bi-person-circle me-2" style="font-size: 20px"></i>
-              Tài khoản
+              <span v-if="authStore.isLoggedIn">{{ authStore.username }}</span>
+              <span v-else="!authStore.isLoggedIn">Đăng nhập</span>
             </a>
           </li>
         </ul>
@@ -129,9 +130,6 @@ const authenticatedList = [
               </li>
             </div>
             <div v-if="authStore.isLoggedIn">
-              <li>
-                <div class="nav-link ps-4">Welcome, {{ authStore.username }}</div>
-              </li>
               <li class="nav-item">
                 <div class="nav-link ps-4" @click="authStore.logOut">Đăng xuất</div>
               </li>

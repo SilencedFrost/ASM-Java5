@@ -1,17 +1,14 @@
 package com.service;
 
 import com.dto.auth.LoginRequest;
-import com.dto.customer.CustomerCreateRequest;
-import com.dto.customer.CustomerResponse;
+import com.dto.auth.RegisterRequest;
 import com.dto.user.UserCreateRequest;
 import com.dto.user.UserResponse;
 import com.dto.user.UserUpdateRequest;
-import com.entity.Customer;
 import com.entity.Role;
 import com.entity.User;
 import com.exception.RoleNotFoundException;
 import com.exception.UserNotFoundException;
-import com.mapper.CustomerMapper;
 import com.mapper.UserMapper;
 import com.repository.CustomerRepository;
 import com.repository.RoleRepository;
@@ -35,7 +32,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
-    private final CustomerMapper customerMapper;
     private final HashService hashService;
 
     public Page<UserResponse> findAll(Pageable pageable) {
@@ -71,25 +67,20 @@ public class UserService {
     }
 
     @Transactional
-    public Optional<CustomerResponse> createCustomerIfNotExist(CustomerCreateRequest customerCreateRequest) {
-        UserCreateRequest userRequest = customerCreateRequest.user();
+    public Optional<UserResponse> registerIfNotExist(RegisterRequest registerRequest) {
 
-        if (userRepository.existsByEmail(userRequest.email())) {
-            log.info("User with email {} already exists. Skipping creation.", userRequest.email());
+        if (userRepository.existsByEmail(registerRequest.email())) {
+            log.info("User with email {} already exists. Skipping creation.", registerRequest.email());
             return Optional.empty();
         }
 
-        User user = userMapper.toEntity(userRequest, hashService);
+        User user = userMapper.toEntity(registerRequest, hashService);
         Role customerRole = roleRepository.findByRoleName("customer")
                 .orElseThrow(() -> new RoleNotFoundException("'customer' role not found"));
         user.assignRole(customerRole);
         user = userRepository.save(user);
 
-        Customer customer = customerMapper.toEntity(customerCreateRequest);
-        customer.setUser(user);
-        customer = customerRepository.save(customer);
-
-        return Optional.of(customerMapper.toDTO(customer));
+        return Optional.of(userMapper.toDTO(user));
     }
 
     @Transactional

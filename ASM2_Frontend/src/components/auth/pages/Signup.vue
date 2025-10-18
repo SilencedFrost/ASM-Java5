@@ -13,6 +13,7 @@ const email = ref()
 const phoneNumber = ref()
 const password = ref()
 const passwordRetype = ref()
+const rememberMe = ref(false)
 
 const isLoading = ref(false)
 const fieldErrors = ref({})
@@ -31,25 +32,24 @@ async function onRegister() {
     const res = await axios.post(
       import.meta.env.VITE_API_BASE + '/auth/register/customer',
       {
-        user: {
-          username: username.value,
-          email: email.value,
-          phoneNumber: phoneNumber.value,
-          password: password.value,
-        },
+        username: username.value,
+        email: email.value,
+        phoneNumber: phoneNumber.value,
+        password: password.value,
+        rememberMe: rememberMe.value,
       },
       { withCredentials: true },
     )
-    if (res.data && res.data.user.userId) {
-      authStore.setUser(res.data.user)
+    if (res.data && res.data.userId) {
+      authStore.setUser(res.data)
       router.push('/')
     } else {
       authStore.clearUser()
     }
   } catch (err) {
     authStore.clearUser()
-    if (err.response && err.response.data && err.response.data.user) {
-      fieldErrors.value = err.response.data.user
+    if (err.response && err.response.data && err.response.data) {
+      fieldErrors.value = err.response.data
     }
   } finally {
     isLoading.value = false
@@ -149,6 +149,18 @@ function registerWithGoogle() {}
             />
             <div v-if="fieldErrors.passwordRetype" class="form-text text-danger">
               {{ fieldErrors.passwordRetype }}
+            </div>
+          </div>
+          <div class="mb-3">
+            <div>
+              <input
+                type="checkbox"
+                id="rememberMe"
+                v-model="rememberMe"
+                class="form-check-input me-2"
+                :disabled="isLoading"
+              />
+              <label for="rememberMe" class="form-check-label text-dark">Remember Me</label>
             </div>
           </div>
         </div>

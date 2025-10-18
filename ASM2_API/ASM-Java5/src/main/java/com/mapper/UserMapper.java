@@ -1,5 +1,6 @@
 package com.mapper;
 
+import com.dto.auth.RegisterRequest;
 import com.dto.user.UserCreateRequest;
 import com.dto.user.UserResponse;
 import com.entity.User;
@@ -18,6 +19,14 @@ public interface UserMapper {
     @Mapping(target = "isActive", ignore = true)
     @Mapping(target = "sessions", ignore = true)
     User toEntity(UserCreateRequest userCreateRequest, @Context HashService hashService);
+
+    @Mapping(target = "passwordHash", source = "password", qualifiedByName = "hashPassword")
+    @Mapping(target = "isActive", ignore = true)
+    @Mapping(target = "sessions", ignore = true)
+    @Mapping(target = "firstName", ignore = true)
+    @Mapping(target = "lastName", ignore = true)
+    @Mapping(target = "birthday", ignore = true)
+    User toEntity(RegisterRequest registerRequest, @Context HashService hashService);
 
     @Named("hashPassword")
     default String hashPassword(String password, @Context HashService hashService) {
