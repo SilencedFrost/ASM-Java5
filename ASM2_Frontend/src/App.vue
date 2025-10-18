@@ -10,7 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="min-vh-100 d-flex flex-column">
+  <main class="min-vh-100 d-flex flex-column bg-light">
     <router-view />
   </main>
 </template>
