@@ -29,15 +29,12 @@ function formatPrice(price) {
 </script>
 <template>
   <div class="card h-100 bg-light">
-    <div class="position-relative" @click="viewProduct()" style="cursor: pointer">
-      <div class="ratio ratio-1x1">
-        <img
-          :src="imageBase + '/product/' + product.thumbnail"
-          :alt="product.productName"
-          class="card-img-top p-2 rounded-4 object-fit-cover"
-        />
-      </div>
-      <hr class="m-0" />
+    <div class="position-relative ratio ratio-1x1" @click="viewProduct()" style="cursor: pointer">
+      <img
+        :src="imageBase + '/product/' + product.thumbnail"
+        :alt="product.productName"
+        class="card-img-top p-2 rounded-4 object-fit-cover"
+      />
     </div>
     <div class="card-body p-3">
       <div class="d-flex w-100">
