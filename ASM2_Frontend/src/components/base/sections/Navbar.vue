@@ -62,9 +62,9 @@ const authenticatedList = [
 
       <!-- Navbar content -->
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ms-auto">
           <!-- Giỏ hàng -->
-          <li class="nav-item">
+          <li v-if="authStore.isLoggedIn" class="nav-item">
             <router-link class="nav-link d-flex align-items-center" to="/cart">
               <i class="bi bi-cart me-2" style="font-size: 20px"></i>
               Giỏ hàng
@@ -82,7 +82,8 @@ const authenticatedList = [
               aria-expanded="false"
             >
               <i class="bi bi-person-circle me-2" style="font-size: 20px"></i>
-              Tài khoản
+              <span v-if="authStore.isLoggedIn">Tài khoản</span>
+              <span v-else="!authStore.isLoggedIn">Đăng nhập</span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
               <div v-if="!authStore.isLoggedIn">

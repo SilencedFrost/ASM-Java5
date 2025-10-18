@@ -38,7 +38,7 @@ public class Seller {
 
     @Setter
     @Column(name = "total_sales")
-    private long totalSales;
+    private Long totalSales;
 
     @OneToMany(mappedBy = "seller", orphanRemoval = true)
     private final List<Product> products = new ArrayList<>();

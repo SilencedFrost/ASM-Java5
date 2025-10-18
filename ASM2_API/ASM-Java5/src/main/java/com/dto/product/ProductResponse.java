@@ -9,6 +9,7 @@ public record ProductResponse(
         Long productId,
         String productName,
         Long sellerId,
+        String sellerName,
         Integer categoryId,
         OffsetDateTime creationDate,
         OffsetDateTime updateDate,

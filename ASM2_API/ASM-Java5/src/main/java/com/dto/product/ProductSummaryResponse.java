@@ -10,6 +10,7 @@ public record ProductSummaryResponse(
         Long productId,
         String productName,
         Long sellerId,
+        String sellerName,
         Integer categoryId,
         OffsetDateTime creationDate,
         OffsetDateTime updateDate,

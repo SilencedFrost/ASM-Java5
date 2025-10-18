@@ -18,11 +18,13 @@ public interface ProductMapper {
 
     @Mapping(target = "categoryId", source = "category.categoryId")
     @Mapping(target = "sellerId", source = "seller.sellerId")
+    @Mapping(target = "sellerName", source = "seller.shopName")
     @Mapping(target = "thumbnail", expression = "java(buildThumbnailFilename(product))")
     ProductResponse toDTO(Product product);
 
     @Mapping(target = "categoryId", source = "category.categoryId")
     @Mapping(target = "sellerId", source = "seller.sellerId")
+    @Mapping(target = "sellerName", source = "seller.shopName")
     @Mapping(target = "thumbnail", expression = "java(buildThumbnailFilename(product))")
     @Mapping(target = "price", expression = "java(aggregatePrice(product.getProductVariations()))")
     ProductSummaryResponse toSummaryDTO(Product product);
