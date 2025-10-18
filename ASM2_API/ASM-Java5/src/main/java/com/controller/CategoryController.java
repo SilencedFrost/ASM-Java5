@@ -3,7 +3,6 @@ package com.controller;
 import com.dto.category.CategoryResponse;
 import com.dto.category.CategoryWithProductResponse;
 import com.service.CategoryService;
-import com.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
