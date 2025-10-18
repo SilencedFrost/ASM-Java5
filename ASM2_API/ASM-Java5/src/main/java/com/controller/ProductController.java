@@ -1,8 +1,10 @@
 package com.controller;
 
 import com.dto.product.ProductResponse;
+import com.dto.product.ProductSummaryResponse;
 import com.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+
+@Slf4j
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
@@ -39,7 +43,7 @@ public class ProductController {
 
     // GET /api/products/search/{keyword} -> search by keyword
     @GetMapping("/search/{keyword}")
-    public ResponseEntity<List<ProductResponse>> searchProducts(@PathVariable String keyword) {
+    public ResponseEntity<List<ProductSummaryResponse>> searchProducts(@PathVariable String keyword) {
         return ResponseEntity.ok(productService.findByNameLike(keyword));
     }
 }

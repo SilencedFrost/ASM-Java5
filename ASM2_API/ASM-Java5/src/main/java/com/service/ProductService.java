@@ -2,6 +2,7 @@ package com.service;
 
 import com.dto.product.ProductCreateRequest;
 import com.dto.product.ProductResponse;
+import com.dto.product.ProductSummaryResponse;
 import com.dto.product.ProductUpdateRequest;
 import com.entity.Category;
 import com.entity.Product;
@@ -53,14 +54,9 @@ public class ProductService {
         }
     }
 
-    public List<ProductResponse> findByNameLike(String keyword) {
-        try {
-            List<Product> productList = productRepository.searchByNameLike(keyword);
-            return productList.stream().map(productMapper::toDTO).collect(Collectors.toList());
-        } catch (Exception e) {
-            log.error("Error fetching products", e);
-            return new ArrayList<>();
-        }
+    public List<ProductSummaryResponse> findByNameLike(String keyword) {
+            List<Product> productList = productRepository.findByProductNameContainsIgnoreCase(keyword);
+            return productList.stream().map(productMapper::toSummaryDTO).collect(Collectors.toList());
     }
 
     @Transactional
