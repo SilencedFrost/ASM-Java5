@@ -37,14 +37,16 @@ function formatPrice(price) {
       />
     </div>
     <div class="card-body p-3">
-      <div class="d-flex w-100">
-        <div class="d-flex flex-column">
-          <h6 class="card-title fw-bold h3">{{ product.productName }}</h6>
+      <div class="d-flex flex-fill h-100">
+        <div class="d-flex flex-column flex-fill">
+          <span class="card-title fw-bold h5">{{ product.productName }}</span>
           <span class="h5 text-danger fw-bold">{{ formatPrice(product.price) }}đ</span>
           <span class="small text-muted">{{ product.sellerName }}</span>
         </div>
-        <div class="d-flex flex-column flex-fill">
-          <span class="ms-auto small text-muted">{{ product.totalSales }} lượt mua</span>
+        <div class="d-flex flex-column flex-shrink-0">
+          <span class="ms-auto small text-muted text-nowrap"
+            >{{ product.totalSales }} lượt mua</span
+          >
           <button class="btn btn-primary text-white ms-auto mt-auto" @click="addToCart()">
             <i class="bi bi-cart-plus"></i>
           </button>

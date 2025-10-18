@@ -12,10 +12,23 @@ import java.util.Map;
 public class ValidationExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors()
-                .forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
+    public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException ex) {
+        Map<String, Object> errors = new HashMap<>();
+
+        ex.getBindingResult().getFieldErrors().forEach(err -> {
+            String field = err.getField();
+            String message = err.getDefaultMessage();
+
+            String[] parts = field.split("\\.");
+            if (parts.length > 1) {
+                @SuppressWarnings("unchecked")
+                Map<String, String> nestedErrors = (Map<String, String>) errors.computeIfAbsent(parts[0], k -> new HashMap<String, String>());
+                nestedErrors.put(parts[1], message);
+            } else {
+                errors.put(field, message);
+            }
+        });
+
         return ResponseEntity.badRequest().body(errors);
     }
 }
