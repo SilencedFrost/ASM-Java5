@@ -39,9 +39,3 @@ onMounted(fetchProducts)
     </div>
   </div>
 </template>
-
-<style scoped>
-section {
-  scroll-margin-top: 80px;
-}
-</style>
