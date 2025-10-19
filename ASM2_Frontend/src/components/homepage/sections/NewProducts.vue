@@ -25,6 +25,9 @@ onMounted(fetchProducts)
 </script>
 <template>
   <div class="container-fluid">
+    <div class="text-center my-4">
+      <h1 class="fw-bold">Sản phẩm mới</h1>
+    </div>
     <div v-if="loading" class="alert alert-info">Loading products...</div>
     <div v-else-if="error" class="alert alert-danger">
       {{ error }}

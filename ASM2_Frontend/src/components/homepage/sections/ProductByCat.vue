@@ -33,8 +33,7 @@ onMounted(fetchCategories)
       <section
         v-for="category in categories"
         :key="category.categoryId"
-        :id="'category' + category.categoryId"
-      >
+        :id="'category' + category.categoryId">
         <div class="text-center my-4">
           <h1 class="fw-bold">
             {{ category.categoryName }}
