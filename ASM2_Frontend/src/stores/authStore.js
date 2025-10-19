@@ -11,6 +11,7 @@ export const useAuthStore = defineStore('auth', () => {
   const lastName = ref('')
   const birthday = ref()
   const phoneNumber = ref('')
+  const roleId = ref(1)
   const creationDate = ref()
 
   function setUser(user) {
@@ -22,6 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
     lastName.value = user.lastName
     birthday.value = user.birthday
     phoneNumber.value = user.phoneNumber
+    roleId.value = user.roleId
     creationDate.value = user.creationDate
   }
 
@@ -34,6 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
     lastName.value = undefined
     birthday.value = undefined
     phoneNumber.value = undefined
+    roleId.value = undefined
     creationDate.value = undefined
   }
 
@@ -76,6 +79,7 @@ export const useAuthStore = defineStore('auth', () => {
     lastName,
     birthday,
     phoneNumber,
+    roleId,
     creationDate,
     setUser,
     clearUser,

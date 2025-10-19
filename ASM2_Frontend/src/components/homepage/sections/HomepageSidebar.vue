@@ -10,7 +10,9 @@ const error = ref(null)
 // Fetch
 async function fetchCategories() {
   try {
-    const response = await axios.get(import.meta.env.VITE_API_BASE + '/categories')
+    const response = await axios.get(import.meta.env.VITE_API_BASE + '/categories', {
+      params: { notEmpty: true },
+    })
     categories.value = response.data
   } catch (err) {
     error.value = 'Failed to load data'

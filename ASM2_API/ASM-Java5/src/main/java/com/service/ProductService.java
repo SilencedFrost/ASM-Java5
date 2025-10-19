@@ -39,12 +39,32 @@ public class ProductService {
         return findAll(PageRequest.of(0, 50)).getContent();
     }
 
-    public Page<ProductSummaryResponse> findAllSummary(Pageable pageable) {
-        return productRepository.findAll(pageable).map(productMapper::toSummaryDTO);
+    public List<ProductSummaryResponse> findAllSummary() {
+        return productRepository.findAll()
+                .stream()
+                .map(productMapper::toSummaryDTO)
+                .toList();
     }
 
-    public List<ProductSummaryResponse> findAllSummary() {
-        return findAllSummary(PageRequest.of(0, 50)).getContent();
+    public List<ProductSummaryResponse> findAllActiveSummary() {
+        return productRepository.findByIsActiveTrue()
+                .stream()
+                .map(productMapper::toSummaryDTO)
+                .toList();
+    }
+
+    public List<ProductSummaryResponse> findAllActiveSummaryBySeller(Long sellerId) {
+        return productRepository.findBySellerSellerIdAndIsActiveTrue(sellerId)
+                .stream()
+                .map(productMapper::toSummaryDTO)
+                .toList();
+    }
+
+    public List<ProductSummaryResponse> findAllSummaryBySeller(Long sellerId) {
+        return productRepository.findBySellerSellerId(sellerId)
+                .stream()
+                .map(productMapper::toSummaryDTO)
+                .toList();
     }
 
     public Optional<ProductResponse> findById(Long productId) {

@@ -15,13 +15,12 @@ import java.util.Map;
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
 public class ProductController {
-
     private final ProductService productService;
 
     // GET /api/products -> return all products
     @GetMapping
     public ResponseEntity<List<ProductSummaryResponse>> getAllProducts() {
-        return ResponseEntity.ok(productService.findAllSummary());
+        return ResponseEntity.ok(productService.findAllActiveSummary());
     }
 
     // GET /api/products/{id} -> return product by id
