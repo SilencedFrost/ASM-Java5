@@ -287,27 +287,16 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Cart',
   data() {
     return {
-      cartItems: [
-        {
-          id: 1,
-          name: 'Dụng cụ vệ sinh Laptop',
-          price: 100000,
-          quantity: 2,
-          image: 'https://th.bing.com/th/id/OIP.uiGb5pkwkRtTF7p9z4ZenAHaHa?rs=1&pid=ImgDetMain',
-        },
-        {
-          id: 2,
-          name: 'Hộp pin chuột không dây',
-          price: 150000,
-          quantity: 1,
-          image:
-            'https://pintrongtin.com/wp-content/uploads/2019/07/mua-pin-cho-chuot-khong-day.png',
-        },
-      ],
+      cartItems: [],
+      loading: false,
+      error: null,
+      userId: 100005,
     }
   },
   computed: {
@@ -315,7 +304,7 @@ export default {
       return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
     },
     totalPrice() {
-      const tax = this.subtotal * 0.1 // 10% VAT
+      const tax = this.subtotal * 0.1
       return this.subtotal + tax
     },
   },
@@ -326,46 +315,200 @@ export default {
         currency: 'VND',
       })
     },
-    updateQuantity(item) {
-      if (item.quantity < 1) item.quantity = 1
+
+    async fetchCart() {
+      this.loading = true
+      this.error = null
+      
+      try {
+        const cartRes = await axios.get(
+          `${import.meta.env.VITE_API_BASE}/cart/${this.userId}`
+        )
+        
+        console.log('Cart response:', cartRes.data)
+        
+        const enrichedItems = await Promise.all(
+          cartRes.data.map(async (cartItem) => {
+            try {
+              const productRes = await axios.get(
+                `${import.meta.env.VITE_API_BASE}/products/${cartItem.productId}`
+              )
+              
+              const product = productRes.data
+              
+              const variation = product.productVariations?.find(
+                v => v.variationId === cartItem.variationId
+              ) || product.productVariations?.[0]
+              
+              return {
+                id: cartItem.cartId,
+                cartId: cartItem.cartId,
+                productId: cartItem.productId,
+                variationId: cartItem.variationId,
+                name: product.productName || 'Sản phẩm',
+                image: product.thumbnailExtension
+                  ? `${import.meta.env.VITE_API_BASE}/images/products/${product.productId}.${product.thumbnailExtension}`
+                  : '/placeholder.jpg',
+                price: variation?.price || 0,
+                quantity: cartItem.quantity,
+                dateAdded: cartItem.dateAdded,
+              }
+            } catch (err) {
+              console.error(`Lỗi load product ${cartItem.productId}:`, err)
+              return {
+                id: cartItem.cartId,
+                cartId: cartItem.cartId,
+                productId: cartItem.productId,
+                variationId: cartItem.variationId,
+                name: `Sản phẩm #${cartItem.productId}`,
+                image: '/placeholder.jpg',
+                price: 0,
+                quantity: cartItem.quantity,
+                dateAdded: cartItem.dateAdded,
+              }
+            }
+          })
+        )
+        
+        this.cartItems = enrichedItems
+        console.log('Enriched cart items:', this.cartItems)
+        
+      } catch (err) {
+        console.error('Lỗi tải giỏ hàng:', err)
+        this.error = 'Không thể tải dữ liệu giỏ hàng'
+        
+        this.loadMockData()
+      } finally {
+        this.loading = false
+      }
     },
-    increaseQuantity(item) {
+
+    loadMockData() {
+      this.cartItems = [
+        {
+          id: 1,
+          productId: 100000,
+          name: 'Trà sữa trân châu đường đen',
+          image: '/placeholder.jpg',
+          price: 35000,
+          quantity: 2,
+        },
+        {
+          id: 2,
+          productId: 100001,
+          name: 'Trà sữa matcha',
+          image: '/placeholder.jpg',
+          price: 36000,
+          quantity: 1,
+        },
+        {
+          id: 3,
+          productId: 100004,
+          name: 'Phở bò tái',
+          image: '/placeholder.jpg',
+          price: 50000,
+          quantity: 3,
+        },
+      ]
+    },
+
+    async updateQuantity(item) {
+      if (item.quantity < 1) {
+        item.quantity = 1
+        return
+      }
+
+      try {
+        await axios.put(
+          `${import.meta.env.VITE_API_BASE}/cart/${this.userId}/product/${item.productId}`,
+          { quantity: item.quantity }
+        )
+        console.log('Updated quantity:', item.quantity)
+      } catch (err) {
+        console.error('Lỗi cập nhật số lượng:', err)
+        this.showToast('Không thể cập nhật số lượng', 'error')
+        this.fetchCart()
+      }
+    },
+
+    async increaseQuantity(item) {
       item.quantity++
+      await this.updateQuantity(item)
     },
-    decreaseQuantity(item) {
+
+    async decreaseQuantity(item) {
       if (item.quantity > 1) {
         item.quantity--
+        await this.updateQuantity(item)
       }
     },
-    removeItem(id) {
-      if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')) {
-        this.cartItems = this.cartItems.filter((item) => item.id !== id)
+
+    async removeItem(id) {
+      if (!confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+        return
+      }
+
+      const item = this.cartItems.find((i) => i.id === id)
+      if (!item) return
+
+      try {
+        await axios.delete(
+          `${import.meta.env.VITE_API_BASE}/cart/${this.userId}/product/${item.productId}`
+        )
+
+        this.cartItems = this.cartItems.filter((i) => i.id !== id)
         this.showToast('Đã xóa sản phẩm khỏi giỏ hàng', 'success')
+      } catch (err) {
+        console.error('Lỗi xóa sản phẩm:', err)
+        this.showToast('Không thể xóa sản phẩm', 'error')
       }
     },
-    clearCart() {
-      if (confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm trong giỏ hàng?')) {
+
+    async clearCart() {
+      if (!confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm trong giỏ hàng?')) {
+        return
+      }
+
+      try {
+        await axios.delete(`${import.meta.env.VITE_API_BASE}/cart/${this.userId}`)
+
         this.cartItems = []
         this.showToast('Đã xóa tất cả sản phẩm khỏi giỏ hàng', 'info')
+      } catch (err) {
+        console.error('Lỗi xóa giỏ hàng:', err)
+        this.showToast('Không thể xóa giỏ hàng', 'error')
       }
     },
-    checkout() {},
-    continueShopping() {
-      // Navigate back to products page
-      alert('Chuyển hướng về trang sản phẩm...')
-      // In a real app: this.$router.push('/products');
+
+    checkout() {
+      if (this.cartItems.length === 0) {
+        alert('Giỏ hàng của bạn đang trống!')
+        return
+      }
+      
+      console.log('Checkout with items:', this.cartItems)
+      alert('Chức năng thanh toán đang được phát triển...')
     },
+
+    continueShopping() {
+
+      console.log('Continue shopping...')
+
+      window.location.href = '/products'
+    },
+
     showToast(message, type = 'info') {
-      // Simple toast notification simulation
-      // In a real app, you might use Bootstrap Toast or a toast library
       console.log(`${type.toUpperCase()}: ${message}`)
+      alert(message)
     },
   },
+
   mounted() {
-    // Initialize Bootstrap tooltips if needed
+    this.fetchCart()
+
     if (typeof window !== 'undefined' && window.bootstrap) {
       const tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]'),
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
       )
       tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new window.bootstrap.Tooltip(tooltipTriggerEl)
