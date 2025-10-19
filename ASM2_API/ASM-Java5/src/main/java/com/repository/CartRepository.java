@@ -2,22 +2,21 @@ package com.repository;
 
 import com.entity.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CartRepository extends JpaRepository <Cart, Long>, JpaSpecificationExecutor<Cart> {
+public interface CartRepository extends JpaRepository <Cart, Long> {
 
-    List<Cart> findByUser_UserId(Long userId);
+    List<Cart> findByUserUserId(Long userId);
 
-    Optional<Cart> findByUser_UserIdAndProduct_ProductId(Long userId, Long productId);
+    Optional<Cart> findByUserUserIdAndProductProductId(Long userId, Long productId);
 
-    boolean existsByUser_UserIdAndProduct_ProductId(Long userId, Long productId);
+    boolean existsByUserUserIdAndProductProductId(Long userId, Long productId);
 
-    void deleteByUser_UserIdAndProduct_ProductId(Long userId, Long productId);
+    void deleteByUserUserIdAndProductProductId(Long userId, Long productId);
 
-    long countByUser_UserId(Long userId);
+    long countByUserUserId(Long userId);
 }

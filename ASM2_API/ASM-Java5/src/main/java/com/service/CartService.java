@@ -32,7 +32,7 @@ public class CartService {
             throw new RuntimeException("User not found with id: " + userId);
         }
 
-        List<Cart> carts = cartRepository.findByUser_UserId(userId);
+        List<Cart> carts = cartRepository.findByUserUserId(userId);
         return carts.stream()
                 .map(cartMapper::toDTO)
                 .collect(Collectors.toList());
@@ -46,7 +46,7 @@ public class CartService {
         Product product = productRepository.findById(request.productId())
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.productId()));
 
-        Optional<Cart> existingCart = cartRepository.findByUser_UserIdAndProduct_ProductId(
+        Optional<Cart> existingCart = cartRepository.findByUserUserIdAndProductProductId(
                 request.userId(), request.productId());
 
         Cart cart;
@@ -55,8 +55,8 @@ public class CartService {
             cart.setQuantity(cart.getQuantity() + request.quantity());
         } else {
             cart = new Cart();
-            cart.setUser(user);
-            cart.setProduct(product);
+            cart.assignUser(user);
+            cart.assignProduct(product);
             cart.setQuantity(request.quantity());
         }
 
@@ -70,7 +70,7 @@ public class CartService {
             throw new IllegalArgumentException("Quantity must be greater than 0");
         }
 
-        Cart cart = cartRepository.findByUser_UserIdAndProduct_ProductId(userId, productId)
+        Cart cart = cartRepository.findByUserUserIdAndProductProductId(userId, productId)
                 .orElseThrow(() -> new RuntimeException(
                         "Cart item not found for user " + userId + " and product " + productId));
 
@@ -82,12 +82,12 @@ public class CartService {
 
     @Transactional
     public void removeFromCart(Long userId, Long productId) {
-        if (!cartRepository.existsByUser_UserIdAndProduct_ProductId(userId, productId)) {
+        if (!cartRepository.existsByUserUserIdAndProductProductId(userId, productId)) {
             throw new RuntimeException(
                     "Cart item not found for user " + userId + " and product " + productId);
         }
 
-        cartRepository.deleteByUser_UserIdAndProduct_ProductId(userId, productId);
+        cartRepository.deleteByUserUserIdAndProductProductId(userId, productId);
     }
 
     @Transactional
@@ -96,12 +96,12 @@ public class CartService {
             throw new RuntimeException("User not found with id: " + userId);
         }
 
-        List<Cart> carts = cartRepository.findByUser_UserId(userId);
+        List<Cart> carts = cartRepository.findByUserUserId(userId);
         cartRepository.deleteAll(carts);
     }
 
     @Transactional(readOnly = true)
     public long getCartItemCount(Long userId) {
-        return cartRepository.countByUser_UserId(userId);
+        return cartRepository.countByUserUserId(userId);
     }
 }

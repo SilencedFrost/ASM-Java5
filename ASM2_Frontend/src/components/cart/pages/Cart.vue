@@ -286,234 +286,174 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
-export default {
-  name: 'Cart',
-  data() {
-    return {
-      cartItems: [],
-      loading: false,
-      error: null,
-      userId: 100005,
-    }
-  },
-  computed: {
-    subtotal() {
-      return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
-    },
-    totalPrice() {
-      const tax = this.subtotal * 0.1
-      return this.subtotal + tax
-    },
-  },
-  methods: {
-    formatCurrency(value) {
-      return value.toLocaleString('vi-VN', {
-        style: 'currency',
-        currency: 'VND',
-      })
-    },
+// Reactive state
+const cartItems = ref([])
+const loading = ref(false)
+const error = ref(null)
+const userId = ref(100005) // TODO: Lấy từ session/authentication thực tế
 
-    async fetchCart() {
-      this.loading = true
-      this.error = null
-      
-      try {
-        const cartRes = await axios.get(
-          `${import.meta.env.VITE_API_BASE}/cart/${this.userId}`
-        )
-        
-        console.log('Cart response:', cartRes.data)
-        
-        const enrichedItems = await Promise.all(
-          cartRes.data.map(async (cartItem) => {
-            try {
-              const productRes = await axios.get(
-                `${import.meta.env.VITE_API_BASE}/products/${cartItem.productId}`
-              )
-              
-              const product = productRes.data
-              
-              const variation = product.productVariations?.find(
-                v => v.variationId === cartItem.variationId
-              ) || product.productVariations?.[0]
-              
-              return {
-                id: cartItem.cartId,
-                cartId: cartItem.cartId,
-                productId: cartItem.productId,
-                variationId: cartItem.variationId,
-                name: product.productName || 'Sản phẩm',
-                image: product.thumbnailExtension
-                  ? `${import.meta.env.VITE_API_BASE}/images/products/${product.productId}.${product.thumbnailExtension}`
-                  : '/placeholder.jpg',
-                price: variation?.price || 0,
-                quantity: cartItem.quantity,
-                dateAdded: cartItem.dateAdded,
-              }
-            } catch (err) {
-              console.error(`Lỗi load product ${cartItem.productId}:`, err)
-              return {
-                id: cartItem.cartId,
-                cartId: cartItem.cartId,
-                productId: cartItem.productId,
-                variationId: cartItem.variationId,
-                name: `Sản phẩm #${cartItem.productId}`,
-                image: '/placeholder.jpg',
-                price: 0,
-                quantity: cartItem.quantity,
-                dateAdded: cartItem.dateAdded,
-              }
-            }
-          })
-        )
-        
-        this.cartItems = enrichedItems
-        console.log('Enriched cart items:', this.cartItems)
-        
-      } catch (err) {
-        console.error('Lỗi tải giỏ hàng:', err)
-        this.error = 'Không thể tải dữ liệu giỏ hàng'
-        
-        this.loadMockData()
-      } finally {
-        this.loading = false
-      }
-    },
+// Computed properties
+const subtotal = computed(() => {
+  return cartItems.value.reduce((total, item) => total + item.price * item.quantity, 0)
+})
 
-    loadMockData() {
-      this.cartItems = [
-        {
-          id: 1,
-          productId: 100000,
-          name: 'Trà sữa trân châu đường đen',
-          image: '/placeholder.jpg',
-          price: 35000,
-          quantity: 2,
-        },
-        {
-          id: 2,
-          productId: 100001,
-          name: 'Trà sữa matcha',
-          image: '/placeholder.jpg',
-          price: 36000,
-          quantity: 1,
-        },
-        {
-          id: 3,
-          productId: 100004,
-          name: 'Phở bò tái',
-          image: '/placeholder.jpg',
-          price: 50000,
-          quantity: 3,
-        },
-      ]
-    },
+const totalPrice = computed(() => {
+  const tax = subtotal.value * 0.1
+  return subtotal.value + tax
+})
 
-    async updateQuantity(item) {
-      if (item.quantity < 1) {
-        item.quantity = 1
-        return
-      }
-
-      try {
-        await axios.put(
-          `${import.meta.env.VITE_API_BASE}/cart/${this.userId}/product/${item.productId}`,
-          { quantity: item.quantity }
-        )
-        console.log('Updated quantity:', item.quantity)
-      } catch (err) {
-        console.error('Lỗi cập nhật số lượng:', err)
-        this.showToast('Không thể cập nhật số lượng', 'error')
-        this.fetchCart()
-      }
-    },
-
-    async increaseQuantity(item) {
-      item.quantity++
-      await this.updateQuantity(item)
-    },
-
-    async decreaseQuantity(item) {
-      if (item.quantity > 1) {
-        item.quantity--
-        await this.updateQuantity(item)
-      }
-    },
-
-    async removeItem(id) {
-      if (!confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')) {
-        return
-      }
-
-      const item = this.cartItems.find((i) => i.id === id)
-      if (!item) return
-
-      try {
-        await axios.delete(
-          `${import.meta.env.VITE_API_BASE}/cart/${this.userId}/product/${item.productId}`
-        )
-
-        this.cartItems = this.cartItems.filter((i) => i.id !== id)
-        this.showToast('Đã xóa sản phẩm khỏi giỏ hàng', 'success')
-      } catch (err) {
-        console.error('Lỗi xóa sản phẩm:', err)
-        this.showToast('Không thể xóa sản phẩm', 'error')
-      }
-    },
-
-    async clearCart() {
-      if (!confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm trong giỏ hàng?')) {
-        return
-      }
-
-      try {
-        await axios.delete(`${import.meta.env.VITE_API_BASE}/cart/${this.userId}`)
-
-        this.cartItems = []
-        this.showToast('Đã xóa tất cả sản phẩm khỏi giỏ hàng', 'info')
-      } catch (err) {
-        console.error('Lỗi xóa giỏ hàng:', err)
-        this.showToast('Không thể xóa giỏ hàng', 'error')
-      }
-    },
-
-    checkout() {
-      if (this.cartItems.length === 0) {
-        alert('Giỏ hàng của bạn đang trống!')
-        return
-      }
-      
-      console.log('Checkout with items:', this.cartItems)
-      alert('Chức năng thanh toán đang được phát triển...')
-    },
-
-    continueShopping() {
-
-      console.log('Continue shopping...')
-
-      window.location.href = '/products'
-    },
-
-    showToast(message, type = 'info') {
-      console.log(`${type.toUpperCase()}: ${message}`)
-      alert(message)
-    },
-  },
-
-  mounted() {
-    this.fetchCart()
-
-    if (typeof window !== 'undefined' && window.bootstrap) {
-      const tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]')
-      )
-      tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new window.bootstrap.Tooltip(tooltipTriggerEl)
-      })
-    }
-  },
+// Methods
+const formatCurrency = (value) => {
+  return value.toLocaleString('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+  })
 }
+
+const fetchCart = async () => {
+  loading.value = true
+  error.value = null
+
+  try {
+    const cartRes = await axios.get(
+      `${import.meta.env.VITE_API_BASE}/cart/${userId.value}`
+    )
+
+    console.log('Cart response:', cartRes.data)
+
+    const enrichedItems = await Promise.all(
+      cartRes.data.map(async (cartItem) => {
+        try {
+          const productRes = await axios.get(
+            `${import.meta.env.VITE_API_BASE}/products/${cartItem.productId}`
+          )
+
+          const product = productRes.data
+          const variation =
+            product.productVariations?.find((v) => v.variationId === cartItem.variationId) ||
+            product.productVariations?.[0]
+
+          return {
+            id: cartItem.cartId,
+            cartId: cartItem.cartId,
+            productId: cartItem.productId,
+            variationId: cartItem.variationId,
+            name: product.productName || 'Sản phẩm',
+            image: product.thumbnailExtension
+              ? `${import.meta.env.VITE_API_BASE}/images/products/${product.productId}.${product.thumbnailExtension}`
+              : '/placeholder.jpg',
+            price: variation?.price || 0,
+            quantity: cartItem.quantity,
+            dateAdded: cartItem.dateAdded,
+          }
+        } catch (err) {
+          console.error(`Lỗi load product ${cartItem.productId}:`, err)
+          return {
+            id: cartItem.cartId,
+            cartId: cartItem.cartId,
+            productId: cartItem.productId,
+            name: `Sản phẩm #${cartItem.productId}`,
+            image: '/placeholder.jpg',
+            price: 0,
+            quantity: cartItem.quantity,
+          }
+        }
+      })
+    )
+
+    cartItems.value = enrichedItems
+    console.log('Enriched cart items:', cartItems.value)
+  } catch (err) {
+    console.error('Lỗi tải giỏ hàng:', err)
+    error.value = 'Không thể tải dữ liệu giỏ hàng'
+  } finally {
+    loading.value = false
+  }
+}
+
+const updateQuantity = async (item) => {
+  if (item.quantity < 1) {
+    item.quantity = 1
+    return
+  }
+
+  try {
+    await axios.put(
+      `${import.meta.env.VITE_API_BASE}/cart/${userId.value}/product/${item.productId}`,
+      { quantity: item.quantity }
+    )
+  } catch (err) {
+    console.error('Lỗi cập nhật số lượng:', err)
+    alert('Không thể cập nhật số lượng')
+    fetchCart()
+  }
+}
+
+const increaseQuantity = async (item) => {
+  item.quantity++
+  await updateQuantity(item)
+}
+
+const decreaseQuantity = async (item) => {
+  if (item.quantity > 1) {
+    item.quantity--
+    await updateQuantity(item)
+  }
+}
+
+const removeItem = async (id) => {
+  if (!confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+    return
+  }
+
+  const item = cartItems.value.find((i) => i.id === id)
+  if (!item) return
+
+  try {
+    await axios.delete(
+      `${import.meta.env.VITE_API_BASE}/cart/${userId.value}/product/${item.productId}`
+    )
+    cartItems.value = cartItems.value.filter((i) => i.id !== id)
+    alert('Đã xóa sản phẩm khỏi giỏ hàng')
+  } catch (err) {
+    console.error('Lỗi xóa sản phẩm:', err)
+    alert('Không thể xóa sản phẩm')
+  }
+}
+
+const clearCart = async () => {
+  if (!confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm trong giỏ hàng?')) {
+    return
+  }
+
+  try {
+    await axios.delete(`${import.meta.env.VITE_API_BASE}/cart/${userId.value}`)
+    cartItems.value = []
+    alert('Đã xóa tất cả sản phẩm khỏi giỏ hàng')
+  } catch (err) {
+    console.error('Lỗi xóa giỏ hàng:', err)
+    alert('Không thể xóa giỏ hàng')
+  }
+}
+
+const checkout = () => {
+  if (cartItems.value.length === 0) {
+    alert('Giỏ hàng của bạn đang trống!')
+    return
+  }
+  alert('Chức năng thanh toán đang được phát triển...')
+}
+
+const continueShopping = () => {
+  window.location.href = '/products'
+}
+
+// Lifecycle
+onMounted(() => {
+  fetchCart()
+})
 </script>
