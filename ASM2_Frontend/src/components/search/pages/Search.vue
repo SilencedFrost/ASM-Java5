@@ -42,16 +42,16 @@ watch(
 
 <template>
   <div class="container-fluid p-2">
-    <div v-if="loading" class="alert alert-info">Loading products...</div>
-    <div v-else-if="error" class="alert alert-danger">
-      {{ error }}
-    </div>
-    <div v-else-if="products.length === 0" class="text-center mt-5 d-flex flex-column">
+    <div v-if="loading" class="text-center mt-5 d-flex flex-column">
       <i class="bi bi-search h1 text-muted"></i>
-      <span class="text-muted h4">Không tìm thấy sản phẩm nào cho từ khóa "{{ keyword }}"</span>
+      <span class="text-muted h4">Searching products with keyword: {{ keyword }}</span>
+    </div>
+    <div v-else-if="products.length === 0 || error" class="text-center mt-5 d-flex flex-column">
+      <i class="bi bi-search h1 text-muted"></i>
+      <span class="text-muted h4">Products not found for keyword: {{ keyword }}</span>
     </div>
     <div v-else>
-      <h2>Kết quả tìm kiếm cho từ khóa: {{ keyword }}</h2>
+      <h2>Result for keyword: {{ keyword }}</h2>
       <div class="row g-3">
         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" v-for="product in products">
           <display-item :product="product" />
