@@ -18,6 +18,8 @@ import ForgotPassword from '@/components/auth/pages/ForgotPassword.vue'
 import OrderDetail from '@/components/order/pages/OrderDetail.vue'
 import OrderStatus from '@/components/order/pages/OrderStatus.vue'
 import AuthLayout from '@/components/auth/layout/AuthLayout.vue'
+import VerifyOtp from '@/components/auth/pages/VerifyOtp.vue'
+import ChangePassword from '@/components/auth/pages/ChangePassword.vue'
 
 const routes = [
   { path: '/order', component: OrderDetail, meta: { title: 'Order detail' } },
@@ -28,6 +30,8 @@ const routes = [
       { path: 'login', component: Login, meta: { title: 'Login' } },
       { path: 'register', component: Signup, meta: { title: 'Register' } },
       { path: 'forgot-password', component: ForgotPassword, meta: { title: 'Forgot password' } },
+      { path: 'verify-otp', component: VerifyOtp, meta: {title: 'Verify OTP'}},
+      { path: 'change-password', component: ChangePassword, meta: {title: 'Change Password'}},
     ],
   },
   {

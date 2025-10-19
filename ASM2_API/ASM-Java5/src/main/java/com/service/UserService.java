@@ -18,11 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.security.SecureRandom;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -33,6 +35,8 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
     private final HashService hashService;
+    private final JavaMailSender mailSender;
+    private final SecureRandom secureRandom = new SecureRandom();
 
     public Page<UserResponse> findAll(Pageable pageable) {
         return userRepository.findAll(pageable).map(userMapper::toDTO);
@@ -109,5 +113,43 @@ public class UserService {
     @Transactional
     public void delete(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public String generateOtp() {
+        return String.format("%06d", secureRandom.nextInt(1_000_000));
+    }
+
+    public void sendOtpEmail(String toEmail, String otp) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject("Mã xác nhận đặt lại mật khẩu");
+        message.setText("""
+                Xin chào,
+                
+                Mã OTP của bạn là: %s
+                
+                Mã này chỉ có hiệu lực trong thời gian phiên làm việc hiện tại.
+                
+                Trân trọng,
+                Hệ thống hỗ trợ tài khoản.
+                """.formatted(otp));
+        mailSender.send(message);
+    }
+
+    @Transactional
+    public boolean updatePasswordByEmail(String email, String newPassword) {
+        Optional<User> userOpt = userRepository.findByEmailIgnoreCase(email);
+        if (userOpt.isEmpty()) {
+            return false;
+        }
+
+        User user = userOpt.get();
+        user.setPasswordHash(hashService.hashPassword(newPassword));
+        userRepository.save(user);
+        return true;
     }
 }
