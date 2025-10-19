@@ -60,7 +60,7 @@ function loginWithGoogle() {}
 </script>
 
 <template>
-  <div class="d-flex flex-fill justify-content-center align-items-center bg-warning">
+  <div class="d-flex flex-fill justify-content-center align-items-center">
     <div class="card shadow-sm p-3 bg-light" style="max-width: 400px; width: 100%">
       <h2 class="text-center text-dark">Đăng nhập</h2>
       <hr />

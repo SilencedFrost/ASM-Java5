@@ -60,7 +60,7 @@ function registerWithGoogle() {}
 </script>
 
 <template>
-  <div class="d-flex flex-fill justify-content-center align-items-center py-4 bg-warning">
+  <div class="d-flex flex-fill justify-content-center align-items-center py-4">
     <div class="card shadow-sm p-4 bg-light" style="max-width: 500px; width: 100%">
       <h2 class="text-center text-dark">Đăng ký</h2>
       <hr />
