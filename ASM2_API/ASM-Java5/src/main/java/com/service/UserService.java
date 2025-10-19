@@ -35,8 +35,6 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
     private final HashService hashService;
-    private final JavaMailSender mailSender;
-    private final SecureRandom secureRandom = new SecureRandom();
 
     public Page<UserResponse> findAll(Pageable pageable) {
         return userRepository.findAll(pageable).map(userMapper::toDTO);
@@ -117,27 +115,6 @@ public class UserService {
 
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
-    }
-
-    public String generateOtp() {
-        return String.format("%06d", secureRandom.nextInt(1_000_000));
-    }
-
-    public void sendOtpEmail(String toEmail, String otp) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(toEmail);
-        message.setSubject("Mã xác nhận đặt lại mật khẩu");
-        message.setText("""
-                Xin chào,
-                
-                Mã OTP của bạn là: %s
-                
-                Mã này chỉ có hiệu lực trong thời gian phiên làm việc hiện tại.
-                
-                Trân trọng,
-                Hệ thống hỗ trợ tài khoản.
-                """.formatted(otp));
-        mailSender.send(message);
     }
 
     @Transactional

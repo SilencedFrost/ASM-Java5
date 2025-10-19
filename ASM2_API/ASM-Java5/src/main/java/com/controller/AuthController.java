@@ -1,13 +1,13 @@
 package com.controller;
 
-import com.dto.auth.LoginRequest;
-import com.dto.auth.RegisterRequest;
+import com.dto.auth.*;
 import com.dto.user.UserResponse;
-import com.dto.auth.ResetPasswordRequest;
 import com.exception.InvalidLoginException;
 import com.exception.UserAlreadyExistException;
 import com.service.SessionService;
 import com.service.UserService;
+import com.service.EmailService;
+import com.util.TokenGeneratorUtil;
 import com.util.SessionCookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -30,6 +30,8 @@ public class AuthController {
     private final UserService userService;
     private final SessionService sessionService;
     private final SessionCookieUtil sessionCookieUtil;
+    private final TokenGeneratorUtil tokenGeneratorUtil;
+    private final EmailService emailService;
 
     /**
      * POST /api/auth/login
@@ -110,21 +112,22 @@ public class AuthController {
      *
      */
     @PostMapping("/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> requestBody, HttpServletRequest request) {
-        String email = requestBody.get("email");
+    public ResponseEntity<String> forgotPassword(@Valid @RequestBody EmailRequest emailRequest,
+                                                 HttpServletRequest request) {
+        String email = emailRequest.email();
 
         boolean exists = userService.existsByEmail(email);
         if (!exists) {
             return ResponseEntity.badRequest().body("Invalid or unregistered email");
         }
 
-        String otp = userService.generateOtp();
+        String otp = tokenGeneratorUtil.generateOtp();
 
         request.getSession(true).setAttribute("otp", otp);
         request.getSession().setAttribute("otpEmail", email);
         request.getSession().setMaxInactiveInterval(300);
 
-        userService.sendOtpEmail(email, otp);
+        emailService.sendOtpEmail(email, otp);
 
         return ResponseEntity.ok("An OTP has been sent to  " + email);
     }
@@ -136,10 +139,10 @@ public class AuthController {
 
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOtp(
-            @RequestBody Map<String, String> body,
+            @Valid @RequestBody OtpRequest otpRequest,
             HttpServletRequest request) {
 
-        String otpInput = body.get("otp");
+        String otpInput = otpRequest.otp();
 
         Object otpSaved = request.getSession().getAttribute("otp");
         Object emailSaved = request.getSession().getAttribute("otpEmail");
