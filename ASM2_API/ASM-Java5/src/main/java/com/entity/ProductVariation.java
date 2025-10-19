@@ -43,10 +43,6 @@ public class ProductVariation {
     private OffsetDateTime updatedAt;
 
     @Setter
-    @Column(name = "stock_count", nullable = false)
-    private Integer stockCount;
-
-    @Setter
     @Column(name = "image_extension", length = 5)
     private String imageExtension;
 

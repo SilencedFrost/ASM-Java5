@@ -200,7 +200,6 @@ CREATE TABLE IF NOT EXISTS public.product_variation
     product_id bigint NOT NULL,
     date_added timestamptz NOT NULL,
     updated_at timestamptz,
-    stock_count integer NOT NULL CHECK (stock_count >= 0),
     image_extension varchar(5),
     product_size varchar(32) NOT NULL,
     variation varchar(32) NOT NULL,
@@ -369,52 +368,53 @@ INSERT INTO public.product (product_name, seller_id, category_id, date_added, up
 
 -- Product variation
 -- 100000: Trà sữa trân châu đường đen
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100000, '2021-03-14 10:30:00+07', '2023-01-21 11:45:00+07', 120, 'jpg', 'M', 'Trân châu', 35000.00, true);
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100000, '2021-03-14 10:30:00+07', '2024-04-09 12:30:00+07', 95, 'jpg', 'L', 'Trân châu', 39000.00, true);
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100000, '2021-03-14 10:30:00+07', '2024-04-09 12:30:00+07', 110, 'jpg', 'L', 'Kem cheese', 42000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100000, '2021-03-14 10:30:00+07', '2023-01-21 11:45:00+07', 'jpg', 'M', 'Trân châu', 35000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100000, '2021-03-14 10:30:00+07', '2023-01-21 11:45:00+07', 'jpg', 'M', 'Kem cheese', 38000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100000, '2021-03-14 10:30:00+07', '2024-04-09 12:30:00+07', 'jpg', 'L', 'Trân châu', 39000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100000, '2021-03-14 10:30:00+07', '2024-04-09 12:30:00+07', 'jpg', 'L', 'Kem cheese', 42000.00, true);
 -- 100001: Trà sữa matcha
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100001, '2022-02-10 09:00:00+07', '2023-06-25 10:00:00+07', 80, 'jpg', 'M', 'default', 36000.00, true);
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100001, '2022-02-10 09:00:00+07', '2024-08-12 12:00:00+07', 65, 'jpg', 'L', 'default', 40000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100001, '2022-02-10 09:00:00+07', '2023-06-25 10:00:00+07', 'jpg', 'M', 'default', 36000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100001, '2022-02-10 09:00:00+07', '2024-08-12 12:00:00+07', 'jpg', 'L', 'default', 40000.00, true);
 -- 100002: Trà sữa khoai môn
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100002, '2023-01-11 13:20:00+07', '2025-05-05 14:00:00+07', 90, 'jpg', 'M', 'Trân châu', 37000.00, true);
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100002, '2023-01-11 13:20:00+07', '2025-05-05 14:00:00+07', 70, 'jpg', 'L', 'Trân châu', 41000.00, true);
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100002, '2023-01-11 13:20:00+07', '2025-05-05 14:00:00+07', 60, 'jpg', 'L', 'Thạch dừa', 42000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100002, '2023-01-11 13:20:00+07', '2025-05-05 14:00:00+07', 'jpg', 'M', 'Trân châu', 37000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100002, '2023-01-11 13:20:00+07', '2025-05-05 14:00:00+07', 'jpg', 'L', 'Trân châu', 41000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100002, '2023-01-11 13:20:00+07', '2025-05-05 14:00:00+07', 'jpg', 'L', 'Thạch dừa', 42000.00, true);
 -- 100003: Trà sữa socola
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100003, '2023-03-10 10:30:00+07', '2025-02-15 11:00:00+07', 100, 'jpg', 'M', 'default', 38000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100003, '2023-03-10 10:30:00+07', '2025-02-15 11:00:00+07', 'jpg', 'M', 'default', 38000.00, true);
 -- 100004: Phở bò tái
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100004, '2020-10-12 07:00:00+07', '2022-06-19 09:00:00+07', 60, 'jpg', 'default', 'default', 50000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100004, '2020-10-12 07:00:00+07', '2022-06-19 09:00:00+07', 'jpg', 'default', 'default', 50000.00, true);
 -- 100005: Phở gà
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100005, '2021-06-12 07:30:00+07', '2023-08-11 10:00:00+07', 85, 'jpg', 'default', 'default', 45000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100005, '2021-06-12 07:30:00+07', '2023-08-11 10:00:00+07', 'jpg', 'default', 'default', 45000.00, true);
 -- 100006: Phở bò viên
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100006, '2022-10-15 08:30:00+07', '2024-09-18 09:15:00+07', 70, 'jpg', 'default', 'default', 52000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100006, '2022-10-15 08:30:00+07', '2024-09-18 09:15:00+07', 'jpg', 'default', 'default', 52000.00, true);
 -- 100007: Bún bò Huế
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100007, '2020-05-20 09:45:00+07', '2023-06-01 11:30:00+07', 100, 'jpg', 'default', 'default', 55000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100007, '2020-05-20 09:45:00+07', '2023-06-01 11:30:00+07', 'jpg', 'default', 'default', 55000.00, true);
 -- 100008: Bún riêu cua
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100008, '2021-11-10 08:10:00+07', '2024-05-20 09:50:00+07', 90, 'jpg', 'default', 'default', 48000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100008, '2021-11-10 08:10:00+07', '2024-05-20 09:50:00+07', 'jpg', 'default', 'default', 48000.00, true);
 -- 100009: Bún chả Hà Nội
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100009, '2022-02-25 07:50:00+07', '2025-01-12 09:00:00+07', 110, 'jpg', 'default', 'default', 52000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100009, '2022-02-25 07:50:00+07', '2025-01-12 09:00:00+07', 'jpg', 'default', 'default', 52000.00, true);
 -- 100010: Hủ tiếu Nam Vang
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100010, '2020-11-10 06:40:00+07', '2023-03-05 08:20:00+07', 75, 'jpg', 'default', 'default', 48000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100010, '2020-11-10 06:40:00+07', '2023-03-05 08:20:00+07', 'jpg', 'default', 'default', 48000.00, true);
 -- 100011: Hủ tiếu bò khô
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100011, '2021-05-11 07:30:00+07', '2024-02-25 09:10:00+07', 95, 'jpg', 'default', 'default', 49000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100011, '2021-05-11 07:30:00+07', '2024-02-25 09:10:00+07', 'jpg', 'default', 'default', 49000.00, true);
 -- 100012: Hủ tiếu hải sản
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100012, '2023-01-01 08:00:00+07', '2025-05-25 10:00:00+07', 65, 'jpg', 'default', 'default', 52000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100012, '2023-01-01 08:00:00+07', '2025-05-25 10:00:00+07', 'jpg', 'default', 'default', 52000.00, true);
 -- 100013: Takoyaki truyền thống
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100013, '2021-02-15 13:00:00+07', '2023-08-11 14:00:00+07', 130, 'jpg', '6 viên', 'default', 35000.00, true);
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100013, '2021-02-15 13:00:00+07', '2024-02-05 14:00:00+07', 120, 'jpg', '8 viên', 'default', 42000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100013, '2021-02-15 13:00:00+07', '2023-08-11 14:00:00+07', 'jpg', '6 viên', 'default', 35000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100013, '2021-02-15 13:00:00+07', '2024-02-05 14:00:00+07', 'jpg', '8 viên', 'default', 42000.00, true);
 -- 100014: Takoyaki phô mai
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100014, '2022-03-20 13:30:00+07', '2024-09-25 14:30:00+07', 140, 'jpg', '6 viên', 'Phô mai', 38000.00, true);
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100014, '2022-03-20 13:30:00+07', '2024-09-25 14:30:00+07', 100, 'jpg', '8 viên', 'Phô mai', 45000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100014, '2022-03-20 13:30:00+07', '2024-09-25 14:30:00+07', 'jpg', '6 viên', 'Phô mai', 38000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100014, '2022-03-20 13:30:00+07', '2024-09-25 14:30:00+07', 'jpg', '8 viên', 'Phô mai', 45000.00, true);
 -- 100015: Takoyaki cay
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100015, '2023-04-15 12:10:00+07', '2025-07-11 13:15:00+07', 150, 'jpg', '6 viên', 'Cay', 36000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100015, '2023-04-15 12:10:00+07', '2025-07-11 13:15:00+07', 'jpg', '6 viên', 'Cay', 36000.00, true);
 -- 100016: Trà sữa bạc hà
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100016, '2020-09-20 14:00:00+07', '2023-11-11 15:00:00+07', 95, 'jpg', 'M', 'default', 34000.00, true);
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100016, '2020-09-20 14:00:00+07', '2024-09-10 16:00:00+07', 80, 'jpg', 'L', 'default', 38000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100016, '2020-09-20 14:00:00+07', '2023-11-11 15:00:00+07', 'jpg', 'M', 'default', 34000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100016, '2020-09-20 14:00:00+07', '2024-09-10 16:00:00+07', 'jpg', 'L', 'default', 38000.00, true);
 -- 100017: Bún thịt nướng
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100017, '2023-08-10 09:00:00+07', '2025-08-20 10:15:00+07', 60, 'jpg', 'default', 'default', 50000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100017, '2023-08-10 09:00:00+07', '2025-08-20 10:15:00+07', 'jpg', 'default', 'default', 50000.00, true);
 -- 100018: Phở đặc biệt thập cẩm
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100018, '2024-02-15 07:45:00+07', '2025-07-01 09:00:00+07', 85, 'jpg', 'default', 'default', 58000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100018, '2024-02-15 07:45:00+07', '2025-07-01 09:00:00+07', 'jpg', 'default', 'default', 58000.00, true);
 -- 100019: Hủ tiếu sa tế
-INSERT INTO public.product_variation (product_id, date_added, updated_at, stock_count, image_extension, product_size, variation, price, is_active) VALUES (100019, '2022-06-05 07:30:00+07', '2025-02-10 09:30:00+07', 75, 'jpg', 'default', 'default', 51000.00, true);
+INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price, is_active) VALUES (100019, '2022-06-05 07:30:00+07', '2025-02-10 09:30:00+07', 'jpg', 'default', 'default', 51000.00, true);
 
 
