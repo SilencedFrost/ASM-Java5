@@ -67,6 +67,16 @@ public class ProductService {
             return productList.stream().map(productMapper::toSummaryDTO).collect(Collectors.toList());
     }
 
+    public List<ProductSummaryResponse> findTop5Latest() {
+        List<Product> productList = productRepository.findTop5ByOrderByCreationDateDesc();
+        return productList.stream().map(productMapper::toSummaryDTO).collect(Collectors.toList());
+    }
+
+    public List<ProductSummaryResponse> findTop5BestSelling() {
+        List<Product> productList = productRepository.findTop5ByOrderByTotalSalesDesc();
+        return productList.stream().map(productMapper::toSummaryDTO).collect(Collectors.toList());
+    }
+
     @Transactional
     public boolean create(ProductCreateRequest productCreateRequest) {
         Category category = categoryRepository.findById(productCreateRequest.categoryId())

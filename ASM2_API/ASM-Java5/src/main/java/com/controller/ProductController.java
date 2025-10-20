@@ -40,4 +40,14 @@ public class ProductController {
     public ResponseEntity<List<ProductSummaryResponse>> searchProducts(@RequestParam(required = false, defaultValue = "") String keyword) {
         return ResponseEntity.ok(productService.findByNameLike(keyword));
     }
+
+    @GetMapping("/top/new")
+    public ResponseEntity<List<ProductSummaryResponse>> findTop5Latest() {
+        return ResponseEntity.ok(productService.findTop5Latest());
+    }
+
+    @GetMapping("/top/selling")
+    public ResponseEntity<List<ProductSummaryResponse>> findTop5BestSelling() {
+        return ResponseEntity.ok(productService.findTop5BestSelling());
+    }
 }

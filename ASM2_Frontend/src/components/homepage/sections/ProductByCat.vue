@@ -33,15 +33,14 @@ onMounted(fetchCategories)
       <section
         v-for="category in categories"
         :key="category.categoryId"
-        :id="'category' + category.categoryId"
-      >
+        :id="'category' + category.categoryId">
         <div class="text-center my-4">
           <h1 class="fw-bold">
             {{ category.categoryName }}
           </h1>
         </div>
         <div class="row g-3">
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" v-for="product in category.products">
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" v-for="product in category.productSummaryResponses">
             <display-item :product="product" />
           </div>
         </div>
@@ -53,9 +52,3 @@ onMounted(fetchCategories)
     </div>
   </div>
 </template>
-
-<style scoped>
-section {
-  scroll-margin-top: 80px;
-}
-</style>
