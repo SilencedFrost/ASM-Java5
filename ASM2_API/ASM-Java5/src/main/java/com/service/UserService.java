@@ -18,11 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.security.SecureRandom;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -109,5 +111,22 @@ public class UserService {
     @Transactional
     public void delete(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Transactional
+    public boolean updatePasswordByEmail(String email, String newPassword) {
+        Optional<User> userOpt = userRepository.findByEmailIgnoreCase(email);
+        if (userOpt.isEmpty()) {
+            return false;
+        }
+
+        User user = userOpt.get();
+        user.setPasswordHash(hashService.hashPassword(newPassword));
+        userRepository.save(user);
+        return true;
     }
 }
