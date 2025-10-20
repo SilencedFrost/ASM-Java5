@@ -2,6 +2,7 @@ package com.service;
 
 import com.dto.auth.LoginRequest;
 import com.dto.auth.RegisterRequest;
+import com.dto.user.ProfileUpdateRequest;
 import com.dto.user.UserCreateRequest;
 import com.dto.user.UserResponse;
 import com.dto.user.UserUpdateRequest;
@@ -104,6 +105,21 @@ public class UserService {
         }
 
         return userMapper.toDTO(existingUser);
+    }
+
+    @Transactional
+    public UserResponse updateProfile(Long userId, ProfileUpdateRequest request) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        user.setFirstName(request.firstName());
+        user.setLastName(request.lastName());
+        user.setBirthday(request.birthday());
+
+        User updatedUser = userRepository.save(user);
+
+        return userMapper.toDTO(updatedUser);
     }
 
     @Transactional
