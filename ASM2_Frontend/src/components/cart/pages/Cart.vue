@@ -257,7 +257,7 @@
             <div class="mb-4">
               <i class="fas fa-shopping-cart fa-5x text-muted"></i>
             </div>
-            <h4 class="card-title text-muted mb-3">Giỏ hàng của bạn đang trống</h4>
+            <h4 class="card-title text-muted mb-3">Giỏ hàng đang trống</h4>
             <p class="card-text text-muted mb-4">
               Hãy thêm một số sản phẩm vào giỏ hàng để bắt đầu mua sắm!
             </p>
@@ -268,17 +268,6 @@
               <i class="fas fa-shopping-bag me-2"></i>
               Bắt đầu mua sắm
             </button>
-
-            <!-- Suggested Categories -->
-            <div class="mt-4">
-              <p class="text-muted mb-3">Danh mục phổ biến:</p>
-              <div class="d-flex justify-content-center flex-wrap gap-2">
-                <span class="badge bg-secondary px-3 py-2">Laptop & PC</span>
-                <span class="badge bg-secondary px-3 py-2">Điện thoại</span>
-                <span class="badge bg-secondary px-3 py-2">Phụ kiện</span>
-                <span class="badge bg-secondary px-3 py-2">Gaming</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -449,7 +438,7 @@ const checkout = () => {
 }
 
 const continueShopping = () => {
-  window.location.href = '/products'
+  window.location.href = '/'
 }
 
 // Lifecycle
