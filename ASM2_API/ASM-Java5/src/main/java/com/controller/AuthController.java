@@ -122,7 +122,7 @@ public class AuthController {
         }
 
         String otp = tokenGeneratorUtil.generateOtp();
-
+        log.info("--- DEBUG: OTP for email [{}] is: {} ---", email, otp);
         request.getSession(true).setAttribute("otp", otp);
         request.getSession().setAttribute("otpEmail", email);
         request.getSession().setMaxInactiveInterval(300);
@@ -163,7 +163,7 @@ public class AuthController {
      * POST /api/auth/reset-password
      * Reset user password after successful OTP verification
      */
-    @PostMapping("/change-password")
+    @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(
             @Valid @RequestBody ResetPasswordRequest resetRequest, HttpServletRequest request) {
 

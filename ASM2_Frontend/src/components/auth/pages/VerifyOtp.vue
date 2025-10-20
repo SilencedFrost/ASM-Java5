@@ -52,7 +52,7 @@ async function onSubmit() {
         message.value = res.data
         
         setTimeout(() => router.push({
-            path: '/auth/change-password', 
+            path: '/auth/reset-password', 
             query: { email: email.value } 
         }), 1500)
 

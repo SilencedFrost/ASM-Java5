@@ -30,7 +30,7 @@ async function onSubmit() {
 
   try {
     const res = await axios.post(
-      import.meta.env.VITE_API_BASE + '/auth/change-password',
+      import.meta.env.VITE_API_BASE + '/auth/reset-password',
       { newPassword: newPassword.value },
       { withCredentials: true }
     )
