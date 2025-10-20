@@ -1,6 +1,6 @@
 # Database Configuration
 spring.datasource.url=jdbc:postgresql://localhost:5432/EasyEat
-spring.datasource.username=your_username
+spring.datasource.username=postgres
 spring.datasource.password=your_password
 spring.datasource.driver-class-name=org.postgresql.Driver
 
@@ -17,6 +17,7 @@ spring.devtools.restart.poll-interval=2s
 spring.devtools.restart.quiet-period=1s
 spring.devtools.livereload.port=35729
 
+# Mail
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
 spring.mail.username=youremail@fpt.edu.vn

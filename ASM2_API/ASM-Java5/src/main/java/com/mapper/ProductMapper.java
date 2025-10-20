@@ -32,6 +32,7 @@ public interface ProductMapper {
     @Mapping(target = "viewCount", ignore = true)
     @Mapping(target = "totalSales", ignore = true)
     @Mapping(target = "thumbnailExtension", ignore = true)
+    @Mapping(target = "carts", ignore = true)
     Product toEntity(ProductCreateRequest productCreateRequest);
 
     default String buildThumbnailFilename(Product product) {

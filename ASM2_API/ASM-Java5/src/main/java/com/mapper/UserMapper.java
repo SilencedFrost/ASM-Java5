@@ -18,6 +18,7 @@ public interface UserMapper {
     @Mapping(target = "passwordHash", source = "password", qualifiedByName = "hashPassword")
     @Mapping(target = "isActive", ignore = true)
     @Mapping(target = "sessions", ignore = true)
+    @Mapping(target = "carts", ignore = true)
     User toEntity(UserCreateRequest userCreateRequest, @Context HashService hashService);
 
     @Mapping(target = "passwordHash", source = "password", qualifiedByName = "hashPassword")
@@ -26,6 +27,7 @@ public interface UserMapper {
     @Mapping(target = "firstName", ignore = true)
     @Mapping(target = "lastName", ignore = true)
     @Mapping(target = "birthday", ignore = true)
+    @Mapping(target = "carts", ignore = true)
     User toEntity(RegisterRequest registerRequest, @Context HashService hashService);
 
     @Named("hashPassword")
