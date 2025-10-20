@@ -15,7 +15,7 @@ function onSearch() {
 
 function goHome() {
   router.push('/').then(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' }) // scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   })
 }
 
@@ -106,6 +106,9 @@ const authenticatedList = [
                     >Seller dash</router-link
                   >
                 </li>
+                <li v-if="authStore.roleId === 3">
+                  <router-link class="dropdown-item" to="/admin/dashboard">Admin dash</router-link>
+                </li>
               </div>
             </ul>
 
@@ -143,6 +146,9 @@ const authenticatedList = [
               </li>
               <li v-if="authStore.roleId === 2" class="nav-item">
                 <router-link class="nav-link ps-4" to="/seller/dashboard">Seller dash</router-link>
+              </li>
+              <li v-if="authStore.roleId === 3" class="nav-item">
+                <router-link class="nav-link ps-4" to="/admin/dashboard">Admin dash</router-link>
               </li>
             </div>
           </ul>
