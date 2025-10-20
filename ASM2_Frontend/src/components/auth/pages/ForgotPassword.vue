@@ -15,32 +15,26 @@ async function onSubmit() {
   message.value = ''
   fieldErrors.value = {}
 
-  if (!email.value) {
-    fieldErrors.value = { email: 'Email không được để trống.' }
-    isLoading.value = false
-    return
-  }
-
   try {
     const res = await axios.post(
       import.meta.env.VITE_API_BASE + '/auth/forgot-password',
       {
-        email: email.value
+        email: email.value,
       },
       { withCredentials: true },
     )
-
     message.value = res.data
-
-    setTimeout(() => router.push({
-      path: '/auth/verify-otp',
-      query: { email: email.value }
-    }), 1500)
+    setTimeout(
+      () =>
+        router.push({
+          path: '/auth/verify-otp',
+          query: { email: email.value },
+        }),
+      1500,
+    )
   } catch (err) {
     if (err.response && err.response.data) {
-      fieldErrors.value = { email: err.response.data }
-    } else {
-      fieldErrors.value = { error: 'Cannot connect to server' }
+      fieldErrors.value = err.response.data
     }
   } finally {
     isLoading.value = false
@@ -49,21 +43,25 @@ async function onSubmit() {
 </script>
 
 <template>
-  <div class="d-flex flex-fill justify-content-center align-items-center bg-warning min-vh-100">
+  <div class="d-flex flex-fill justify-content-center align-items-center">
     <div class="card shadow-sm p-3 bg-light" style="max-width: 400px; width: 100%">
-      <h2 class="text-center text-dark">Quên mật khẩu</h2>
+      <h2 class="text-center">Forgot password</h2>
       <hr />
 
       <form @submit.prevent="onSubmit" novalidate>
         <div class="mb-3">
-          <label for="email" class="form-label text-dark">Email</label>
-          <input type="email" id="email" v-model="email" class="form-control" required autocomplete="email"
-            :disabled="isLoading" :class="{ 'is-invalid': fieldErrors.email }" />
-
-          <div class="form-text text-dark mt-1">
-            Nhập email đã đăng ký để nhận mã.
-          </div>
-          
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            v-model="email"
+            class="form-control"
+            required
+            autocomplete="email"
+            :disabled="isLoading"
+            :class="{ 'is-invalid': fieldErrors.email }"
+            placeholder="Enter registered email"
+          />
           <div v-if="fieldErrors.email" class="form-text text-danger">
             {{ fieldErrors.email }}
           </div>
@@ -75,7 +73,7 @@ async function onSubmit() {
 
         <button type="submit" class="btn w-100 btn-primary text-white" :disabled="isLoading">
           <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
-          {{ isLoading ? 'Đang gửi...' : 'Gửi email' }}
+          {{ isLoading ? 'Sending...' : 'Send email' }}
         </button>
       </form>
 
@@ -83,10 +81,8 @@ async function onSubmit() {
 
       <hr />
       <div class="text-center">
-        <span class="text-muted">Nhớ mật khẩu?</span>
-        <router-link to="/auth/login" class="text-decoration-none ms-1">
-          Đăng nhập ngay
-        </router-link>
+        <span class="text-muted">Remember password?</span>
+        <router-link to="/auth/login" class="text-decoration-none ms-1"> Login now </router-link>
       </div>
     </div>
   </div>

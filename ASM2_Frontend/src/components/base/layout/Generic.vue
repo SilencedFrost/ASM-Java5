@@ -30,7 +30,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="d-flex flex-column h-100 flex-fill">
-    <header ref="mainNavbar" class="sticky-top">
+    <header ref="mainNavbar" class="sticky-top" style="z-index: 9999">
       <navbar />
     </header>
     <main class="d-flex flex-fill">

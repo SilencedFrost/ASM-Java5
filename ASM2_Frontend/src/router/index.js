@@ -3,17 +3,16 @@ import { useAuthStore } from '@/stores/authStore'
 
 import HomepageLayout from '@/components/homepage/layout/HomepageLayout.vue'
 import Homepage from '@/components/homepage/pages/Homepage.vue'
-import ProfileLayout from '@/components/profile/layout/ProfileLayout.vue'
-import Profile from '@/components/profile/pages/Profile.vue'
+import AccountLayout from '@/components/account/layout/AccountLayout.vue'
+import Account from '@/components/account/pages/Account.vue'
 import Cart from '@/components/cart/pages/Cart.vue'
 import ProductDetail from '@/components/product/pages/ProductDetail.vue'
 import Login from '@/components/auth/pages/Login.vue'
 import Search from '@/components/search/pages/Search.vue'
 import Signup from '@/components/auth/pages/Signup.vue'
 import Generic from '@/components/base/layout/Generic.vue'
-import Payment from '@/components/profile/pages/Payment.vue'
-import Address from '@/components/profile/pages/Address.vue'
-import ChangePass from '@/components/profile/pages/ChangePass.vue'
+import Payment from '@/components/account/pages/Payment.vue'
+import Address from '@/components/account/pages/Address.vue'
 import ForgotPassword from '@/components/auth/pages/ForgotPassword.vue'
 import OrderDetail from '@/components/order/pages/OrderDetail.vue'
 import OrderStatus from '@/components/order/pages/OrderStatus.vue'
@@ -45,7 +44,7 @@ const routes = [
       { path: '/search/:keyword?', component: Search, meta: { title: 'Search' } },
       { path: '/product/:id?', component: ProductDetail, meta: { title: 'Product detail' } },
       { path: '/cart', component: Cart, meta: { title: 'Cart', requiresAuth: true } },
-      { path: '/status', component: OrderStatus, meta: { title: 'Trạng thái đơn hàng' } },
+      { path: '/status', component: OrderStatus, meta: { title: 'Order status' } },
       {
         path: '/seller',
         component: SellerLayout,
@@ -65,13 +64,12 @@ const routes = [
       },
       {
         path: '/account',
-        component: ProfileLayout,
+        component: AccountLayout,
         meta: { title: 'My account', requiresAuth: true },
         children: [
-          { path: '', component: Profile },
+          { path: '', component: Account },
           { path: 'payment', component: Payment },
           { path: 'address', component: Address },
-          { path: 'change-pass', component: ChangePass },
         ],
       },
     ],

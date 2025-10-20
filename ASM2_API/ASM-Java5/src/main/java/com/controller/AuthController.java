@@ -57,17 +57,14 @@ public class AuthController {
 
     /**
      * GET /api/auth/login/session
-     * Validate user's session via cookies
-     * @return User
+     * @return user via token
      */
     @GetMapping("/login/session")
     public ResponseEntity<UserResponse> loginSession(HttpServletRequest request) {
-        Optional<String> sessionToken = sessionCookieUtil.getSessionKey(request);
-
-        return sessionToken.map(s -> sessionService.findUserBySessionToken(s)
-                        .map(ResponseEntity::ok)
-                        .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()))
-                .orElseGet(() -> ResponseEntity.noContent().build());
+        return sessionCookieUtil.getSessionKey(request)
+                .flatMap(sessionService::findUserBySessionToken)
+                .map(ResponseEntity::ok)
+                .orElse(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
     }
 
     /**
