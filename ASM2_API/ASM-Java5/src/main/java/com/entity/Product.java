@@ -65,6 +65,9 @@ public class Product {
     @OneToMany(mappedBy = "product", orphanRemoval = true)
     private final List<ProductVariation> productVariations = new ArrayList<>();
 
+    @OneToMany(mappedBy = "product", orphanRemoval = true)
+    private final List<Cart> carts = new ArrayList<>();
+
     public void assignCategory(Category category) {
         if(this.category != null) {
             this.category.getProducts().remove(this);
