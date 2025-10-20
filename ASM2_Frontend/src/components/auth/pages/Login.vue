@@ -62,12 +62,12 @@ function loginWithGoogle() {}
 <template>
   <div class="d-flex flex-fill justify-content-center align-items-center">
     <div class="card shadow-sm p-3 bg-light" style="max-width: 400px; width: 100%">
-      <h2 class="text-center text-dark">Đăng nhập</h2>
+      <h2 class="text-center">Login</h2>
       <hr />
       <form @submit.prevent="onLogin" novalidate>
         <div class="mb-3">
           <div>
-            <label for="email" class="form-label text-dark">Email</label>
+            <label for="email" class="form-label">Email</label>
             <input
               type="email"
               id="email"
@@ -84,7 +84,7 @@ function loginWithGoogle() {}
         </div>
         <div class="mb-3">
           <div>
-            <label for="password" class="form-label text-dark">Mật khẩu</label>
+            <label for="password" class="form-label">Password</label>
             <input
               type="password"
               id="password"
@@ -94,9 +94,9 @@ function loginWithGoogle() {}
               autocomplete="current-password"
               :disabled="isLoading"
             />
-          </div>
-          <div v-if="fieldErrors.password" class="form-text text-danger">
-            {{ fieldErrors.password }}
+            <div v-if="fieldErrors.password" class="form-text text-danger">
+              {{ fieldErrors.password }}
+            </div>
           </div>
         </div>
         <div class="mb-3">
@@ -108,7 +108,7 @@ function loginWithGoogle() {}
               class="form-check-input me-2"
               :disabled="isLoading"
             />
-            <label for="rememberMe" class="form-check-label text-dark">Remember Me</label>
+            <label for="rememberMe" class="form-check-label">Remember Me</label>
           </div>
         </div>
         <div v-if="fieldErrors.error" class="form-text text-danger mb-3">
@@ -116,7 +116,7 @@ function loginWithGoogle() {}
         </div>
         <button type="submit" class="btn w-100 btn-dark text-white" :disabled="isLoading">
           <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
-          {{ isLoading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
+          {{ isLoading ? 'Logging in...' : 'Login' }}
         </button>
       </form>
       <button
@@ -124,18 +124,18 @@ function loginWithGoogle() {}
         @click="loginWithGoogle"
         :disabled="isLoading"
       >
-        Đăng nhập bằng Google
+        Login with Google
       </button>
 
       <hr />
 
       <div class="text-center">
         <router-link to="/auth/forgot-password" class="text-decoration-none text-muted"
-          >Quên mật khẩu?</router-link
+          >Forgot password?</router-link
         >
         <span class="mx-2">|</span>
         <router-link to="/auth/register" class="text-decoration-none text-muted"
-          >Đăng ký tài khoản</router-link
+          >Register</router-link
         >
       </div>
     </div>

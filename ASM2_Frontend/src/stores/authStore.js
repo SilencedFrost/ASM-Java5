@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import router from '@/router'
 
 export const useAuthStore = defineStore('auth', () => {
   const isLoggedIn = ref(false)
@@ -67,6 +68,7 @@ export const useAuthStore = defineStore('auth', () => {
     } catch (err) {
     } finally {
       clearUser()
+      router.push('/')
     }
   }
 

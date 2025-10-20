@@ -2,7 +2,6 @@ package com.service;
 
 import com.dto.auth.LoginRequest;
 import com.dto.auth.RegisterRequest;
-import com.dto.user.ProfileUpdateRequest;
 import com.dto.user.UserCreateRequest;
 import com.dto.user.UserResponse;
 import com.dto.user.UserUpdateRequest;
@@ -19,12 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.SecureRandom;
 import java.util.*;
 
 @Slf4j
@@ -91,37 +87,9 @@ public class UserService {
         User existingUser = userRepository.findById(userUpdateRequest.userId())
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + userUpdateRequest.userId()));
 
-        if (userUpdateRequest.username() != null && !userUpdateRequest.username().isBlank()) {
-            existingUser.setUsername(userUpdateRequest.username());
-        }
-        if (userUpdateRequest.password() != null && !userUpdateRequest.password().isBlank()) {
-            existingUser.setPasswordHash(hashService.hashPassword(userUpdateRequest.password()));
-        }
-        if (userUpdateRequest.email() != null && !userUpdateRequest.email().isBlank()) {
-            existingUser.setEmail(userUpdateRequest.email());
-        }
-        if (userUpdateRequest.roleId() != null) {
-            Role role = roleRepository.findById(userUpdateRequest.roleId())
-                    .orElse(null);
-            existingUser.assignRole(role);
-        }
+        userMapper.updateUserFromDto(userUpdateRequest, existingUser, hashService);
 
         return userMapper.toDTO(existingUser);
-    }
-
-    @Transactional
-    public UserResponse updateProfile(Long userId, ProfileUpdateRequest request) {
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
-
-        user.setFirstName(request.firstName());
-        user.setLastName(request.lastName());
-        user.setBirthday(request.birthday());
-
-        User updatedUser = userRepository.save(user);
-
-        return userMapper.toDTO(updatedUser);
     }
 
     @Transactional
