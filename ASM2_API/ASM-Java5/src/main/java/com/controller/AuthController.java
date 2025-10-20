@@ -122,7 +122,7 @@ public class AuthController {
         }
 
         String otp = tokenGeneratorUtil.generateOtp();
-        log.info("--- DEBUG: OTP for email [{}] is: {} ---", email, otp);
+
         request.getSession(true).setAttribute("otp", otp);
         request.getSession().setAttribute("otpEmail", email);
         request.getSession().setMaxInactiveInterval(300);
