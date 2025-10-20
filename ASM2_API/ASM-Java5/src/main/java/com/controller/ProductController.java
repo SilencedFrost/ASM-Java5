@@ -3,12 +3,18 @@ package com.controller;
 import com.dto.product.ProductResponse;
 import com.dto.product.ProductSummaryResponse;
 import com.dto.seller.SellerResponse;
+import com.dto.user.UserResponse;
 import com.exception.ProductNotFoundException;
+import com.exception.SellerNotFoundException;
+import com.exception.UserNotFoundException;
+import com.repository.SellerRepository;
 import com.service.ProductService;
+import com.service.SellerService;
 import com.service.SessionService;
 import com.util.SessionCookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
@@ -24,24 +31,51 @@ public class ProductController {
     private final ProductService productService;
     private final SessionService sessionService;
     private final SessionCookieUtil sessionCookieUtil;
+    private final SellerService sellerService;
 
 
     /**
      * GET /api/products
-     * @return all inactive products
+     * @return all product for admin, and only inactive products for other roles
      */
     @GetMapping
-    public ResponseEntity<List<ProductSummaryResponse>> getAllActiveProducts() {
-        return ResponseEntity.ok(productService.findAllActiveSummary());
+    public ResponseEntity<List<ProductSummaryResponse>> getAllProducts(HttpServletRequest request) {
+        Optional<UserResponse> user = sessionCookieUtil.getSessionKey(request)
+                .flatMap(sessionService::findUserBySessionToken);
+        boolean isAdmin = user.map(u -> u.roleId() == 3).orElse(false);
+        var products = isAdmin
+                ? productService.findAllSummary()
+                : productService.findAllActiveSummary();
+
+        return ResponseEntity.ok(products);
     }
 
     /**
-     * GET /api/products/{id}
-     * @return specific product if active
+     * GET /api/products/{productId}
+     * @return specific product for admin, and only active products unless seller owns it, and only active product for other roles
      */
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getActiveProductById(@PathVariable Long id) {
-        return productService.findActiveById(id).map(ResponseEntity::ok).orElseThrow(() -> new ProductNotFoundException("Active product not found"));
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long productId, HttpServletRequest request) {
+        Optional<UserResponse> user = sessionCookieUtil.getSessionKey(request)
+                .flatMap(sessionService::findUserBySessionToken);
+        boolean allowed;
+        allowed = user.map(userResponse -> switch (userResponse.roleId()) {
+            case 3 -> true;
+            case 2 -> {
+                Long sellerId = sellerService.findByUserId(userResponse.userId())
+                        .map(SellerResponse::sellerId)
+                        .orElseThrow(() -> new SellerNotFoundException("Seller not found"));
+                yield productService.isSellerOwnerOf(sellerId, productId);
+            }
+            default -> false;
+        }).orElse(false);
+        var product = allowed
+                ? productService.findById(productId)
+                : productService.findActiveById(productId);
+
+        return product
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
     }
 
     /**
@@ -78,12 +112,25 @@ public class ProductController {
      */
     @PatchMapping("/{productId}/toggle-active")
     public ResponseEntity<ProductResponse> toggleProductActiveState(@PathVariable Long productId, HttpServletRequest request) {
-        return sessionCookieUtil.getSessionKey(request)
-                .flatMap(sessionService::findSellerBySessionToken)
-                .map(SellerResponse::sellerId)
-                .filter(sellerId -> productService.isSellerOwnerOf(sellerId, productId))
-                .flatMap(sellerId -> productService.toggleActiveState(productId))
+        UserResponse user = sessionCookieUtil.getSessionKey(request)
+                .flatMap(sessionService::findUserBySessionToken)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        boolean allowed = switch (user.roleId()) {
+            case 3 -> true;
+            case 2 -> {
+                Long sellerId = sellerService.findByUserId(user.userId())
+                        .map(SellerResponse::sellerId)
+                        .orElseThrow(() -> new SellerNotFoundException("Seller not found"));
+                yield productService.isSellerOwnerOf(sellerId, productId);
+            }
+            default -> false;
+        };
+
+        if (!allowed)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+        return productService.toggleActiveState(productId)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
     }
 }

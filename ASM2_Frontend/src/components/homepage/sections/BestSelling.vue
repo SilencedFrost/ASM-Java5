@@ -24,7 +24,7 @@ async function fetchProducts() {
 onMounted(fetchProducts)
 </script>
 <template>
-  <div class="container-fluid">
+  <section class="container-fluid" id="bestSeller">
     <div class="text-center my-4">
       <h1 class="fw-bold">Best sellers</h1>
     </div>
@@ -40,5 +40,5 @@ onMounted(fetchProducts)
       </div>
       <hr />
     </div>
-  </div>
+  </section>
 </template>

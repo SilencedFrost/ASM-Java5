@@ -4,12 +4,10 @@ import axios from 'axios'
 
 import DisplayItem from '@/components/product/sections/DisplayItem.vue'
 
-// Reactive state
 const products = ref([])
 const loading = ref(true)
 const error = ref(null)
 
-// Fetch
 async function fetchProducts() {
   try {
     const response = await axios.get(import.meta.env.VITE_API_BASE + '/products/top/new')
@@ -24,7 +22,7 @@ async function fetchProducts() {
 onMounted(fetchProducts)
 </script>
 <template>
-  <div class="container-fluid">
+  <section class="container-fluid" id="newProducts">
     <div class="text-center my-4">
       <h1 class="fw-bold">New products</h1>
     </div>
@@ -40,5 +38,5 @@ onMounted(fetchProducts)
       </div>
       <hr />
     </div>
-  </div>
+  </section>
 </template>

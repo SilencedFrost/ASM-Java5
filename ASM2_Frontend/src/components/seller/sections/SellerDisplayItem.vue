@@ -49,7 +49,7 @@ function formatPrice(price) {
           <img
             :src="imageBase + '/product/' + product.thumbnail"
             :alt="product.productName"
-            class="rounded-2 object-fit-cover"
+            :class="['rounded-2 object-fit-cover', { 'opacity-50': !product.isActive }]"
           />
         </div>
         <div class="d-flex flex-fill wh-100 p-2">
