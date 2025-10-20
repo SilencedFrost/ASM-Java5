@@ -70,6 +70,9 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private final List<Session> sessions = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private final List<Cart> carts = new ArrayList<>();
+
     public void assignRole(Role role) {
         if(this.role != null) {
             this.role.getUsers().remove(this);

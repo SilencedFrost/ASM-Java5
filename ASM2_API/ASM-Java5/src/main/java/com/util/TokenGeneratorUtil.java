@@ -15,4 +15,7 @@ public class TokenGeneratorUtil {
         secureRandom.nextBytes(randomBytes);
         return base64Encoder.encodeToString(randomBytes);
     }
+    public String generateOtp() {
+        return String.format("%06d", secureRandom.nextInt(1_000_000));
+    }
 }

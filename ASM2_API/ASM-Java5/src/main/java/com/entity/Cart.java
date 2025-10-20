@@ -39,4 +39,26 @@ public class Cart {
     @CreationTimestamp
     @Column(name = "date_added", nullable = false, columnDefinition = "timestamptz")
     private OffsetDateTime dateAdded;
+
+    public void assignUser(User user) {
+        if (this.user != null) {
+            this.user.getCarts().remove(this);
+        }
+
+        this.user = user;
+        if (user != null) {
+            user.getCarts().add(this);
+        }
+    }
+
+    public void assignProduct(Product product) {
+        if (this.product != null) {
+            this.product.getCarts().remove(this);
+        }
+
+        this.product = product;
+        if (product != null) {
+            product.getCarts().add(this);
+        }
+    }
 }

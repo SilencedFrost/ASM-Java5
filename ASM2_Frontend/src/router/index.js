@@ -22,6 +22,8 @@ import SellerProducts from '@/components/seller/pages/SellerProducts.vue'
 import SellerLayout from '@/components/seller/layout/SellerLayout.vue'
 import SellerDashboard from '@/components/seller/pages/SellerDashboard.vue'
 import SellerOrders from '@/components/seller/pages/SellerOrders.vue'
+import VerifyOtp from '@/components/auth/pages/VerifyOtp.vue'
+import ResetPassword from '@/components/auth/pages/ResetPassword.vue'
 
 const routes = [
   { path: '/order', component: OrderDetail, meta: { title: 'Order detail' } },
@@ -32,6 +34,8 @@ const routes = [
       { path: 'login', component: Login, meta: { title: 'Login' } },
       { path: 'register', component: Signup, meta: { title: 'Register' } },
       { path: 'forgot-password', component: ForgotPassword, meta: { title: 'Forgot password' } },
+      { path: 'verify-otp', component: VerifyOtp, meta: { title: 'Verify OTP' } },
+      { path: 'reset-password', component: ResetPassword, meta: { title: 'Reset Password' } },
     ],
   },
   {
