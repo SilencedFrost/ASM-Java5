@@ -22,7 +22,7 @@ public class EmailService {
                 Mã này chỉ có hiệu lực trong thời gian phiên làm việc hiện tại.
                 
                 Trân trọng,
-                Hệ thống hỗ trợ tài khoản.
+                Hệ thống hỗ trợ tài khoản EasyEat.
                 """.formatted(otp));
         mailSender.send(message);
     }

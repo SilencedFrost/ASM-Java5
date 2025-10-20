@@ -163,7 +163,7 @@ public class AuthController {
      * POST /api/auth/reset-password
      * Reset user password after successful OTP verification
      */
-    @PostMapping("/change-password")
+    @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(
             @Valid @RequestBody ResetPasswordRequest resetRequest, HttpServletRequest request) {
 
