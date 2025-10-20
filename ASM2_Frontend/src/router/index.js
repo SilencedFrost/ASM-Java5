@@ -18,6 +18,10 @@ import ForgotPassword from '@/components/auth/pages/ForgotPassword.vue'
 import OrderDetail from '@/components/order/pages/OrderDetail.vue'
 import OrderStatus from '@/components/order/pages/OrderStatus.vue'
 import AuthLayout from '@/components/auth/layout/AuthLayout.vue'
+import SellerProducts from '@/components/seller/pages/SellerProducts.vue'
+import SellerLayout from '@/components/seller/layout/SellerLayout.vue'
+import SellerDashboard from '@/components/seller/pages/SellerDashboard.vue'
+import SellerOrders from '@/components/seller/pages/SellerOrders.vue'
 import VerifyOtp from '@/components/auth/pages/VerifyOtp.vue'
 import ResetPassword from '@/components/auth/pages/ResetPassword.vue'
 
@@ -30,8 +34,8 @@ const routes = [
       { path: 'login', component: Login, meta: { title: 'Login' } },
       { path: 'register', component: Signup, meta: { title: 'Register' } },
       { path: 'forgot-password', component: ForgotPassword, meta: { title: 'Forgot password' } },
-      { path: 'verify-otp', component: VerifyOtp, meta: {title: 'Verify OTP'}},
-      { path: 'reset-password', component: ResetPassword, meta: {title: 'Reset Password'}},
+      { path: 'verify-otp', component: VerifyOtp, meta: { title: 'Verify OTP' } },
+      { path: 'reset-password', component: ResetPassword, meta: { title: 'Reset Password' } },
     ],
   },
   {
@@ -42,6 +46,16 @@ const routes = [
       { path: '/product/:id?', component: ProductDetail, meta: { title: 'Product detail' } },
       { path: '/cart', component: Cart, meta: { title: 'Cart', requiresAuth: true } },
       { path: '/status', component: OrderStatus, meta: { title: 'Trạng thái đơn hàng' } },
+      {
+        path: '/seller',
+        component: SellerLayout,
+        meta: { title: 'Seller dashboard', requiresAuth: true, authorizationLevelExact: 2 },
+        children: [
+          { path: '', component: SellerDashboard, alias: 'dashboard' },
+          { path: 'products', component: SellerProducts },
+          { path: 'orders', component: SellerOrders },
+        ],
+      },
       {
         path: '/',
         component: HomepageLayout,
@@ -69,16 +83,20 @@ const router = createRouter({
   routes,
 })
 
-// Navigation guard for authentication
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
-
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
-    // Save the target route so we can redirect later
+    console.log('please login deadass')
     next({
       path: '/auth/login',
       query: { redirect: to.fullPath },
     })
+  } else if (
+    to.meta.authorizationLevelExact &&
+    authStore.roleId !== to.meta.authorizationLevelExact
+  ) {
+    next({ path: '/' })
+    alert('Incorrect authorization level')
   } else {
     next()
   }

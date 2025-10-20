@@ -38,12 +38,20 @@ public class CategoryService {
         return categoryRepository.findById(categoryId).map(categoryMapper::toDTO);
     }
 
-    public Page<CategoryWithProductResponse> findAllWithProduct(Pageable pageable) {
-        return categoryRepository.findAll(pageable).map(categoryMapper::toDTOWithProduct);
+    public List<CategoryWithProductResponse> findAllWithProduct() {
+        return categoryRepository.findAll()
+                .stream()
+                .filter(c -> c.getProducts() != null && !c.getProducts().isEmpty())
+                .map(categoryMapper::toDTOWithProduct)
+                .toList();
     }
 
-    public List<CategoryWithProductResponse> findAllWithProduct() {
-        return findAllWithProduct(PageRequest.of(0, 50)).getContent();
+    public List<CategoryResponse> findNotEmpty() {
+        return categoryRepository.findAll()
+                .stream()
+                .filter(c -> c.getProducts() != null && !c.getProducts().isEmpty())
+                .map(categoryMapper::toDTO)
+                .toList();
     }
 
     public Optional<CategoryWithProductResponse> findByIdWithProduct(Integer categoryId) {

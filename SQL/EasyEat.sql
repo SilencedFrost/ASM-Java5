@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS public.role;
 
 CREATE TABLE IF NOT EXISTS public.role
 (
-	role_id int GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+	role_id int,
     role_name varchar(32) NOT NULL,
     CONSTRAINT role_pk PRIMARY KEY (role_id)
 );
@@ -267,9 +267,9 @@ CREATE INDEX idx_address_city_id ON public.address(city_id);
 CREATE INDEX idx_address_is_default ON public.address(is_default);
 
 -- Roles
-INSERT INTO public.role (role_name) VALUES ('customer');
-INSERT INTO public.role (role_name) VALUES ('seller');
-INSERT INTO public.role (role_name) VALUES ('admin');
+INSERT INTO public.role (role_id, role_name) VALUES (1, 'customer');
+INSERT INTO public.role (role_id, role_name) VALUES (2, 'seller');
+INSERT INTO public.role (role_id, role_name) VALUES (3, 'admin');
 
 -- User
 -- Admin user (role_id = 3)

@@ -19,7 +19,7 @@ const router = useRouter()
 
 function viewProduct() {
   router.push(`/product/${props.product.productId}`).then(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' }) // scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   })
 }
 

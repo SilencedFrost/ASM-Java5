@@ -20,8 +20,8 @@ function goHome() {
 }
 
 const authenticatedList = [
-  { url: '/status', text: 'Đơn hàng' },
-  { url: '/account', text: 'Tài khoản' },
+  { url: '/status', text: 'Order' },
+  { url: '/account', text: 'Account' },
 ]
 </script>
 
@@ -39,7 +39,7 @@ const authenticatedList = [
           class="form-control me-2 bg-light rounded-5"
           type="search"
           v-model="searchQuery"
-          placeholder="Tìm kiếm"
+          placeholder="Search"
           aria-label="Search"
         />
         <button class="btn btn-primary rounded-5" type="submit">
@@ -67,7 +67,7 @@ const authenticatedList = [
           <li v-if="authStore.isLoggedIn" class="nav-item">
             <router-link class="nav-link d-flex align-items-center" to="/cart">
               <i class="bi bi-cart me-2" style="font-size: 20px"></i>
-              Giỏ hàng
+              Cart
             </router-link>
           </li>
           <!-- Account dropdown/collapse -->
@@ -83,23 +83,28 @@ const authenticatedList = [
             >
               <i class="bi bi-person-circle me-2" style="font-size: 20px"></i>
               <span v-if="authStore.isLoggedIn">{{ authStore.username }}</span>
-              <span v-else="!authStore.isLoggedIn">Đăng nhập</span>
+              <span v-else="!authStore.isLoggedIn">Login</span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
               <div v-if="!authStore.isLoggedIn">
                 <li>
-                  <router-link class="dropdown-item" to="/auth/login">Đăng nhập</router-link>
+                  <router-link class="dropdown-item" to="/auth/login">Login</router-link>
                 </li>
                 <li>
-                  <router-link class="dropdown-item" to="/auth/register">Đăng ký</router-link>
+                  <router-link class="dropdown-item" to="/auth/register">Register</router-link>
                 </li>
               </div>
               <div v-if="authStore.isLoggedIn">
                 <li>
-                  <div class="dropdown-item" @click="authStore.logOut">Đăng xuất</div>
+                  <div class="dropdown-item" @click="authStore.logOut">Log out</div>
                 </li>
                 <li v-for="item in authenticatedList" :key="item.url">
                   <router-link class="dropdown-item" :to="item.url">{{ item.text }}</router-link>
+                </li>
+                <li v-if="authStore.roleId === 2">
+                  <router-link class="dropdown-item" to="/seller/dashboard"
+                    >Seller dash</router-link
+                  >
                 </li>
               </div>
             </ul>
@@ -114,7 +119,7 @@ const authenticatedList = [
             >
               <i class="bi bi-person-circle me-2" style="font-size: 20px"></i>
               <span v-if="authStore.isLoggedIn">{{ authStore.username }}</span>
-              <span v-else="!authStore.isLoggedIn">Đăng nhập</span>
+              <span v-else="!authStore.isLoggedIn">Log in</span>
             </a>
           </li>
         </ul>
@@ -123,18 +128,21 @@ const authenticatedList = [
           <ul class="navbar-nav">
             <div v-if="!authStore.isLoggedIn">
               <li class="nav-item">
-                <router-link class="nav-link ps-4" to="/auth/login">Đăng nhập</router-link>
+                <router-link class="nav-link ps-4" to="/auth/login">Login</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link ps-4" to="/auth/register">Đăng ký</router-link>
+                <router-link class="nav-link ps-4" to="/auth/register">Register</router-link>
               </li>
             </div>
             <div v-if="authStore.isLoggedIn">
               <li class="nav-item">
-                <div class="nav-link ps-4" @click="authStore.logOut">Đăng xuất</div>
+                <div class="nav-link ps-4" @click="authStore.logOut">Log out</div>
               </li>
               <li class="nav-item" v-for="item in authenticatedList" :key="item.url">
                 <router-link class="nav-link ps-4" :to="item.url">{{ item.text }}</router-link>
+              </li>
+              <li v-if="authStore.roleId === 2" class="nav-item">
+                <router-link class="nav-link ps-4" to="/seller/dashboard">Seller dash</router-link>
               </li>
             </div>
           </ul>

@@ -65,8 +65,8 @@ public class AuthController {
         Optional<String> sessionToken = sessionCookieUtil.getSessionKey(request);
 
         return sessionToken.map(s -> sessionService.findUserBySessionToken(s)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()))
+                        .map(ResponseEntity::ok)
+                        .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()))
                 .orElseGet(() -> ResponseEntity.noContent().build());
     }
 
