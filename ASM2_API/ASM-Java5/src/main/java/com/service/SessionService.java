@@ -1,13 +1,16 @@
 package com.service;
 
+import com.dto.seller.SellerResponse;
 import com.dto.session.SessionCreateRequest;
 import com.dto.user.UserResponse;
 import com.entity.Session;
 import com.entity.User;
 import com.exception.SessionNotFoundException;
 import com.exception.UserNotFoundException;
+import com.mapper.SellerMapper;
 import com.mapper.SessionMapper;
 import com.mapper.UserMapper;
+import com.repository.SellerRepository;
 import com.repository.SessionRepository;
 import com.repository.UserRepository;
 import com.util.TokenGeneratorUtil;
@@ -21,10 +24,12 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class SessionService {
-    private final SessionRepository sessionRepository;
-    private final UserRepository userRepository;
     private final TokenGeneratorUtil tokenGeneratorUtil;
+    private final SessionRepository sessionRepository;
+    private final SellerRepository sellerRepository;
+    private final UserRepository userRepository;
     private final SessionMapper sessionMapper;
+    private final SellerMapper sellerMapper;
     private final HashService hashService;
     private final UserMapper userMapper;
 
@@ -57,6 +62,18 @@ public class SessionService {
     }
 
     public Optional<UserResponse> findUserBySessionToken(String sessionToken) {
-        return sessionRepository.findBySessionHash(hashService.hashOpaqueKey(sessionToken)).filter(Session::getIsActive).map(s -> userMapper.toDTO(s.getUser()));
+        return sessionRepository.findBySessionHash(hashService.hashOpaqueKey(sessionToken))
+                .filter(Session::getIsActive)
+                .map(Session::getUser)
+                .map(userMapper::toDTO);
+    }
+
+    public Optional<SellerResponse> findSellerBySessionToken(String sessionToken) {
+        return sessionRepository.findBySessionHash(hashService.hashOpaqueKey(sessionToken))
+                .filter(Session::getIsActive)
+                .map(Session::getUser)
+                .map(User::getUserId)
+                .flatMap(sellerRepository::findByUserUserId)
+                .map(sellerMapper::toDTO);
     }
 }

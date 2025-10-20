@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
 import ActiveProducts from '@/components/seller/sections/ActiveProducts.vue'
+import InactiveProducts from '@/components/seller/sections/InactiveProducts.vue'
 
 const products = ref([])
 const loading = ref(true)
@@ -25,13 +26,12 @@ onMounted(fetchProducts)
 </script>
 
 <template>
-  <div class="container-fluid">
-    <div v-if="loading" class="alert alert-info">Loading products...</div>
-    <div v-else-if="error" class="alert alert-danger">
-      {{ error }}
-    </div>
-    <div v-else>
-      <active-products />
-    </div>
+  <div v-if="loading" class="alert alert-info">Loading products...</div>
+  <div v-else-if="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+  <div v-else class="flex-fill">
+    <active-products :products="products" />
+    <inactive-products :products="products" />
   </div>
 </template>

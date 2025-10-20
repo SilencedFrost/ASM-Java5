@@ -9,8 +9,8 @@ import SellerSidebar from '@/components/seller/sections/SellerSidebar.vue'
         <seller-sidebar />
       </div>
     </div>
-    <div>
-      <div class="d-flex h-100">
+    <div class="flex-fill">
+      <div class="d-flex">
         <router-view />
       </div>
     </div>

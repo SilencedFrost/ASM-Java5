@@ -18,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -71,20 +70,22 @@ public class ProductService {
         return productRepository.findById(productId).map(productMapper::toDTO);
     }
 
-    public List<ProductResponse> findByCategory(Integer categoryId) {
-        try {
-            List<Product> productList = productRepository.findByCategoryCategoryId(categoryId);
-            log.info("Fetched all products: {} products found.", productList.size());
-            return productList.stream().map(productMapper::toDTO).collect(Collectors.toList());
-        } catch (Exception e) {
-            log.error("Error fetching products for category {}", categoryId, e);
-            return new ArrayList<>();
-        }
+    public Optional<ProductResponse> findActiveById(Long productId) {
+        return productRepository.findByProductIdAndIsActiveTrue(productId).map(productMapper::toDTO);
     }
 
     public List<ProductSummaryResponse> findByNameLike(String keyword) {
-            List<Product> productList = productRepository.findByProductNameContainsIgnoreCase(keyword);
-            return productList.stream().map(productMapper::toSummaryDTO).collect(Collectors.toList());
+        return productRepository.findByProductNameContainsIgnoreCase(keyword)
+                .stream()
+                .map(productMapper::toSummaryDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductSummaryResponse> findActiveByNameLike(String keyword) {
+        return productRepository.findByProductNameContainsIgnoreCaseAndIsActiveTrue(keyword)
+                .stream()
+                .map(productMapper::toSummaryDTO)
+                .collect(Collectors.toList());
     }
 
     public List<ProductSummaryResponse> findTop5Latest() {
@@ -95,6 +96,20 @@ public class ProductService {
     public List<ProductSummaryResponse> findTop5BestSelling() {
         List<Product> productList = productRepository.findTop5ByOrderByTotalSalesDesc();
         return productList.stream().map(productMapper::toSummaryDTO).collect(Collectors.toList());
+    }
+
+    public Optional<ProductResponse> toggleActiveState(Long productId) {
+        return productRepository.findById(productId)
+                .map(product -> {
+                    product.setIsActive(!product.getIsActive());
+                    return product;
+                })
+                .map(productRepository::save)
+                .map(productMapper::toDTO);
+    }
+
+    public boolean isSellerOwnerOf(Long sellerId, Long productId) {
+        return productRepository.existsBySellerSellerIdAndProductId(sellerId, productId);
     }
 
     @Transactional

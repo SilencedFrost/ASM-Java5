@@ -21,24 +21,24 @@ import java.util.List;
 public class SellerController {
     private final ProductService productService;
     private final SessionService sessionService;
-    private final SellerService sellerService;
     private final SessionCookieUtil sessionCookieUtil;
 
     /**
+     * GET /api/seller/products
      * @return the authenticated seller's full product catalogue
      */
     @GetMapping("/products")
     public ResponseEntity<List<ProductSummaryResponse>> getSellerProductsAuthorized(HttpServletRequest request) {
         return sessionCookieUtil.getSessionKey(request)
-                .flatMap(sessionService::findUserBySessionToken)
-                .flatMap(user -> sellerService.findByUserId(user.userId())
-                        .map(SellerResponse::sellerId)
-                        .map(productService::findAllSummaryBySeller))
+                .flatMap(sessionService::findSellerBySessionToken)
+                .map(SellerResponse::sellerId)
+                .map(productService::findAllSummaryBySeller)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
     /**
+     * GET /api/seller/{sellerId}/products
      * @return the seller's active product catalogue
      */
     @GetMapping("/{sellerId:[0-9]+}/products")
