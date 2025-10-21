@@ -15,12 +15,20 @@ const rememberMe = ref(false)
 const isLoading = ref(false)
 const fieldErrors = ref({})
 
+const verificationMessage = ref(null)
+const verificationError = ref(null)
+
 function redirectAfterLogin() {
   const redirectPath = route.query.redirect || '/'
   router.push(redirectPath)
 }
 
 onMounted(async () => {
+  if (route.query.verified === 'true') {
+    verificationMessage.value = 'Account activated successfully! You can log in now.'
+  } else if (route.query.error === 'invalid_token') {
+    verificationError.value = 'The activation link is invalid or has expired. Please try registering again.'
+  }
   await authStore.checkSession()
   if (authStore.userId > 0) {
     redirectAfterLogin()
@@ -29,6 +37,10 @@ onMounted(async () => {
 
 async function onLogin() {
   isLoading.value = true
+  fieldErrors.value = {}
+  verificationMessage.value = null 
+  verificationError.value = null
+
   try {
     const res = await axios.post(
       import.meta.env.VITE_API_BASE + '/auth/login',
@@ -49,7 +61,11 @@ async function onLogin() {
   } catch (err) {
     authStore.clearUser()
     if (err.response && err.response.data) {
-      fieldErrors.value = err.response.data
+      if (err.response.data.error) {
+        fieldErrors.value.error = err.response.data.error;
+      } else {
+        fieldErrors.value = err.response.data
+      }
     }
   } finally {
     isLoading.value = false
@@ -65,6 +81,17 @@ function loginWithGoogle() {}
       <h2 class="text-center">Login</h2>
       <hr />
       <form @submit.prevent="onLogin" novalidate>
+
+        <div v-if="verificationMessage" class="alert alert-success">
+          {{ verificationMessage }}
+        </div>
+        <div v-if="verificationError" class="alert alert-danger">
+          {{ verificationError }}
+        </div>
+        <div v-if="fieldErrors.error" class="alert alert-danger">
+          {{ fieldErrors.error }}
+        </div>
+
         <div class="mb-3">
           <div>
             <label for="email" class="form-label">Email</label>
