@@ -7,7 +7,6 @@ import com.dto.user.UserResponse;
 import com.exception.ProductNotFoundException;
 import com.exception.SellerNotFoundException;
 import com.exception.UserNotFoundException;
-import com.repository.SellerRepository;
 import com.service.ProductService;
 import com.service.SellerService;
 import com.service.SessionService;

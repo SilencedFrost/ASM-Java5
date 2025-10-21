@@ -39,19 +39,23 @@ public class CategoryService {
     }
 
     public List<CategoryWithProductResponse> findAllWithProduct() {
-        return categoryRepository.findAll()
+        return categoryRepository.findByProductsIsNotEmpty()
                 .stream()
-                .filter(c -> c.getProducts() != null && !c.getProducts().isEmpty())
                 .map(categoryMapper::toDTOWithProduct)
                 .toList();
     }
 
-    public List<CategoryResponse> findNotEmpty() {
+    public List<CategoryWithProductResponse> findAllWithActiveProduct() {
         return categoryRepository.findAll()
                 .stream()
-                .filter(c -> c.getProducts() != null && !c.getProducts().isEmpty())
-                .map(categoryMapper::toDTO)
+                .map(categoryMapper::toDTOWithProduct)
+                .peek(dto -> dto.productSummaryResponses().removeIf(p -> !p.isActive()))
+                .filter(dto -> !dto.productSummaryResponses().isEmpty())
                 .toList();
+    }
+
+    public List<CategoryResponse> findNotEmpty() {
+        return categoryRepository.findByProductsIsNotEmpty().stream().map(categoryMapper::toDTO).toList();
     }
 
     public Optional<CategoryWithProductResponse> findByIdWithProduct(Integer categoryId) {
