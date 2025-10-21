@@ -2,9 +2,9 @@ package com.mapper;
 
 import com.dto.cart.CartCreateRequest;
 import com.dto.cart.CartResponse;
+import com.dto.cart.CartUpdateRequest;
 import com.entity.Cart;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface CartMapper {
@@ -13,4 +13,8 @@ public interface CartMapper {
     CartResponse toDTO(Cart cart);
 
     Cart toEntity(CartCreateRequest cartCreateRequest);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "user", ignore = true)
+    void updateCartFromDTO(CartUpdateRequest cartUpdateRequest, @MappingTarget Cart cart);
 }

@@ -8,7 +8,6 @@ public record ProductVariationResponse(
         String image,
         String productSize,
         String variation,
-        BigDecimal price,
-        Boolean isActive
+        BigDecimal price
 ) {
 }

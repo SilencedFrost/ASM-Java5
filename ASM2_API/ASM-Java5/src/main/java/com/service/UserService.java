@@ -87,7 +87,7 @@ public class UserService {
         User existingUser = userRepository.findById(userUpdateRequest.userId())
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + userUpdateRequest.userId()));
 
-        userMapper.updateUserFromDto(userUpdateRequest, existingUser, hashService);
+        userMapper.updateUserFromDTO(userUpdateRequest, existingUser, hashService);
 
         return userMapper.toDTO(existingUser);
     }

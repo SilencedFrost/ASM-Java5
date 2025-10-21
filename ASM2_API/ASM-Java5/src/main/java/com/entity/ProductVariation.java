@@ -58,10 +58,6 @@ public class ProductVariation {
     @Column(name = "price", nullable = false, precision = 15, scale = 2)
     private BigDecimal price;
 
-    @Setter
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive = true;
-
     public void assignProduct(Product product) {
         if (this.product != null) {
             this.product.getProductVariations().remove(this);

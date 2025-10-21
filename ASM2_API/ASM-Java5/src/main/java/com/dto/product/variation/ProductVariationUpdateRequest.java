@@ -11,7 +11,6 @@ public record ProductVariationUpdateRequest(
         String productSize,
         String variation,
         String description,
-        BigDecimal price,
-        Boolean isActive
+        BigDecimal price
 ) {
 }

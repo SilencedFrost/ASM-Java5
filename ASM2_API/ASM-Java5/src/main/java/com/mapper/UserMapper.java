@@ -32,7 +32,7 @@ public interface UserMapper {
     @Mapping(target = "passwordHash", source = "password", qualifiedByName = "hashPassword")
     @Mapping(target = "sessions", ignore = true)
     @Mapping(target = "carts", ignore = true)
-    void updateUserFromDto(UserUpdateRequest dto, @MappingTarget User entity, @Context HashService hashService);
+    void updateUserFromDTO(UserUpdateRequest dto, @MappingTarget User entity, @Context HashService hashService);
 
     @Named("hashPassword")
     default String hashPassword(String password, @Context HashService hashService) {

@@ -46,7 +46,6 @@ public class ProductController {
         var products = isAdmin
                 ? productService.findAllSummary()
                 : productService.findAllActiveSummary();
-
         return ResponseEntity.ok(products);
     }
 
