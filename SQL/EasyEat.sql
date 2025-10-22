@@ -1,5 +1,9 @@
 -- Drops
 
+DROP TABLE IF EXISTS public.order_item;
+DROP TABLE IF EXISTS public.order;
+DROP TABLE IF EXISTS public.order_status;
+
 DROP TABLE IF EXISTS public.cart;
 
 DROP TABLE IF EXISTS public.product_variation;
@@ -237,6 +241,67 @@ CREATE TABLE IF NOT EXISTS public.cart
 ALTER TABLE IF EXISTS public.cart
     OWNER to postgres;
 
+-- Table: order_status
+
+CREATE TABLE IF NOT EXISTS public.order_status
+(
+    status_id int GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+    status_name varchar(50) NOT NULL UNIQUE,
+    description text,
+    created_at timestamptz NOT NULL,
+    CONSTRAINT order_status_pk PRIMARY KEY (status_id)
+);
+
+ALTER TABLE IF EXISTS public.order_status OWNER TO postgres;
+
+-- Table: order
+
+CREATE TABLE IF NOT EXISTS public.order
+(
+    order_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+    user_id bigint NOT NULL,
+    delivery_address text NOT NULL,
+    total_amount NUMERIC(15,2) NOT NULL CHECK (total_amount >= 0),
+    payment_method varchar(50) NOT NULL,
+    status_id int NOT NULL,
+    order_date timestamptz NOT NULL,
+    updated_at timestamptz,
+    notes text,
+    CONSTRAINT order_pk PRIMARY KEY (order_id),
+    CONSTRAINT order_fk_user FOREIGN KEY (user_id) 
+        REFERENCES public.users(user_id) ON DELETE CASCADE,
+    CONSTRAINT order_fk_status FOREIGN KEY (status_id) 
+        REFERENCES public.order_status(status_id) ON DELETE RESTRICT,
+    CONSTRAINT order_chk_payment CHECK (payment_method IN ('cash_on_delivery', 'bank_transfer', 'e_wallet', 'credit_card'))
+);
+
+ALTER TABLE IF EXISTS public.order OWNER TO postgres;
+
+-- Table: order_item
+
+CREATE TABLE IF NOT EXISTS public.order_item
+(
+    order_item_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+    order_id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    variation_id bigint NOT NULL,
+    product_name varchar(128) NOT NULL,
+    product_size varchar(32) NOT NULL,
+    variation varchar(32) NOT NULL,
+    quantity int NOT NULL CHECK (quantity > 0),
+    price numeric(15,2) NOT NULL CHECK (price >= 0),
+    subtotal numeric(15,2) NOT NULL CHECK (subtotal >= 0),
+    CONSTRAINT order_item_pk PRIMARY KEY (order_item_id),
+    CONSTRAINT order_item_fk_order FOREIGN KEY (order_id) 
+        REFERENCES public.order(order_id) ON DELETE CASCADE,
+    CONSTRAINT order_item_fk_product FOREIGN KEY (product_id) 
+        REFERENCES public.product(product_id) ON DELETE RESTRICT,
+    CONSTRAINT order_item_fk_variation FOREIGN KEY (variation_id) 
+        REFERENCES public.product_variation(variation_id) ON DELETE RESTRICT
+);
+
+ALTER TABLE IF EXISTS public.order_item OWNER TO postgres;
+
 -- users
 CREATE INDEX idx_users_role_id ON public.users(role_id);
 CREATE INDEX idx_users_is_active ON public.users(is_active);
@@ -265,6 +330,16 @@ CREATE INDEX idx_cart_product_id ON public.cart(product_id);
 CREATE INDEX idx_address_user_id ON public.address(user_id);
 CREATE INDEX idx_address_city_id ON public.address(city_id);
 CREATE INDEX idx_address_is_default ON public.address(is_default);
+
+-- order
+CREATE INDEX idx_order_user_id ON public.order(user_id);
+CREATE INDEX idx_order_status_id ON public.order(status_id);
+CREATE INDEX idx_order_order_date ON public.order(order_date);
+
+-- order_item
+CREATE INDEX idx_order_item_order_id ON public.order_item(order_id);
+CREATE INDEX idx_order_item_product_id ON public.order_item(product_id);
+CREATE INDEX idx_order_item_variation_id ON public.order_item(variation_id);
 
 -- Roles
 INSERT INTO public.role (role_name) VALUES ('customer');
