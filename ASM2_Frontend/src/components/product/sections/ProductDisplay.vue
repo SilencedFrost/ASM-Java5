@@ -2,8 +2,11 @@
 import { defineProps, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+import { useCartStore } from '@/stores/cartStore'
 
 import VariantSelection from '@/components/product/sections/VariantSelection.vue'
+
+const cartStore = useCartStore()
 
 const props = defineProps({
   product: {
@@ -33,6 +36,7 @@ async function addToCart() {
       },
       { withCredentials: true },
     )
+    cartStore.checkCount()
   } catch (err) {
     if (err.response) {
       if (err.response.status === 401) {

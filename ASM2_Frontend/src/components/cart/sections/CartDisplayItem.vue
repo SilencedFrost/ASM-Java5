@@ -1,5 +1,8 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const props = defineProps({
   cartItem: {
@@ -8,7 +11,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['remove-product'])
+const emit = defineEmits(['remove-product', 'update-amount'])
 
 const imageBase = import.meta.env.VITE_IMAGE_BASE
 
@@ -18,6 +21,12 @@ function removeProduct(variationId) {
 
 function formatPrice(price) {
   return price?.toLocaleString('vi-VN') || '0'
+}
+
+function viewProduct() {
+  router.push(`/product/${props.cartItem.productId}`).then(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  })
 }
 </script>
 
@@ -32,6 +41,7 @@ function formatPrice(price) {
           :src="imageBase + '/product/' + props.cartItem.thumbnail"
           :alt="props.cartItem.productName"
           class="rounded-2 object-fit-cover"
+          @click="viewProduct()"
         />
       </div>
       <div class="d-flex flex-fill flex-column p-2">
@@ -45,6 +55,7 @@ function formatPrice(price) {
             class="form-control"
             style="width: 80px"
             :value="props.cartItem.quantity"
+            @input="emit('update-amount', Number($event.target.value), props.cartItem.variationId)"
           />
         </div>
       </div>

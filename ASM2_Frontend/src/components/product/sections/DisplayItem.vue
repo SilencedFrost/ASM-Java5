@@ -57,8 +57,16 @@ function formatPrice(price) {
           <span class="ms-auto small text-muted text-nowrap"
             >{{ product.totalSales }} lượt mua</span
           >
+          <div class="ms-auto d-flex align-items-center">
+            <span class="text-muted small me-1">{{ product.rating }} </span>
+            <div class="text-warning">
+              <i class="bi bi-star" v-if="product.rating < 1"></i
+              ><i v-else-if="product.rating < 3" class="bi bi-star-half"></i
+              ><i v-else class="bi bi-star-fill"></i>
+            </div>
+          </div>
           <button
-            @click="addToCart()"
+            @click="viewProduct()"
             :disabled="!product.isActive"
             :class="[
               'btn btn-primary text-white ms-auto mt-auto',

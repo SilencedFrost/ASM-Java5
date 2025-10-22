@@ -1,11 +1,14 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useAuthStore } from '@/stores/authStore.js'
+import { useCartStore } from '@/stores/cartStore'
 
 const authStore = useAuthStore()
+const cartStore = useCartStore()
 
 onMounted(() => {
   authStore.checkSession()
+  cartStore.checkCount()
 })
 </script>
 
