@@ -80,8 +80,11 @@ public class ProductController {
      * @return searched result if active
      */
     @GetMapping("/search")
-    public ResponseEntity<List<ProductSummaryResponse>> searchActiveProducts(@RequestParam(required = false, defaultValue = "") String keyword) {
-        return ResponseEntity.ok(productService.findActiveByNameLike(keyword));
+    public ResponseEntity<List<ProductSummaryResponse>> searchActiveProducts(
+    @RequestParam(required = false, defaultValue = "") String keyword,
+    @RequestParam(required = false, defaultValue = "creationDate") String sortBy,
+    @RequestParam(required = false, defaultValue = "false") Boolean isOrder) {
+        return ResponseEntity.ok(productService.findActiveByNameLike(keyword, sortBy, isOrder));
     }
 
     /**

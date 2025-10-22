@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,9 +82,27 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public List<ProductSummaryResponse> findActiveByNameLike(String keyword) {
-        return productRepository.findByProductNameContainsIgnoreCaseAndIsActiveTrue(keyword)
-                .stream()
+    public List<ProductSummaryResponse> findActiveByNameLike(String keyword, String sortBy, Boolean isOrder) {
+
+        Sort.Direction direction = isOrder ? Sort.Direction.ASC : Sort.Direction.DESC;
+
+        List<Product> products;
+
+        if ("price".equalsIgnoreCase(sortBy)) {
+            if (direction == Sort.Direction.ASC) {
+                products = productRepository.findActiveByNameLikeOrderByMinPriceAsc(keyword);
+            } else {
+                products = productRepository.findActiveByNameLikeOrderByMinPriceDesc(keyword);
+            }
+        } else {
+            String sortField = sortBy;
+
+            Sort sort = Sort.by(direction, sortField);
+
+            products = productRepository.findByProductNameContainsIgnoreCaseAndIsActiveTrue(keyword, sort);
+        }
+
+        return products.stream()
                 .map(productMapper::toSummaryDTO)
                 .collect(Collectors.toList());
     }
