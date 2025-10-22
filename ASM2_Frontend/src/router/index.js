@@ -21,8 +21,12 @@ import SellerProducts from '@/components/seller/pages/SellerProducts.vue'
 import SellerLayout from '@/components/seller/layout/SellerLayout.vue'
 import SellerDashboard from '@/components/seller/pages/SellerDashboard.vue'
 import SellerOrders from '@/components/seller/pages/SellerOrders.vue'
+import AdminProducts from '@/components/admin/pages/AdminProducts.vue'
+import AdminDashboard from '@/components/admin/pages/AdminDashboard.vue'
+import AdminOrders from '@/components/admin/pages/AdminOrders.vue'
 import VerifyOtp from '@/components/auth/pages/VerifyOtp.vue'
 import ResetPassword from '@/components/auth/pages/ResetPassword.vue'
+import AdminLayout from '@/components/admin/layout/AdminLayout.vue'
 
 const routes = [
   { path: '/order', component: OrderDetail, meta: { title: 'Order detail' } },
@@ -53,6 +57,16 @@ const routes = [
           { path: '', component: SellerDashboard, alias: 'dashboard' },
           { path: 'products', component: SellerProducts },
           { path: 'orders', component: SellerOrders },
+        ],
+      },
+      {
+        path: '/admin',
+        component: AdminLayout,
+        meta: { title: 'Admin dashboard', requiresAuth: true, authorizationLevelExact: 3 },
+        children: [
+          { path: '', component: AdminDashboard, alias: 'dashboard'},
+          { path: 'products', component: AdminProducts },
+          { path: 'orders', component: AdminOrders },
         ],
       },
       {
@@ -93,6 +107,8 @@ router.beforeEach((to, from, next) => {
     to.meta.authorizationLevelExact &&
     authStore.roleId !== to.meta.authorizationLevelExact
   ) {
+    console.log(`Required powah level: ${to.meta.authorizationLevelExact}`)
+    console.log(`Your powah level: ${authStore.roleId}`)
     next({ path: '/' })
     alert('Incorrect authorization level')
   } else {
