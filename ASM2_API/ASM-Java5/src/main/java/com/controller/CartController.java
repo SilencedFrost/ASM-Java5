@@ -69,25 +69,46 @@ public class CartController {
                 .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
-
-    @DeleteMapping("/{userId}/product/{productId}")
-    public ResponseEntity<Void> removeFromCart(
-            @PathVariable Long userId,
-            @PathVariable Long productId) {
-
-        cartService.removeFromCart(userId, productId);
-        return ResponseEntity.noContent().build();
+    /**
+     * DELETE /api/cart/product/{variationId}
+     * @param variationId the variation of the product that is to be deleted from cart
+     * @return void
+     */
+    @DeleteMapping("/product/{variationId}")
+    public ResponseEntity<Boolean> removeFromCart(@PathVariable Long variationId, HttpServletRequest request) {
+        return sessionCookieUtil.getSessionKey(request)
+                .flatMap(sessionService::findUserBySessionToken)
+                .map(u -> cartService.removeFromCart(u.userId(), variationId))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> clearCart(@PathVariable Long userId) {
-        cartService.clearCart(userId);
-        return ResponseEntity.noContent().build();
+    /**
+     * DELETE /api/cart
+     * @return void
+     */
+    @DeleteMapping
+    public ResponseEntity<Void> clearCart(HttpServletRequest request) {
+        return sessionCookieUtil.getSessionKey(request)
+                .flatMap(sessionService::findUserBySessionToken)
+                .map(UserResponse::userId)
+                .map(cartService::clearCart)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
-    @GetMapping("/{userId}/count")
-    public ResponseEntity<Map<String, Long>> getCartItemCount(@PathVariable Long userId) {
-        long count = cartService.getCartItemCount(userId);
-        return ResponseEntity.ok(Map.of("count", count));
+    /**
+     * GET /api/cart/count
+     * @return number of unique item variations in user's cart
+     */
+    @GetMapping("/count")
+    public ResponseEntity<Map<String, Long>> getCartItemCount(HttpServletRequest request) {
+        return sessionCookieUtil.getSessionKey(request)
+                .flatMap(sessionService::findUserBySessionToken)
+                .map(UserResponse::userId)
+                .map(cartService::getCartItemCount)
+                .map(count -> Map.of("count", count))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 }

@@ -2,7 +2,7 @@
 import { defineProps, defineEmits, computed, ref, watch } from 'vue'
 
 const props = defineProps({
-  productVariations: {
+  variations: {
     type: Array,
     required: true,
   },
@@ -11,11 +11,11 @@ const props = defineProps({
 const emit = defineEmits(['variation-selected'])
 
 const selectedProduct = computed(() => {
-  if (!props.productVariations || !selectedSize.value || !selectedVariant.value) {
+  if (!props.variations || !selectedSize.value || !selectedVariant.value) {
     return null
   }
 
-  return props.productVariations.find(
+  return props.variations.find(
     (p) => p.productSize === selectedSize.value && p.variation === selectedVariant.value,
   )
 })
@@ -34,7 +34,7 @@ function deriveVariations(productVariations) {
 }
 
 watch(
-  () => props.productVariations,
+  () => props.variations,
   (newVal) => {
     if (newVal && newVal.length > 0) {
       deriveVariations(newVal)

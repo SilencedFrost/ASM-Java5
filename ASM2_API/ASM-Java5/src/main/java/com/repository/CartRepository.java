@@ -12,11 +12,11 @@ public interface CartRepository extends JpaRepository <Cart, Long> {
 
     List<Cart> findByUserUserId(Long userId);
 
-    Optional<Cart> findByUserUserIdAndProductProductId(Long userId, Long productId);
+    Optional<Cart> findByUserUserIdAndVariationVariationId(Long userId, Long variationId);
 
-    boolean existsByUserUserIdAndProductProductId(Long userId, Long productId);
+    boolean existsByUserUserIdAndVariationVariationId(Long userId, Long variationId);
 
-    void deleteByUserUserIdAndProductProductId(Long userId, Long productId);
+    void deleteByUserUserIdAndVariationVariationId(Long userId, Long variationId);
 
     long countByUserUserId(Long userId);
 }

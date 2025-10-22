@@ -62,6 +62,16 @@ public class CategoryService {
         return categoryRepository.findById(categoryId).map(categoryMapper::toDTOWithProduct);
     }
 
+    public Optional<CategoryWithProductResponse> findByIdWithActiveProduct(Integer categoryId) {
+        return categoryRepository.findById(categoryId)
+                .map(categoryMapper::toDTOWithProduct)
+                .map(dto -> {
+                    dto.productSummaryResponses().removeIf(p -> !p.isActive());
+                    return dto;
+                })
+                .filter(dto -> !dto.productSummaryResponses().isEmpty());
+    }
+
     public CategoryResponse create(CategoryCreateRequest categoryCreateRequest) {
         Category saved = categoryRepository.save(categoryMapper.toEntity(categoryCreateRequest));
         log.info("Category created with ID {}", saved.getCategoryId());

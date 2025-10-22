@@ -3,18 +3,18 @@ package com.service;
 import com.dto.cart.CartCreateRequest;
 import com.dto.cart.CartResponse;
 import com.dto.cart.CartUpdateRequest;
-import com.dto.user.UserResponse;
-import com.dto.user.UserUpdateRequest;
 import com.entity.Cart;
-import com.entity.Product;
 import com.entity.User;
+import com.entity.Variation;
 import com.exception.CartItemNotFoundException;
-import com.exception.ProductNotFoundException;
+import com.exception.CartNotFoundException;
 import com.exception.UserNotFoundException;
+import com.exception.VariationNotFoundException;
 import com.mapper.CartMapper;
 import com.repository.CartRepository;
 import com.repository.ProductRepository;
 import com.repository.UserRepository;
+import com.repository.VariationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +31,7 @@ public class CartService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final CartMapper cartMapper;
+    private final VariationRepository variationRepository;
 
     @Transactional(readOnly = true)
     public List<CartResponse> getCartByUserId(Long userId) {
@@ -45,11 +46,11 @@ public class CartService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
 
-        Product product = productRepository.findById(cartCreateRequest.productId())
-                .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + cartCreateRequest.productId()));
+        Variation variation = variationRepository.findById(cartCreateRequest.variationId())
+                .orElseThrow(() -> new VariationNotFoundException("Variation not found with id: " + cartCreateRequest.variationId()));
 
-        Optional<Cart> existingCart = cartRepository.findByUserUserIdAndProductProductId(
-                userId, cartCreateRequest.productId());
+        Optional<Cart> existingCart = cartRepository.findByUserUserIdAndVariationVariationId(
+                userId, cartCreateRequest.variationId());
 
         Cart cart;
         if (existingCart.isPresent()) {
@@ -58,7 +59,8 @@ public class CartService {
         } else {
             cart = new Cart();
             cart.assignUser(user);
-            cart.assignProduct(product);
+            cart.assignProduct(variation.getProduct());
+            cart.assignVariation(variation);
             cart.setQuantity(cartCreateRequest.quantity());
         }
 
@@ -67,7 +69,7 @@ public class CartService {
 
     @Transactional
     public CartResponse update(CartUpdateRequest cartUpdateRequest, Long userId) {
-        Cart existingCart = cartRepository.findByUserUserIdAndProductProductId(userId, cartUpdateRequest.productId())
+        Cart existingCart = cartRepository.findByUserUserIdAndVariationVariationId(userId, cartUpdateRequest.variationId())
                 .orElseThrow(() -> new CartItemNotFoundException("Cart item not found"));
         cartMapper.updateCartFromDTO(cartUpdateRequest, existingCart);
 
@@ -75,23 +77,23 @@ public class CartService {
     }
 
     @Transactional
-    public void removeFromCart(Long userId, Long productId) {
-        if (!cartRepository.existsByUserUserIdAndProductProductId(userId, productId)) {
-            throw new RuntimeException(
-                    "Cart item not found for user " + userId + " and product " + productId);
+    public Boolean removeFromCart(Long userId, Long variationId) {
+        if (!cartRepository.existsByUserUserIdAndVariationVariationId(userId, variationId)) {
+            throw new CartItemNotFoundException(
+                    "Cart item not found for user " + userId + " and variation " + variationId);
         }
-
-        cartRepository.deleteByUserUserIdAndProductProductId(userId, productId);
+        cartRepository.deleteByUserUserIdAndVariationVariationId(userId, variationId);
+        return true;
     }
 
     @Transactional
-    public void clearCart(Long userId) {
+    public Void clearCart(Long userId) {
         if (!userRepository.existsById(userId)) {
-            throw new RuntimeException("User not found with id: " + userId);
+            throw new CartNotFoundException("Cart of user id: " + userId + " not found");
         }
-
         List<Cart> carts = cartRepository.findByUserUserId(userId);
         cartRepository.deleteAll(carts);
+        return null;
     }
 
     @Transactional(readOnly = true)

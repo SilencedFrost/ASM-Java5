@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,13 +30,12 @@ public class CategoryController {
      * Fetch all categories
      */
     @GetMapping
-    public ResponseEntity<List<CategoryResponse>> getAllCategories(@RequestParam(required = false, defaultValue = "false") boolean notEmpty, HttpServletRequest request) {
+    public ResponseEntity<List<CategoryResponse>> getAllCategories(@RequestParam(required = false, defaultValue = "false") boolean viewEmpty, HttpServletRequest request) {
         Optional<UserResponse> user = sessionCookieUtil.getSessionKey(request)
                 .flatMap(sessionService::findUserBySessionToken);
         boolean isAdmin = user.map(u -> u.roleId() == 3).orElse(false);
-
         log.debug("Fetching all categories");
-        return ResponseEntity.ok(isAdmin && notEmpty? categoryService.findAll() : categoryService.findNotEmpty());
+        return ResponseEntity.ok(isAdmin && viewEmpty? categoryService.findAll() : categoryService.findNotEmpty());
     }
 
     /**
@@ -63,13 +63,15 @@ public class CategoryController {
     }
 
     /**
-     * GET /api/categories/{id}/products
+     * GET /api/categories/{categoryId}/products
      * Fetch one category with its products
      */
-    @GetMapping("/{id}/products")
-    public ResponseEntity<CategoryWithProductResponse> getCategoryWithProducts(@PathVariable Integer id) {
-        log.debug("Fetching category Id: {} with all it's products", id);
-        return categoryService.findByIdWithProduct(id)
+    @GetMapping("/{categoryId}/products")
+    public ResponseEntity<CategoryWithProductResponse> getCategoryWithProducts(@PathVariable Integer categoryId, HttpServletRequest request) {
+        Optional<UserResponse> user = sessionCookieUtil.getSessionKey(request)
+                .flatMap(sessionService::findUserBySessionToken);
+        boolean isAdmin = user.map(u -> u.roleId() == 3).orElse(false);
+        return (isAdmin? categoryService.findByIdWithProduct(categoryId) : categoryService.findByIdWithActiveProduct(categoryId))
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

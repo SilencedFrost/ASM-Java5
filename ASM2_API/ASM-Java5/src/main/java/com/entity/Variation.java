@@ -9,6 +9,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(
@@ -23,7 +25,7 @@ import java.time.OffsetDateTime;
 )
 @Getter
 @NoArgsConstructor
-public class ProductVariation {
+public class Variation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,14 +60,17 @@ public class ProductVariation {
     @Column(name = "price", nullable = false, precision = 15, scale = 2)
     private BigDecimal price;
 
+    @OneToMany(mappedBy = "variation", orphanRemoval = true)
+    private final List<Cart> carts = new ArrayList<>();
+
     public void assignProduct(Product product) {
         if (this.product != null) {
-            this.product.getProductVariations().remove(this);
+            this.product.getVariations().remove(this);
         }
 
         this.product = product;
         if (product != null) {
-            product.getProductVariations().add(this);
+            product.getVariations().add(this);
         }
     }
 }

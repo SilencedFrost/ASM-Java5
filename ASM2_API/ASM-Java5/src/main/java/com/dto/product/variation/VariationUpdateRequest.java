@@ -2,7 +2,7 @@ package com.dto.product.variation;
 
 import java.math.BigDecimal;
 
-public record ProductVariationUpdateRequest(
+public record VariationUpdateRequest(
         Long productId,
         String productName,
         Integer categoryId,

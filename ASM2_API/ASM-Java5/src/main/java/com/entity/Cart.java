@@ -32,6 +32,10 @@ public class Cart {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "variation_id", nullable = false)
+    private Variation variation;
+
     @Setter
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
@@ -59,6 +63,17 @@ public class Cart {
         this.product = product;
         if (product != null) {
             product.getCarts().add(this);
+        }
+    }
+
+    public void assignVariation(Variation variation) {
+        if (this.variation != null) {
+            this.variation.getCarts().remove(this);
+        }
+
+        this.variation = variation;
+        if (variation != null) {
+            variation.getCarts().add(this);
         }
     }
 }

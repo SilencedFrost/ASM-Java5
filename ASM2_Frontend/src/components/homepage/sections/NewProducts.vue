@@ -22,7 +22,7 @@ async function fetchProducts() {
 onMounted(fetchProducts)
 </script>
 <template>
-  <section class="container-fluid" id="newProducts">
+  <section id="newProducts">
     <div class="text-center my-4">
       <h1 class="fw-bold">New products</h1>
     </div>
