@@ -3,21 +3,24 @@ import { useAuthStore } from '@/stores/authStore'
 
 import HomepageLayout from '@/components/homepage/layout/HomepageLayout.vue'
 import Homepage from '@/components/homepage/pages/Homepage.vue'
-import ProfileLayout from '@/components/profile/layout/ProfileLayout.vue'
-import Profile from '@/components/profile/pages/Profile.vue'
+import AccountLayout from '@/components/account/layout/AccountLayout.vue'
+import Account from '@/components/account/pages/Account.vue'
 import Cart from '@/components/cart/pages/Cart.vue'
 import ProductDetail from '@/components/product/pages/ProductDetail.vue'
 import Login from '@/components/auth/pages/Login.vue'
 import Search from '@/components/search/pages/Search.vue'
 import Signup from '@/components/auth/pages/Signup.vue'
 import Generic from '@/components/base/layout/Generic.vue'
-import Payment from '@/components/profile/pages/Payment.vue'
-import Address from '@/components/profile/pages/Address.vue'
-import ChangePass from '@/components/profile/pages/ChangePass.vue'
+import Payment from '@/components/account/pages/Payment.vue'
+import Address from '@/components/account/pages/Address.vue'
 import ForgotPassword from '@/components/auth/pages/ForgotPassword.vue'
 import OrderDetail from '@/components/order/pages/OrderDetail.vue'
 import OrderStatus from '@/components/order/pages/OrderStatus.vue'
 import AuthLayout from '@/components/auth/layout/AuthLayout.vue'
+import SellerProducts from '@/components/seller/pages/SellerProducts.vue'
+import SellerLayout from '@/components/seller/layout/SellerLayout.vue'
+import SellerDashboard from '@/components/seller/pages/SellerDashboard.vue'
+import SellerOrders from '@/components/seller/pages/SellerOrders.vue'
 import VerifyOtp from '@/components/auth/pages/VerifyOtp.vue'
 import ResetPassword from '@/components/auth/pages/ResetPassword.vue'
 
@@ -30,8 +33,8 @@ const routes = [
       { path: 'login', component: Login, meta: { title: 'Login' } },
       { path: 'register', component: Signup, meta: { title: 'Register' } },
       { path: 'forgot-password', component: ForgotPassword, meta: { title: 'Forgot password' } },
-      { path: 'verify-otp', component: VerifyOtp, meta: {title: 'Verify OTP'}},
-      { path: 'reset-password', component: ResetPassword, meta: {title: 'Reset Password'}},
+      { path: 'verify-otp', component: VerifyOtp, meta: { title: 'Verify OTP' } },
+      { path: 'reset-password', component: ResetPassword, meta: { title: 'Reset Password' } },
     ],
   },
   {
@@ -41,7 +44,17 @@ const routes = [
       { path: '/search/:keyword?', component: Search, meta: { title: 'Search' } },
       { path: '/product/:id?', component: ProductDetail, meta: { title: 'Product detail' } },
       { path: '/cart', component: Cart, meta: { title: 'Cart', requiresAuth: true } },
-      { path: '/status', component: OrderStatus, meta: { title: 'Trạng thái đơn hàng' } },
+      { path: '/status', component: OrderStatus, meta: { title: 'Order status' } },
+      {
+        path: '/seller',
+        component: SellerLayout,
+        meta: { title: 'Seller dashboard', requiresAuth: true, authorizationLevelExact: 2 },
+        children: [
+          { path: '', component: SellerDashboard, alias: 'dashboard' },
+          { path: 'products', component: SellerProducts },
+          { path: 'orders', component: SellerOrders },
+        ],
+      },
       {
         path: '/',
         component: HomepageLayout,
@@ -51,13 +64,12 @@ const routes = [
       },
       {
         path: '/account',
-        component: ProfileLayout,
+        component: AccountLayout,
         meta: { title: 'My account', requiresAuth: true },
         children: [
-          { path: '', component: Profile },
+          { path: '', component: Account },
           { path: 'payment', component: Payment },
           { path: 'address', component: Address },
-          { path: 'change-pass', component: ChangePass },
         ],
       },
     ],
@@ -69,16 +81,20 @@ const router = createRouter({
   routes,
 })
 
-// Navigation guard for authentication
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
-
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
-    // Save the target route so we can redirect later
+    console.log('please login deadass')
     next({
       path: '/auth/login',
       query: { redirect: to.fullPath },
     })
+  } else if (
+    to.meta.authorizationLevelExact &&
+    authStore.roleId !== to.meta.authorizationLevelExact
+  ) {
+    next({ path: '/' })
+    alert('Incorrect authorization level')
   } else {
     next()
   }

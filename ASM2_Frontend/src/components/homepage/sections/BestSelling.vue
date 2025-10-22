@@ -24,21 +24,21 @@ async function fetchProducts() {
 onMounted(fetchProducts)
 </script>
 <template>
-  <div class="container-fluid">
+  <section id="bestSeller">
     <div class="text-center my-4">
-      <h1 class="fw-bold">Sản phẩm bán chạy</h1>
+      <h1 class="fw-bold">Best sellers</h1>
     </div>
     <div v-if="loading" class="alert alert-info">Loading top selling products</div>
     <div v-else-if="error" class="alert alert-danger">
       {{ error }}
     </div>
     <div v-else>
-        <div class="row g-3">
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" v-for="product in products">
-            <display-item :product="product" />
-          </div>
+      <div class="row g-3">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" v-for="product in products">
+          <display-item :product="product" />
         </div>
-        <hr />
+      </div>
+      <hr />
     </div>
-  </div>
+  </section>
 </template>

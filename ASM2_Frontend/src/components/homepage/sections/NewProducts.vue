@@ -4,12 +4,10 @@ import axios from 'axios'
 
 import DisplayItem from '@/components/product/sections/DisplayItem.vue'
 
-// Reactive state
 const products = ref([])
 const loading = ref(true)
 const error = ref(null)
 
-// Fetch
 async function fetchProducts() {
   try {
     const response = await axios.get(import.meta.env.VITE_API_BASE + '/products/top/new')
@@ -24,21 +22,21 @@ async function fetchProducts() {
 onMounted(fetchProducts)
 </script>
 <template>
-  <div class="container-fluid">
+  <section id="newProducts">
     <div class="text-center my-4">
-      <h1 class="fw-bold">Sản phẩm mới</h1>
+      <h1 class="fw-bold">New products</h1>
     </div>
     <div v-if="loading" class="alert alert-info">Loading products...</div>
     <div v-else-if="error" class="alert alert-danger">
       {{ error }}
     </div>
     <div v-else>
-        <div class="row g-3">
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" v-for="product in products">
-            <display-item :product="product" />
-          </div>
+      <div class="row g-3">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" v-for="product in products">
+          <display-item :product="product" />
         </div>
-        <hr />
+      </div>
+      <hr />
     </div>
-  </div>
+  </section>
 </template>

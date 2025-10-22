@@ -1,7 +1,8 @@
 package com.dto.product;
 
-import com.dto.product.variation.ProductVariationResponse;
+import com.dto.product.variation.VariationResponse;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -16,8 +17,8 @@ public record ProductResponse(
         String thumbnail,
         String description,
         Boolean isActive,
-        Integer viewCount,
+        BigDecimal rating,
         Integer totalSales,
-        List<ProductVariationResponse> productVariations
+        List<VariationResponse> variations
 ) {
 }

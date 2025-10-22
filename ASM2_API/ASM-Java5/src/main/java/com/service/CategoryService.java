@@ -38,16 +38,38 @@ public class CategoryService {
         return categoryRepository.findById(categoryId).map(categoryMapper::toDTO);
     }
 
-    public Page<CategoryWithProductResponse> findAllWithProduct(Pageable pageable) {
-        return categoryRepository.findAll(pageable).map(categoryMapper::toDTOWithProduct);
+    public List<CategoryWithProductResponse> findAllWithProduct() {
+        return categoryRepository.findByProductsIsNotEmpty()
+                .stream()
+                .map(categoryMapper::toDTOWithProduct)
+                .toList();
     }
 
-    public List<CategoryWithProductResponse> findAllWithProduct() {
-        return findAllWithProduct(PageRequest.of(0, 50)).getContent();
+    public List<CategoryWithProductResponse> findAllWithActiveProduct() {
+        return categoryRepository.findAll()
+                .stream()
+                .map(categoryMapper::toDTOWithProduct)
+                .peek(dto -> dto.productSummaryResponses().removeIf(p -> !p.isActive()))
+                .filter(dto -> !dto.productSummaryResponses().isEmpty())
+                .toList();
+    }
+
+    public List<CategoryResponse> findNotEmpty() {
+        return categoryRepository.findByProductsIsNotEmpty().stream().map(categoryMapper::toDTO).toList();
     }
 
     public Optional<CategoryWithProductResponse> findByIdWithProduct(Integer categoryId) {
         return categoryRepository.findById(categoryId).map(categoryMapper::toDTOWithProduct);
+    }
+
+    public Optional<CategoryWithProductResponse> findByIdWithActiveProduct(Integer categoryId) {
+        return categoryRepository.findById(categoryId)
+                .map(categoryMapper::toDTOWithProduct)
+                .map(dto -> {
+                    dto.productSummaryResponses().removeIf(p -> !p.isActive());
+                    return dto;
+                })
+                .filter(dto -> !dto.productSummaryResponses().isEmpty());
     }
 
     public CategoryResponse create(CategoryCreateRequest categoryCreateRequest) {

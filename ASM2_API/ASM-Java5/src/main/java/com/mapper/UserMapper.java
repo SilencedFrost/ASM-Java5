@@ -3,12 +3,10 @@ package com.mapper;
 import com.dto.auth.RegisterRequest;
 import com.dto.user.UserCreateRequest;
 import com.dto.user.UserResponse;
+import com.dto.user.UserUpdateRequest;
 import com.entity.User;
 import com.service.HashService;
-import org.mapstruct.Context;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -29,6 +27,12 @@ public interface UserMapper {
     @Mapping(target = "birthday", ignore = true)
     @Mapping(target = "carts", ignore = true)
     User toEntity(RegisterRequest registerRequest, @Context HashService hashService);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "passwordHash", source = "password", qualifiedByName = "hashPassword")
+    @Mapping(target = "sessions", ignore = true)
+    @Mapping(target = "carts", ignore = true)
+    void updateUserFromDTO(UserUpdateRequest dto, @MappingTarget User entity, @Context HashService hashService);
 
     @Named("hashPassword")
     default String hashPassword(String password, @Context HashService hashService) {

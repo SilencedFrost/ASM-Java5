@@ -4,15 +4,16 @@ import axios from 'axios'
 
 import DisplayItem from '@/components/product/sections/DisplayItem.vue'
 
-// Reactive state
 const categories = ref([])
 const loading = ref(true)
 const error = ref(null)
 
-// Fetch
 async function fetchCategories() {
+  loading.value = true
   try {
-    const response = await axios.get(import.meta.env.VITE_API_BASE + '/categories/products')
+    const response = await axios.get(import.meta.env.VITE_API_BASE + '/categories/products', {
+      withCredentials: true,
+    })
     categories.value = response.data
   } catch (err) {
     error.value = 'Failed to load data'
@@ -24,7 +25,7 @@ async function fetchCategories() {
 onMounted(fetchCategories)
 </script>
 <template>
-  <div class="container-fluid">
+  <div>
     <div v-if="loading" class="alert alert-info">Loading categories...</div>
     <div v-else-if="error" class="alert alert-danger">
       {{ error }}
@@ -33,14 +34,18 @@ onMounted(fetchCategories)
       <section
         v-for="category in categories"
         :key="category.categoryId"
-        :id="'category' + category.categoryId">
+        :id="'category' + category.categoryId"
+      >
         <div class="text-center my-4">
           <h1 class="fw-bold">
             {{ category.categoryName }}
           </h1>
         </div>
         <div class="row g-3">
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" v-for="product in category.productSummaryResponses">
+          <div
+            class="col-xl-3 col-lg-4 col-md-6 col-sm-12"
+            v-for="product in category.productSummaryResponses"
+          >
             <display-item :product="product" />
           </div>
         </div>

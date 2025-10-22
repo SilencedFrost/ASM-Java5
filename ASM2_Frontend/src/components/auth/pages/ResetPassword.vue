@@ -19,10 +19,6 @@ async function onSubmit() {
     fieldErrors.value.confirmPassword = 'Passwords do not match.'
     return
   }
-  if (!newPassword.value) {
-    fieldErrors.value.newPassword = 'New password is required.'
-    return
-  }
 
   isLoading.value = true
   message.value = ''
@@ -32,16 +28,13 @@ async function onSubmit() {
     const res = await axios.post(
       import.meta.env.VITE_API_BASE + '/auth/reset-password',
       { newPassword: newPassword.value },
-      { withCredentials: true }
+      { withCredentials: true },
     )
     message.value = res.data
-
     setTimeout(() => router.push('/auth/login'), 2000)
   } catch (err) {
     if (err.response && err.response.data) {
-        fieldErrors.value = { error: err.response.data }
-    } else {
-        fieldErrors.value = { error: 'Failed to resend code.' }
+      fieldErrors.value = err.response.data
     }
   } finally {
     isLoading.value = false
@@ -50,14 +43,14 @@ async function onSubmit() {
 </script>
 
 <template>
-  <div class="d-flex flex-fill justify-content-center align-items-center bg-warning min-vh-100">
+  <div class="d-flex flex-fill justify-content-center align-items-center">
     <div class="card shadow-sm p-3 bg-light" style="max-width: 400px; width: 100%">
-      <h2 class="text-center text-dark">Reset Password</h2>
+      <h2 class="text-center">Reset Password</h2>
       <hr />
-      
+
       <form @submit.prevent="onSubmit" novalidate>
         <div class="mb-3">
-          <label for="newPassword" class="form-label text-dark">New Password</label>
+          <label for="newPassword" class="form-label">New Password</label>
           <input
             type="password"
             id="newPassword"
@@ -65,13 +58,15 @@ async function onSubmit() {
             class="form-control"
             required
             :disabled="isLoading"
-            :class="{ 'is-invalid': fieldErrors.newPassword }" /> <div v-if="fieldErrors.newPassword" class="form-text text-danger">
+            :class="{ 'is-invalid': fieldErrors.newPassword }"
+          />
+          <div v-if="fieldErrors.newPassword" class="form-text text-danger">
             {{ fieldErrors.newPassword }}
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="confirmPassword" class="form-label text-dark">Confirm Password</label>
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
           <input
             type="password"
             id="confirmPassword"
@@ -79,17 +74,19 @@ async function onSubmit() {
             class="form-control"
             required
             :disabled="isLoading"
-            :class="{ 'is-invalid': fieldErrors.confirmPassword }" /> <div v-if="fieldErrors.confirmPassword" class="form-text text-danger">
+            :class="{ 'is-invalid': fieldErrors.confirmPassword }"
+          />
+          <div v-if="fieldErrors.confirmPassword" class="form-text text-danger">
             {{ fieldErrors.confirmPassword }}
           </div>
         </div>
 
         <p class="text-center text-muted small">
-        Resetting password for: <strong>{{ email }}</strong>
+          Resetting password for: <strong>{{ email }}</strong>
         </p>
-        
+
         <div v-if="fieldErrors.error" class="form-text text-danger mb-3">
-            {{ fieldErrors.error }}
+          {{ fieldErrors.error }}
         </div>
 
         <button type="submit" class="btn w-100 btn-primary text-white" :disabled="isLoading">
@@ -99,7 +96,7 @@ async function onSubmit() {
       </form>
 
       <div v-if="message" class="alert alert-success mt-3">{{ message }}</div>
-      
+
       <hr />
       <div class="text-center">
         <router-link to="/auth/login" class="text-decoration-none ms-1">

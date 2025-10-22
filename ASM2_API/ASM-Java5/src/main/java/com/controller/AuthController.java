@@ -3,12 +3,11 @@ package com.controller;
 import com.dto.auth.*;
 import com.dto.user.UserResponse;
 import com.exception.InvalidLoginException;
-import com.exception.UserAlreadyExistException;
+import com.service.EmailService;
 import com.service.SessionService;
 import com.service.UserService;
-import com.service.EmailService;
-import com.util.TokenGeneratorUtil;
 import com.util.SessionCookieUtil;
+import com.util.TokenGeneratorUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -57,17 +56,14 @@ public class AuthController {
 
     /**
      * GET /api/auth/login/session
-     * Validate user's session via cookies
-     * @return User
+     * @return user via token
      */
     @GetMapping("/login/session")
     public ResponseEntity<UserResponse> loginSession(HttpServletRequest request) {
-        Optional<String> sessionToken = sessionCookieUtil.getSessionKey(request);
-
-        return sessionToken.map(s -> sessionService.findUserBySessionToken(s)
+        return sessionCookieUtil.getSessionKey(request)
+                .flatMap(sessionService::findUserBySessionToken)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()))
-                .orElseGet(() -> ResponseEntity.noContent().build());
+                .orElse(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
     }
 
     /**
@@ -75,20 +71,28 @@ public class AuthController {
      * @return Customer
      */
     @PostMapping("/register/customer")
-    public ResponseEntity<UserResponse> registerCustomer(@Valid @RequestBody RegisterRequest registerRequest, @RequestHeader("User-Agent") String userAgent) {
-        UserResponse userResponse = userService.registerIfNotExist(registerRequest).orElseThrow(() -> new UserAlreadyExistException("account with this email already exists"));
+    public ResponseEntity<String> registerCustomer(@Valid @RequestBody RegisterRequest registerRequest) {
+        userService.registerIfNotExist(registerRequest);
 
-        if (registerRequest.rememberMe()) {
-            String ua = userAgent != null ? userAgent : "Unknown";
-            String sessionKey = sessionService.createSession(userResponse.userId(), ua);
-            ResponseCookie sessionCookie = sessionCookieUtil.createSessionCookie(sessionKey);
+        return ResponseEntity.ok("Registration successful. Please check your email to activate your account.");
+    }
 
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.SET_COOKIE, sessionCookie.toString())
-                    .body(userResponse);
+    @GetMapping("/verify/{token}")
+    public ResponseEntity<Void> verifyAccount(@PathVariable String token) {
+        boolean isVerified = userService.verifyToken(token);
+
+
+        String frontendLoginUrl = "http://localhost:5173/auth/login";
+
+        if (isVerified) {
+            return ResponseEntity.status(HttpStatus.FOUND)
+                    .location(URI.create(frontendLoginUrl + "?verified=true"))
+                    .build();
+        } else {
+            return ResponseEntity.status(HttpStatus.FOUND)
+                    .location(URI.create(frontendLoginUrl + "?error=invalid_token"))
+                    .build();
         }
-
-        return ResponseEntity.ok().body(userResponse);
     }
 
     /**

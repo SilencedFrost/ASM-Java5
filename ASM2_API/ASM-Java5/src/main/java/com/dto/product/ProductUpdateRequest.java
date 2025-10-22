@@ -1,6 +1,6 @@
 package com.dto.product;
 
-import com.dto.product.variation.ProductVariationUpdateRequest;
+import com.dto.product.variation.VariationUpdateRequest;
 
 import java.util.List;
 
@@ -11,6 +11,6 @@ public record ProductUpdateRequest(
         String thumbnail,
         String description,
         Boolean isActive,
-        List<ProductVariationUpdateRequest> productVariations
+        List<VariationUpdateRequest> productVariations
 ) {
 }
