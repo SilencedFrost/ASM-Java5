@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
         name = "cart",
         schema = "public",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"user_id", "product_id"})
+                @UniqueConstraint(columnNames = {"user_id", "variation_id"})
         })
 @NoArgsConstructor
 public class Cart {

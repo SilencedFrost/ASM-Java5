@@ -232,7 +232,7 @@ CREATE TABLE IF NOT EXISTS public.cart
         REFERENCES public.product (product_id),
 	CONSTRAINT cart_fk_variation FOREIGN KEY (variation_id) 
 	REFERENCES public.product_variation (variation_id),
-	UNIQUE (user_id, product_id)
+	UNIQUE (user_id, variation_id)
 );
 
 ALTER TABLE IF EXISTS public.cart
