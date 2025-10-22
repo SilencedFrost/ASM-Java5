@@ -15,8 +15,6 @@ const products = ref([])
 const loading = ref(true)
 const error = ref(null)
 
-
-
 async function fetchCategories() {
   loading.value = true
   error.value = null
@@ -49,24 +47,23 @@ watch(sortBy, updateUrlQuery)
 watch(isOrder, updateUrlQuery)
 
 watch(
-  () => route.fullPath, 
+  () => route.fullPath,
   (newPath, oldPath) => {
     if (newPath === oldPath) return
 
-    keyword.value = route.params.keyword || '';
-    sortBy.value = route.query.sortBy || 'creationDate';
-    isOrder.value = route.query.isOrder === 'true';
+    keyword.value = route.params.keyword || ''
+    sortBy.value = route.query.sortBy || 'creationDate'
+    isOrder.value = route.query.isOrder === 'true'
 
-    fetchCategories();
-  }
+    fetchCategories()
+  },
 )
-
 
 onMounted(fetchCategories)
 </script>
 
 <template>
-  <div class="container-fluid p-2">
+  <div class="container-lg p-2">
     <div v-if="loading" class="text-center mt-5 d-flex flex-column">
       <i class="bi bi-search h1 text-muted"></i>
       <span class="text-muted h4">Searching products with keyword: {{ keyword }}</span>
@@ -78,9 +75,8 @@ onMounted(fetchCategories)
     <div v-else>
       <h2>Result for keyword: {{ keyword }}</h2>
       <div class="d-flex justify-content-start align-items-center mb-3">
-        
         <strong class="me-2">Sort by:</strong>
-        
+
         <select class="form-select w-auto" v-model="sortBy">
           <option value="creationDate">Date</option>
           <option value="price">Price</option>

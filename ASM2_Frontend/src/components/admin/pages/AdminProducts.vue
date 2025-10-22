@@ -2,8 +2,8 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
-import AdminActiveProducts from '@/components/admin/sections/AdminActiveProducts.vue'
-import AdminInactiveProducts from '@/components/admin/sections/AdminInactiveProducts.vue'
+import AuthActiveProducts from '@/components/seller/sections/AuthActiveProducts.vue'
+import AuthInactiveProducts from '@/components/seller/sections/AuthInactiveProducts.vue'
 
 const products = ref([])
 const loading = ref(true)
@@ -31,7 +31,7 @@ onMounted(fetchProducts)
     {{ error }}
   </div>
   <div v-else class="flex-fill">
-    <Admin-active-products :products="products" />
-    <Admin-inactive-products :products="products" />
+    <auth-active-products :products="products" />
+    <auth-inactive-products :products="products" />
   </div>
 </template>

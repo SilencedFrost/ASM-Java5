@@ -34,22 +34,29 @@ async function toggleState() {
 }
 
 function editProduct() {
-  router.push(`/admin/products/edit/${props.product.productId}`)
+  router.push(`/seller/products/edit/${props.product.productId}`)
 }
 
 function formatPrice(price) {
   return price?.toLocaleString('vi-VN') || '0'
+}
+
+function viewProduct() {
+  router.push(`/product/${props.product.productId}`).then(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  })
 }
 </script>
 <template>
   <div class="mb-2">
     <div class="card bg-light p-2">
       <div class="d-flex">
-        <div class="ratio ratio-1x1" :style="{ maxWidth: `20%` }">
+        <div class="ratio ratio-1x1" :style="{ width: `150px` }">
           <img
             :src="imageBase + '/product/' + product.thumbnail"
             :alt="product.productName"
             :class="['rounded-2 object-fit-cover', { 'opacity-50': !product.isActive }]"
+            @click="viewProduct()"
           />
         </div>
         <div class="d-flex flex-fill wh-100 p-2">
@@ -57,6 +64,14 @@ function formatPrice(price) {
             <span class="card-title fw-bold h5">{{ product.productName }}</span>
             <span class="h5 text-danger fw-bold">{{ formatPrice(product.price) }}đ</span>
             <span class="small text-muted text-nowrap">{{ product.totalSales }} lượt mua</span>
+            <div class="d-flex align-items-center mt-1">
+              <span class="text-muted small me-1">{{ product.rating }} </span>
+              <div class="text-warning">
+                <i class="bi bi-star" v-if="product.rating < 1"></i
+                ><i v-else-if="product.rating < 3" class="bi bi-star-half"></i
+                ><i v-else class="bi bi-star-fill"></i>
+              </div>
+            </div>
           </div>
           <div class="d-flex flex-column flex-shrink-0">
             <button
