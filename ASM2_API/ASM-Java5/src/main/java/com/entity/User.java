@@ -52,8 +52,8 @@ public class User {
     private String passwordHash;
 
     @Setter
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive = true;
+    @Column(name = "is_active", nullable = false, columnDefinition = "boolean default false")
+    private Boolean isActive = false;
 
     @Setter
     @Column(name = "phone_number", length = 15)

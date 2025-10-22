@@ -1,5 +1,7 @@
 -- Drops
 
+DROP TABLE IF EXISTS public.verification_token;
+
 DROP TABLE IF EXISTS public.cart;
 
 DROP TABLE IF EXISTS public.product_variation;
@@ -234,6 +236,21 @@ CREATE TABLE IF NOT EXISTS public.cart
 );
 
 ALTER TABLE IF EXISTS public.cart
+    OWNER to postgres;
+
+-- Table: verification_token
+
+CREATE TABLE IF NOT EXISTS public.verification_token (
+	verification_token_id bigint GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 CACHE 1 ),
+    verification_token_hash char(64) NOT NULL,
+    creation_date timestamptz NOT NULL,
+    user_id bigint NOT NULL,
+    CONSTRAINT fk_user_token FOREIGN KEY(user_id) 
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+ALTER TABLE IF EXISTS public.verification_token
     OWNER to postgres;
 
 -- users
@@ -633,11 +650,7 @@ INSERT INTO public.product (product_name, seller_id, category_id, date_added, up
 ('Soda dâu', 100010, 27, '2024-09-10 10:00:00+07', '2025-10-15 14:50:00+07', 'jpg', 'Soda dâu ngọt mát với dâu tây tươi ngon', true, 4.60, 2890),
 ('Soda cam', 100010, 27, '2024-12-05 11:30:00+07', NULL, 'jpg', 'Soda cam tươi mát với nước cam vắt tươi', true, 4.75, 4678);
 
-
-
-
 -- Product variation
-
 -- 100000: Hủ tiếu Nam Vang (3 sizes × 2 variations = 6 records)
 INSERT INTO public.product_variation (product_id, date_added, updated_at, image_extension, product_size, variation, price) VALUES
 (100000, '2023-03-15 09:00:00+07', '2023-05-20 14:30:00+07', 'jpg', 'nhỏ', 'thường', 35000.00),

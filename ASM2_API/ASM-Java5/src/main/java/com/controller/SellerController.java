@@ -2,16 +2,17 @@ package com.controller;
 
 import com.dto.product.ProductSummaryResponse;
 import com.dto.seller.SellerResponse;
-import com.dto.user.UserResponse;
 import com.service.ProductService;
-import com.service.SellerService;
 import com.service.SessionService;
 import com.util.SessionCookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
