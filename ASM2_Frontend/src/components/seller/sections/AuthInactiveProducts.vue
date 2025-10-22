@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps } from 'vue'
 
-import AdminDisplayItem from '@/components/admin/sections/AdminDisplayItem.vue'
+import AuthDisplayItem from '@/components/seller/sections/AuthDisplayItem.vue'
 
 const props = defineProps({
   products: {
@@ -13,10 +13,10 @@ const props = defineProps({
 
 <template>
   <div class="p-3">
-    <h2 class="fw-bold">Active products</h2>
+    <h2 class="fw-bold">Inactive products</h2>
     <div class="d-flex flex-column">
       <div v-for="product in props.products">
-        <Admin-display-item :product="product" v-if="product.isActive" />
+        <auth-display-item :product="product" v-if="!product.isActive" />
       </div>
     </div>
   </div>

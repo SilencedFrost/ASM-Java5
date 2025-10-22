@@ -4,7 +4,7 @@ import SellerSidebar from '@/components/seller/sections/SellerSidebar.vue'
 
 <template>
   <div class="d-flex flex-fill">
-    <div style="width: 220px">
+    <div style="min-width: 220px">
       <div class="d-flex h-100">
         <seller-sidebar />
       </div>
