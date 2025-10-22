@@ -14,7 +14,7 @@ public record ProductSummaryResponse(
         String thumbnail,
         String description,
         Boolean isActive,
-        Integer viewCount,
+        BigDecimal rating,
         Integer totalSales,
         BigDecimal price
 ) {

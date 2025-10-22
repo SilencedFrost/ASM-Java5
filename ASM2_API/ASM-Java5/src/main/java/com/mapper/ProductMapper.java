@@ -4,7 +4,7 @@ import com.dto.product.ProductCreateRequest;
 import com.dto.product.ProductResponse;
 import com.dto.product.ProductSummaryResponse;
 import com.entity.Product;
-import com.entity.ProductVariation;
+import com.entity.Variation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Mapper(
         componentModel = "spring",
-        uses = ProductVariationMapper.class)
+        uses = VariationMapper.class)
 public interface ProductMapper {
 
     @Mapping(target = "categoryId", source = "category.categoryId")
@@ -26,13 +26,14 @@ public interface ProductMapper {
     @Mapping(target = "sellerId", source = "seller.sellerId")
     @Mapping(target = "sellerName", source = "seller.shopName")
     @Mapping(target = "thumbnail", expression = "java(buildThumbnailFilename(product))")
-    @Mapping(target = "price", expression = "java(aggregatePrice(product.getProductVariations()))")
+    @Mapping(target = "price", expression = "java(aggregatePrice(product.getVariations()))")
     ProductSummaryResponse toSummaryDTO(Product product);
 
-    @Mapping(target = "viewCount", ignore = true)
+    @Mapping(target = "rating", ignore = true)
     @Mapping(target = "totalSales", ignore = true)
     @Mapping(target = "thumbnailExtension", ignore = true)
     @Mapping(target = "carts", ignore = true)
+    @Mapping(target = "variations", ignore = true)
     Product toEntity(ProductCreateRequest productCreateRequest);
 
     default String buildThumbnailFilename(Product product) {
@@ -42,7 +43,7 @@ public interface ProductMapper {
         return product.getProductId() + "." + product.getThumbnailExtension();
     }
 
-    default BigDecimal aggregatePrice(List<ProductVariation> productVariations) {
-        return productVariations.stream().map(ProductVariation::getPrice).min(BigDecimal::compareTo).orElse(BigDecimal.ZERO);
+    default BigDecimal aggregatePrice(List<Variation> variations) {
+        return variations.stream().map(Variation::getPrice).min(BigDecimal::compareTo).orElse(BigDecimal.ZERO);
     }
 }

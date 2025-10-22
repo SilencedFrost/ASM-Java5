@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
         name = "cart",
         schema = "public",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"user_id", "product_id"})
+                @UniqueConstraint(columnNames = {"user_id", "variation_id"})
         })
 @NoArgsConstructor
 public class Cart {
@@ -31,6 +31,10 @@ public class Cart {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "variation_id", nullable = false)
+    private Variation variation;
 
     @Setter
     @Column(name = "quantity", nullable = false)
@@ -59,6 +63,17 @@ public class Cart {
         this.product = product;
         if (product != null) {
             product.getCarts().add(this);
+        }
+    }
+
+    public void assignVariation(Variation variation) {
+        if (this.variation != null) {
+            this.variation.getCarts().remove(this);
+        }
+
+        this.variation = variation;
+        if (variation != null) {
+            variation.getCarts().add(this);
         }
     }
 }

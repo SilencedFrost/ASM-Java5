@@ -2,13 +2,12 @@ package com.dto.product.variation;
 
 import java.math.BigDecimal;
 
-public record ProductVariationCreateRequest(
+public record VariationResponse(
+        Long variationId,
         Long productId,
-        Integer stockCount,
         String image,
         String productSize,
         String variation,
-        BigDecimal price,
-        Boolean isActive
+        BigDecimal price
 ) {
 }

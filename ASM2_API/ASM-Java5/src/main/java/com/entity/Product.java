@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,15 +56,15 @@ public class Product {
     private Boolean isActive;
 
     @Setter
-    @Column(name = "view_count")
-    private Integer viewCount;
+    @Column(name = "rating", precision = 3, scale = 2)
+    private BigDecimal rating;
 
     @Setter
     @Column(name = "total_sales")
     private Integer totalSales;
 
     @OneToMany(mappedBy = "product", orphanRemoval = true)
-    private final List<ProductVariation> productVariations = new ArrayList<>();
+    private final List<Variation> variations = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", orphanRemoval = true)
     private final List<Cart> carts = new ArrayList<>();

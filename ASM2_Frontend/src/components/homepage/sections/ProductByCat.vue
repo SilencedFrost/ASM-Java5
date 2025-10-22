@@ -9,8 +9,11 @@ const loading = ref(true)
 const error = ref(null)
 
 async function fetchCategories() {
+  loading.value = true
   try {
-    const response = await axios.get(import.meta.env.VITE_API_BASE + '/categories/products')
+    const response = await axios.get(import.meta.env.VITE_API_BASE + '/categories/products', {
+      withCredentials: true,
+    })
     categories.value = response.data
   } catch (err) {
     error.value = 'Failed to load data'
@@ -22,7 +25,7 @@ async function fetchCategories() {
 onMounted(fetchCategories)
 </script>
 <template>
-  <div class="container-fluid">
+  <div>
     <div v-if="loading" class="alert alert-info">Loading categories...</div>
     <div v-else-if="error" class="alert alert-danger">
       {{ error }}

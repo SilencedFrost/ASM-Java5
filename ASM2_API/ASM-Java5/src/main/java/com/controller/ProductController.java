@@ -44,7 +44,6 @@ public class ProductController {
         var products = isAdmin
                 ? productService.findAllSummary()
                 : productService.findAllActiveSummary();
-
         return ResponseEntity.ok(products);
     }
 
@@ -77,7 +76,7 @@ public class ProductController {
     }
 
     /**
-     * GET /api/products/search/{keyword}
+     * GET /api/products/search
      * @return searched result if active
      */
     @GetMapping("/search")

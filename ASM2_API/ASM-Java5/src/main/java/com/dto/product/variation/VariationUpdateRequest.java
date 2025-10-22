@@ -2,7 +2,7 @@ package com.dto.product.variation;
 
 import java.math.BigDecimal;
 
-public record ProductVariationUpdateRequest(
+public record VariationUpdateRequest(
         Long productId,
         String productName,
         Integer categoryId,
@@ -11,7 +11,6 @@ public record ProductVariationUpdateRequest(
         String productSize,
         String variation,
         String description,
-        BigDecimal price,
-        Boolean isActive
+        BigDecimal price
 ) {
 }

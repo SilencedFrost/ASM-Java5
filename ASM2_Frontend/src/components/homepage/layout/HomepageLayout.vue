@@ -4,7 +4,7 @@ import HomepageSidebar from '@/components/homepage/sections/HomepageSidebar.vue'
 
 <template>
   <div class="d-flex flex-fill">
-    <div style="width: 220px" class="d-none d-md-block">
+    <div style="min-width: 250px" class="d-none d-md-block">
       <div class="d-flex h-100">
         <homepage-sidebar />
       </div>
