@@ -68,7 +68,7 @@ const authenticatedList = [
           <!-- Giỏ hàng -->
           <li v-if="authStore.isLoggedIn" class="nav-item">
             <router-link class="nav-link d-flex align-items-center" to="/cart">
-              <div class="bg-primary rounded-pill me-2 px-2 text-white">{{ cartStore.count }}</div>
+              <div v-if="cartStore.count > 0" class="bg-primary rounded-pill me-2 px-2 text-white">{{ cartStore.count }}</div>
               <i class="bi bi-cart me-2" style="font-size: 20px"></i>
               Cart
             </router-link>
