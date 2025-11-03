@@ -3,9 +3,9 @@
 <!-- HEADER STYLE: CLASSIC -->
 <div align="center">
 
-<img src="assets/logo/logo-primary.png" width="30%" style="position: relative; top: 0; right: 0;" alt="Project Logo"/>
+<img src=".github/assets/logo/logo-primary.png" width="30%" style="position: relative; top: 0; right: 0;" alt="Project Logo"/>
 
-# <code>EASY EAT</code>
+# <code>EasyEat</code>
 
 <em></em>
 
@@ -56,13 +56,47 @@
 
 ## Overview
 
+Built with Spring Boot, JPA/Hibernate, PostgreSQL, and Vue.
 
+Traditional food vendors often rely on walk-in customers, which is increasingly inconvenient as traffic grows and vendors are spread across the city. Many people simply don’t have the time or ability to travel to each location.
+
+EasyEat solves this by providing a food-delivery–focused e-commerce platform that connects local vendors to nearby customers. Users can browse menus, place orders, and receive food without navigating traffic or searching for vendors themselves.
+
+This makes local food more accessible, while helping vendors reach more customers with minimal effort.
+
+### This project is designed as a learning and demonstration platform to practice:
+
+- Backend API design and structure  
+- Secure authentication & session handling  
+- Efficient database access in a relational system  
+- Clean separation of concerns in a layered architecture  
+- Collaboration readiness through conventions and documentation  
 
 ---
 
 ## Features
 
-<code>❯ REPLACE-ME</code>
+- Homepage displays top selling products, new arrivals, and products by category
+- Search allows the user to search by keywords, then sort by category or price, in both asc & desc orders
+- Vendor(Seller) accounts can be applied for and accepted by Admins
+- User auth: Login, Logout, Register
+- User can edit their own account information
+- User can change their passwords, or reset passwords when lost
+- Vendors(Sellers) can soft delete their products via an isActive toggle
+- User can view the product's details, select from variations and add it to cart
+- User can edit the product's amount, or delete item from cart
+
+### Technical Highlights
+
+- Secure authentication system with BCrypt password hashing and SHA-256 session tokens  
+- Role-based authorization to restrict protected endpoints  
+- Optimized database access to avoid N+1 query problems  
+- Lazy loading by default, with targeted `@EntityGraph` and fetch joins to prevent N+1 when mapping collections to DTOs.
+- Clean layered architecture (Entity → DTO → Mapper → Repository → Service → Controller)  
+- Centralized exception handling and validation using Jakarta Validation  
+- Consistent API error/response format  
+- Inline controller documentation via Javadoc  
+- Development CORS support for local Vue frontend integration  
 
 ---
 
@@ -103,22 +137,6 @@
 
 <details open>
 	<summary><b><code>/</code></b></summary>
-	<!-- __root__ Submodule -->
-	<details>
-		<summary><b>__root__</b></summary>
-		<blockquote>
-			<div class='directory-path' style='padding: 8px 0; color: #666;'>
-				<code><b>⦿ __root__</b></code>
-			<table style='width: 100%; border-collapse: collapse;'>
-			<thead>
-				<tr style='background-color: #f8f9fa;'>
-					<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-					<th style='text-align: left; padding: 8px;'>Summary</th>
-				</tr>
-			</thead>
-			</table>
-		</blockquote>
-	</details>
 	<!-- .github Submodule -->
 	<details>
 		<summary><b>.github</b></summary>
