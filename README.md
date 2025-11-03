@@ -1914,7 +1914,7 @@ Build  from the source and intsall dependencies:
 5. **Build applications.properties:**
 
 	```sh
-	❯ copy backend/src/main/resources/application.properties.example backend/src/main/resources/application.properties
+	❯ cp backend/src/main/resources/application.properties.example backend/src/main/resources/application.properties
 	```
 	
 	- Edit the placeholder infos within the new application.properties file to match your local env
