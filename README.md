@@ -1888,8 +1888,6 @@ This project requires the following dependencies:
 
 ### For local development
 
-Build  from the source and intsall dependencies:
-
 1. **Clone the repository:**
 
     ```sh
