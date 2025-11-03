@@ -82,20 +82,21 @@
     │   ├── gradlew.bat
     │   ├── settings.gradle.kts
     │   └── src
-    └── frontend
-        ├── .env.development
-        ├── .env.production
-        ├── .gitattributes
-        ├── .gitignore
-        ├── .prettierrc.json
-        ├── .vscode
-        ├── index.html
-        ├── jsconfig.json
-        ├── package-lock.json
-        ├── package.json
-        ├── public
-        ├── src
-        └── vite.config.js
+    ├── frontend
+    │   ├── .env.development
+    │   ├── .env.production
+    │   ├── .gitattributes
+    │   ├── .gitignore
+    │   ├── .prettierrc.json
+    │   ├── .vscode
+    │   ├── index.html
+    │   ├── jsconfig.json
+    │   ├── package-lock.json
+    │   ├── package.json
+    │   ├── public
+    │   ├── src
+    │   └── vite.config.js
+    └── README.md
 ```
 
 ### Project Index
