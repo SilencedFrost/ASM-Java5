@@ -1,1 +1,1 @@
-rootProject.name = "ASM-Java5"
+rootProject.name = "EasyEat_backend"
