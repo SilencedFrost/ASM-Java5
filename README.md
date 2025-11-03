@@ -56,13 +56,13 @@
 
 ## Overview
 
-Built with Spring Boot, JPA/Hibernate, PostgreSQL, and Vue.
+- Built with Spring Boot, JPA/Hibernate, PostgreSQL, and Vue.
 
-Traditional food vendors often rely on walk-in customers, which is increasingly inconvenient as traffic grows and vendors are spread across the city. Many people simply don’t have the time or ability to travel to each location.
+- Traditional food vendors often rely on walk-in customers, which is increasingly inconvenient as traffic grows and vendors are spread across the city. Many people simply don’t have the time or ability to travel to each location.
 
-EasyEat solves this by providing a food-delivery–focused e-commerce platform that connects local vendors to nearby customers. Users can browse menus, place orders, and receive food without navigating traffic or searching for vendors themselves.
+- EasyEat solves this by providing a food-delivery–focused e-commerce platform that connects local vendors to nearby customers. Users can browse menus, place orders, and receive food without navigating traffic or searching for vendors themselves.
 
-This makes local food more accessible, while helping vendors reach more customers with minimal effort.
+- This makes local food more accessible, while helping vendors reach more customers with minimal effort.
 
 ### This project is designed as a learning and demonstration platform to practice:
 
@@ -1886,88 +1886,67 @@ This project requires the following dependencies:
 - **Programming Language:** Java
 - **Package Manager:** Gradle, Npm
 
-### Installation
+### For local development
 
 Build  from the source and intsall dependencies:
 
 1. **Clone the repository:**
 
     ```sh
-    ❯ git clone ../
+    ❯ git clone https://github.com/SilencedFrost/EasyEat
     ```
 
 2. **Navigate to the project directory:**
 
     ```sh
-    ❯ cd 
+    ❯ cd EasyEat
     ```
 
-3. **Install the dependencies:**
+3. **Deploy database schema and mock data:**
 
-<!-- SHIELDS BADGE CURRENTLY DISABLED -->
-	<!-- [![gradle][gradle-shield]][gradle-link] -->
-	<!-- REFERENCE LINKS -->
-	<!-- [gradle-shield]: https://img.shields.io/badge/Gradle-02303A.svg?style={badge_style}&logo=gradle&logoColor=white -->
-	<!-- [gradle-link]: https://gradle.org/ -->
+	- Create Postgres database named EasyEat
+	- Within it, open query tool
+	- Open backend/database/Schema.sql
+	- Run all
+	- Open backend/database/Mock_data.sql
+	- Run all
 
-	**Using [gradle](https://gradle.org/):**
-
-	```sh
-	❯ gradle build
-	```
-<!-- SHIELDS BADGE CURRENTLY DISABLED -->
-	<!-- [![npm][npm-shield]][npm-link] -->
-	<!-- REFERENCE LINKS -->
-	<!-- [npm-shield]: None -->
-	<!-- [npm-link]: None -->
-
-	**Using [npm](None):**
+5. **Build applications.properties:**
 
 	```sh
-	❯ echo 'INSERT-INSTALL-COMMAND-HERE'
+	❯ cp backend/src/main/resources/application.properties.example backend/src/main/resources/application.properties
 	```
+	
+	- Edit the placeholder infos within the new application.properties file to match your local env
 
-### Usage
+4. **Run the backend:**
 
-Run the project with:
+	- Open a new terminal at root
+	
+	```sh
+	❯ cd backend/
+	❯ ./gradlew bootRun
+	```
+	
+5. **Run the frontend:**
 
-**Using [gradle](https://gradle.org/):**
-```sh
-gradle run
-```
-**Using [npm](None):**
-```sh
-echo 'INSERT-RUN-COMMAND-HERE'
-```
+	- Open a new terminal at root
 
-### Testing
+	```sh
+	❯ cd frontend/
+	❯ npm install
+	❯ npm run dev
+	```
+6. **Access the frontend:**
 
- uses the {__test_framework__} test framework. Run the test suite with:
+http://localhost:5173/
 
-**Using [gradle](https://gradle.org/):**
-```sh
-gradle test
-```
-**Using [npm](None):**
-```sh
-echo 'INSERT-TEST-COMMAND-HERE'
-```
-
----
-
-## Roadmap
-
-- [X] **`Task 1`**: <strike>Implement feature one.</strike>
-- [ ] **`Task 2`**: Implement feature two.
-- [ ] **`Task 3`**: Implement feature three.
-
----
+(Vue default port)
 
 ## Contributing
 
-- **💬 [Join the Discussions](https://LOCAL///discussions)**: Share your insights, provide feedback, or ask questions.
-- **🐛 [Report Issues](https://LOCAL///issues)**: Submit bugs found or log feature requests for the `` project.
-- **💡 [Submit Pull Requests](https://LOCAL///blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **🐛 [Report Issues](https://github.com/SilencedFrost/EasyEat/issues)**: Submit bugs found or log feature requests for the `EasyEat` project.
+- **💡 [Submit Pull Requests](https://github.com/SilencedFrost/EasyEat/pulls)**: Review open PRs, and submit your own PRs.
 
 <details closed>
 <summary>Contributing Guidelines</summary>
@@ -1992,29 +1971,16 @@ echo 'INSERT-TEST-COMMAND-HERE'
    ```
 7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
 8. **Review**: Once your PR is reviewed and approved, it will be merged into the main branch. Congratulations on your contribution!
+
 </details>
-
-<details closed>
-<summary>Contributor Graph</summary>
-<br>
-<p align="left">
-   <a href="https://LOCAL{///}graphs/contributors">
-      <img src="https://contrib.rocks/image?repo=/">
-   </a>
-</p>
-</details>
-
----
-
-## License
-
- is protected under the [LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
 
 ---
 
 ## Acknowledgments
 
-- Credit `contributors`, `inspiration`, `references`, etc.
+### Credit
+
+- Contributors: [SilencedFrost](https://github.com/SilencedFrost), [WinGG](https://github.com/WinGG2809), [minesan](https://github.com/minesan191132), [HVC-max](https://github.com/HVC-max), [nguyenlenganha](https://github.com/nguyenlenganha150207)
 
 <div align="right">
 
@@ -2022,8 +1988,6 @@ echo 'INSERT-TEST-COMMAND-HERE'
 
 </div>
 
-
 [back-to-top]: https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square
-
 
 ---
