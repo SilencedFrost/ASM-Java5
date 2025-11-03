@@ -1921,6 +1921,7 @@ Build  from the source and intsall dependencies:
 
 4. **Run the backend:**
 
+	- Open a new terminal at root
 	```sh
 	❯ cd backend/
 	❯ ./gradlew bootRun
@@ -1928,8 +1929,9 @@ Build  from the source and intsall dependencies:
 	
 5. **Run the frontend:**
 
+	- Open a new terminal at root
 	```sh
-	❯ cd ../frontend/
+	❯ cd frontend/
 	❯ npm install
 	❯ npm run dev
 	```
@@ -1941,9 +1943,8 @@ http://localhost:5173/
 
 ## Contributing
 
-- **💬 [Join the Discussions](https://LOCAL///discussions)**: Share your insights, provide feedback, or ask questions.
-- **🐛 [Report Issues](https://LOCAL///issues)**: Submit bugs found or log feature requests for the `` project.
-- **💡 [Submit Pull Requests](https://LOCAL///blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **🐛 [Report Issues](https://github.com/SilencedFrost/EasyEat/issues)**: Submit bugs found or log feature requests for the `EasyEat` project.
+- **💡 [Submit Pull Requests](https://github.com/SilencedFrost/EasyEat/pulls)**: Review open PRs, and submit your own PRs.
 
 <details closed>
 <summary>Contributing Guidelines</summary>
