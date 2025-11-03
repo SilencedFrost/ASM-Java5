@@ -56,13 +56,13 @@
 
 ## Overview
 
-Built with Spring Boot, JPA/Hibernate, PostgreSQL, and Vue.
+- Built with Spring Boot, JPA/Hibernate, PostgreSQL, and Vue.
 
-Traditional food vendors often rely on walk-in customers, which is increasingly inconvenient as traffic grows and vendors are spread across the city. Many people simply don’t have the time or ability to travel to each location.
+- Traditional food vendors often rely on walk-in customers, which is increasingly inconvenient as traffic grows and vendors are spread across the city. Many people simply don’t have the time or ability to travel to each location.
 
-EasyEat solves this by providing a food-delivery–focused e-commerce platform that connects local vendors to nearby customers. Users can browse menus, place orders, and receive food without navigating traffic or searching for vendors themselves.
+- EasyEat solves this by providing a food-delivery–focused e-commerce platform that connects local vendors to nearby customers. Users can browse menus, place orders, and receive food without navigating traffic or searching for vendors themselves.
 
-This makes local food more accessible, while helping vendors reach more customers with minimal effort.
+- This makes local food more accessible, while helping vendors reach more customers with minimal effort.
 
 ### This project is designed as a learning and demonstration platform to practice:
 
@@ -1902,7 +1902,7 @@ Build  from the source and intsall dependencies:
     ❯ cd EasyEat
     ```
 
-3. ** Deploy database schema and mock data:**
+3. **Deploy database schema and mock data:**
 
 	- Create Postgres database named EasyEat
 	- Within it, open query tool
@@ -1921,15 +1921,15 @@ Build  from the source and intsall dependencies:
 
 4. **Run the backend:**
 
-- Head into Backend
-
 	```sh
+	❯ cd backend/
 	❯ ./gradlew bootRun
 	```
 	
 5. **Run the frontend:**
 
 	```sh
+	❯ cd ../frontend/
 	❯ npm install
 	❯ npm run dev
 	```
@@ -1969,6 +1969,8 @@ http://localhost:5173/
 7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
 8. **Review**: Once your PR is reviewed and approved, it will be merged into the main branch. Congratulations on your contribution!
 
+</details>
+
 ---
 
 ## Acknowledgments
@@ -1983,8 +1985,6 @@ http://localhost:5173/
 
 </div>
 
-
 [back-to-top]: https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square
-
 
 ---
