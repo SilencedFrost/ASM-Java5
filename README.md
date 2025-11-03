@@ -1922,6 +1922,7 @@ Build  from the source and intsall dependencies:
 4. **Run the backend:**
 
 	- Open a new terminal at root
+	
 	```sh
 	❯ cd backend/
 	❯ ./gradlew bootRun
@@ -1930,6 +1931,7 @@ Build  from the source and intsall dependencies:
 5. **Run the frontend:**
 
 	- Open a new terminal at root
+
 	```sh
 	❯ cd frontend/
 	❯ npm install
