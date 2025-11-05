@@ -147,12 +147,10 @@
 			<thead>
 				<tr style='background-color: #f8f9fa;'>
 					<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-					<th style='text-align: left; padding: 8px;'>Summary</th>
 				</tr>
 			</thead>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/.github/CODEOWNERS'>CODEOWNERS</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 			</table>
 		</blockquote>
@@ -167,20 +165,16 @@
 			<thead>
 				<tr style='background-color: #f8f9fa;'>
 					<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-					<th style='text-align: left; padding: 8px;'>Summary</th>
 				</tr>
 			</thead>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/backend/build.gradle.kts'>build.gradle.kts</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/backend/gradlew.bat'>gradlew.bat</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/backend/settings.gradle.kts'>settings.gradle.kts</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 			</table>
 			<!-- database Submodule -->
@@ -193,16 +187,13 @@
 					<thead>
 						<tr style='background-color: #f8f9fa;'>
 							<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-							<th style='text-align: left; padding: 8px;'>Summary</th>
 						</tr>
 					</thead>
 						<tr style='border-bottom: 1px solid #eee;'>
 							<td style='padding: 8px;'><b><a href='/backend/database/Mock_data.sql'>Mock_data.sql</a></b></td>
-							<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 						</tr>
 						<tr style='border-bottom: 1px solid #eee;'>
 							<td style='padding: 8px;'><b><a href='/backend/database/Schema.sql'>Schema.sql</a></b></td>
-							<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 						</tr>
 					</table>
 				</blockquote>
@@ -229,12 +220,10 @@
 									<thead>
 										<tr style='background-color: #f8f9fa;'>
 											<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-											<th style='text-align: left; padding: 8px;'>Summary</th>
 										</tr>
 									</thead>
 										<tr style='border-bottom: 1px solid #eee;'>
 											<td style='padding: 8px;'><b><a href='/backend/src/main/resources/application.properties.example'>application.properties.example</a></b></td>
-											<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 										</tr>
 									</table>
 								</blockquote>
@@ -255,12 +244,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/Application.java'>Application.java</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 											<!-- advice Submodule -->
@@ -273,16 +260,13 @@
 													<thead>
 														<tr style='background-color: #f8f9fa;'>
 															<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-															<th style='text-align: left; padding: 8px;'>Summary</th>
 														</tr>
 													</thead>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/advice/AuthExceptionHandler.java'>AuthExceptionHandler.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/advice/ValidationExceptionHandler.java'>ValidationExceptionHandler.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 													</table>
 												</blockquote>
@@ -297,12 +281,10 @@
 													<thead>
 														<tr style='background-color: #f8f9fa;'>
 															<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-															<th style='text-align: left; padding: 8px;'>Summary</th>
 														</tr>
 													</thead>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/configuration/CorsConfig.java'>CorsConfig.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 													</table>
 												</blockquote>
@@ -317,32 +299,25 @@
 													<thead>
 														<tr style='background-color: #f8f9fa;'>
 															<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-															<th style='text-align: left; padding: 8px;'>Summary</th>
 														</tr>
 													</thead>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/controller/AuthController.java'>AuthController.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/controller/CartController.java'>CartController.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/controller/CategoryController.java'>CategoryController.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/controller/ProductController.java'>ProductController.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/controller/SellerController.java'>SellerController.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/controller/UserController.java'>UserController.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 													</table>
 												</blockquote>
@@ -357,60 +332,46 @@
 													<thead>
 														<tr style='background-color: #f8f9fa;'>
 															<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-															<th style='text-align: left; padding: 8px;'>Summary</th>
 														</tr>
 													</thead>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/Address.java'>Address.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/Admin.java'>Admin.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/Cart.java'>Cart.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/Category.java'>Category.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/City.java'>City.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/Customer.java'>Customer.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/Product.java'>Product.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/Role.java'>Role.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/Seller.java'>Seller.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/Session.java'>Session.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/User.java'>User.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/Variation.java'>Variation.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/entity/VerificationToken.java'>VerificationToken.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 													</table>
 												</blockquote>
@@ -425,60 +386,46 @@
 													<thead>
 														<tr style='background-color: #f8f9fa;'>
 															<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-															<th style='text-align: left; padding: 8px;'>Summary</th>
 														</tr>
 													</thead>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/CartItemNotFoundException.java'>CartItemNotFoundException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/CartNotFoundException.java'>CartNotFoundException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/CategoryDeletionException.java'>CategoryDeletionException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/CategoryNotFoundException.java'>CategoryNotFoundException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/InvalidLoginException.java'>InvalidLoginException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/ProductNotFoundException.java'>ProductNotFoundException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/RoleNotFoundException.java'>RoleNotFoundException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/SellerNotFoundException.java'>SellerNotFoundException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/SessionNotFoundException.java'>SessionNotFoundException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/SessionTokenNotFoundException.java'>SessionTokenNotFoundException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/UserAlreadyExistException.java'>UserAlreadyExistException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/UserNotFoundException.java'>UserNotFoundException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/exception/VariationNotFoundException.java'>VariationNotFoundException.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 													</table>
 												</blockquote>
@@ -493,60 +440,46 @@
 													<thead>
 														<tr style='background-color: #f8f9fa;'>
 															<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-															<th style='text-align: left; padding: 8px;'>Summary</th>
 														</tr>
 													</thead>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/AddressMapper.java'>AddressMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/AdminMapper.java'>AdminMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/CartMapper.java'>CartMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/CategoryMapper.java'>CategoryMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/CityMapper.java'>CityMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/CustomerMapper.java'>CustomerMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/ProductMapper.java'>ProductMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/RoleMapper.java'>RoleMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/SellerMapper.java'>SellerMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/SessionMapper.java'>SessionMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/UserMapper.java'>UserMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/VariationMapper.java'>VariationMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/mapper/VerificationTokenMapper.java'>VerificationTokenMapper.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 													</table>
 												</blockquote>
@@ -561,60 +494,46 @@
 													<thead>
 														<tr style='background-color: #f8f9fa;'>
 															<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-															<th style='text-align: left; padding: 8px;'>Summary</th>
 														</tr>
 													</thead>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/AddressRepository.java'>AddressRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/AdminRepository.java'>AdminRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/CartRepository.java'>CartRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/CategoryRepository.java'>CategoryRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/CityRepository.java'>CityRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/CustomerRepository.java'>CustomerRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/ProductRepository.java'>ProductRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/RoleRepository.java'>RoleRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/SellerRepository.java'>SellerRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/SessionRepository.java'>SessionRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/UserRepository.java'>UserRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/VariationRepository.java'>VariationRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/repository/VerificationTokenRepository.java'>VerificationTokenRepository.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 													</table>
 												</blockquote>
@@ -629,44 +548,34 @@
 													<thead>
 														<tr style='background-color: #f8f9fa;'>
 															<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-															<th style='text-align: left; padding: 8px;'>Summary</th>
 														</tr>
 													</thead>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/service/CartService.java'>CartService.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/service/CategoryService.java'>CategoryService.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/service/EmailService.java'>EmailService.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/service/HashService.java'>HashService.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/service/ProductService.java'>ProductService.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/service/RoleService.java'>RoleService.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/service/SellerService.java'>SellerService.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/service/SessionService.java'>SessionService.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/service/UserService.java'>UserService.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 													</table>
 												</blockquote>
@@ -681,16 +590,13 @@
 													<thead>
 														<tr style='background-color: #f8f9fa;'>
 															<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-															<th style='text-align: left; padding: 8px;'>Summary</th>
 														</tr>
 													</thead>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/util/SessionCookieUtil.java'>SessionCookieUtil.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 														<tr style='border-bottom: 1px solid #eee;'>
 															<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/util/TokenGeneratorUtil.java'>TokenGeneratorUtil.java</a></b></td>
-															<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 														</tr>
 													</table>
 												</blockquote>
@@ -711,20 +617,16 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/address/AddressCreateRequest.java'>AddressCreateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/address/AddressResponse.java'>AddressResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/address/AddressUpdateRequest.java'>AddressUpdateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 														</blockquote>
@@ -739,20 +641,16 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/admin/AdminCreateRequest.java'>AdminCreateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/admin/AdminResponse.java'>AdminResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/admin/AdminUpdateRequest.java'>AdminUpdateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 														</blockquote>
@@ -767,32 +665,25 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/auth/EmailRequest.java'>EmailRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/auth/LoginRequest.java'>LoginRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/auth/OtpRequest.java'>OtpRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/auth/RegisterRequest.java'>RegisterRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/auth/ResetPasswordRequest.java'>ResetPasswordRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/auth/VerificationTokenRequest.java'>VerificationTokenRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 														</blockquote>
@@ -807,20 +698,16 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/cart/CartCreateRequest.java'>CartCreateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/cart/CartResponse.java'>CartResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/cart/CartUpdateRequest.java'>CartUpdateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 														</blockquote>
@@ -835,24 +722,19 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/category/CategoryCreateRequest.java'>CategoryCreateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/category/CategoryResponse.java'>CategoryResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/category/CategoryUpdateRequest.java'>CategoryUpdateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/category/CategoryWithProductResponse.java'>CategoryWithProductResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 														</blockquote>
@@ -867,20 +749,16 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/city/CityCreateRequest.java'>CityCreateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/city/CityResponse.java'>CityResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/city/CityUpdateRequest.java'>CityUpdateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 														</blockquote>
@@ -895,20 +773,16 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/customer/CustomerCreateRequest.java'>CustomerCreateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/customer/CustomerResponse.java'>CustomerResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/customer/CustomerUpdateRequest.java'>CustomerUpdateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 														</blockquote>
@@ -923,24 +797,19 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/product/ProductCreateRequest.java'>ProductCreateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/product/ProductResponse.java'>ProductResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/product/ProductSummaryResponse.java'>ProductSummaryResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/product/ProductUpdateRequest.java'>ProductUpdateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 															<!-- variation Submodule -->
@@ -953,20 +822,16 @@
 																	<thead>
 																		<tr style='background-color: #f8f9fa;'>
 																			<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																			<th style='text-align: left; padding: 8px;'>Summary</th>
 																		</tr>
 																	</thead>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/product/variation/VariationCreateRequest.java'>VariationCreateRequest.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/product/variation/VariationResponse.java'>VariationResponse.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/product/variation/VariationUpdateRequest.java'>VariationUpdateRequest.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																		</tr>
 																	</table>
 																</blockquote>
@@ -983,20 +848,16 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/role/RoleCreateRequest.java'>RoleCreateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/role/RoleResponse.java'>RoleResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/role/RoleUpdateRequest.java'>RoleUpdateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 														</blockquote>
@@ -1011,20 +872,16 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/seller/SellerCreateRequest.java'>SellerCreateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/seller/SellerResponse.java'>SellerResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/seller/SellerUpdateRequest.java'>SellerUpdateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 														</blockquote>
@@ -1039,20 +896,16 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/session/SessionCreateRequest.java'>SessionCreateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/session/SessionResponse.java'>SessionResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/session/SessionUpdateRequest.java'>SessionUpdateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 														</blockquote>
@@ -1067,20 +920,16 @@
 															<thead>
 																<tr style='background-color: #f8f9fa;'>
 																	<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-																	<th style='text-align: left; padding: 8px;'>Summary</th>
 																</tr>
 															</thead>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/user/UserCreateRequest.java'>UserCreateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/user/UserResponse.java'>UserResponse.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 																<tr style='border-bottom: 1px solid #eee;'>
 																	<td style='padding: 8px;'><b><a href='/backend/src/main/java/com/dto/user/UserUpdateRequest.java'>UserUpdateRequest.java</a></b></td>
-																	<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 																</tr>
 															</table>
 														</blockquote>
@@ -1107,40 +956,31 @@
 			<thead>
 				<tr style='background-color: #f8f9fa;'>
 					<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-					<th style='text-align: left; padding: 8px;'>Summary</th>
 				</tr>
 			</thead>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/frontend/.env.development'>.env.development</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/frontend/.env.production'>.env.production</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/frontend/.prettierrc.json'>.prettierrc.json</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/frontend/index.html'>index.html</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/frontend/jsconfig.json'>jsconfig.json</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/frontend/package-lock.json'>package-lock.json</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/frontend/package.json'>package.json</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/frontend/vite.config.js'>vite.config.js</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 				</tr>
 			</table>
 			<!-- src Submodule -->
@@ -1153,16 +993,13 @@
 					<thead>
 						<tr style='background-color: #f8f9fa;'>
 							<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-							<th style='text-align: left; padding: 8px;'>Summary</th>
 						</tr>
 					</thead>
 						<tr style='border-bottom: 1px solid #eee;'>
 							<td style='padding: 8px;'><b><a href='/frontend/src/App.vue'>App.vue</a></b></td>
-							<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 						</tr>
 						<tr style='border-bottom: 1px solid #eee;'>
 							<td style='padding: 8px;'><b><a href='/frontend/src/main.js'>main.js</a></b></td>
-							<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 						</tr>
 					</table>
 					<!-- router Submodule -->
@@ -1175,12 +1012,10 @@
 							<thead>
 								<tr style='background-color: #f8f9fa;'>
 									<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-									<th style='text-align: left; padding: 8px;'>Summary</th>
 								</tr>
 							</thead>
 								<tr style='border-bottom: 1px solid #eee;'>
 									<td style='padding: 8px;'><b><a href='/frontend/src/router/index.js'>index.js</a></b></td>
-									<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 								</tr>
 							</table>
 						</blockquote>
@@ -1195,16 +1030,13 @@
 							<thead>
 								<tr style='background-color: #f8f9fa;'>
 									<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-									<th style='text-align: left; padding: 8px;'>Summary</th>
 								</tr>
 							</thead>
 								<tr style='border-bottom: 1px solid #eee;'>
 									<td style='padding: 8px;'><b><a href='/frontend/src/stores/authStore.js'>authStore.js</a></b></td>
-									<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 								</tr>
 								<tr style='border-bottom: 1px solid #eee;'>
 									<td style='padding: 8px;'><b><a href='/frontend/src/stores/cartStore.js'>cartStore.js</a></b></td>
-									<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 								</tr>
 							</table>
 						</blockquote>
@@ -1219,12 +1051,10 @@
 							<thead>
 								<tr style='background-color: #f8f9fa;'>
 									<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-									<th style='text-align: left; padding: 8px;'>Summary</th>
 								</tr>
 							</thead>
 								<tr style='border-bottom: 1px solid #eee;'>
 									<td style='padding: 8px;'><b><a href='/frontend/src/styles/custom.scss'>custom.scss</a></b></td>
-									<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 								</tr>
 							</table>
 						</blockquote>
@@ -1251,12 +1081,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/account/layout/AccountLayout.vue'>AccountLayout.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1271,20 +1099,16 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/account/pages/Account.vue'>Account.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/account/pages/Address.vue'>Address.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/account/pages/Payment.vue'>Payment.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1299,12 +1123,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/account/sections/AccountSidebar.vue'>AccountSidebar.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1327,12 +1149,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/admin/layout/AdminLayout.vue'>AdminLayout.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1347,20 +1167,16 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/admin/pages/AdminDashboard.vue'>AdminDashboard.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/admin/pages/AdminOrders.vue'>AdminOrders.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/admin/pages/AdminProducts.vue'>AdminProducts.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1375,12 +1191,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/admin/sections/AdminSidebar.vue'>AdminSidebar.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1403,12 +1217,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/auth/layout/AuthLayout.vue'>AuthLayout.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1423,28 +1235,22 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/auth/pages/ForgotPassword.vue'>ForgotPassword.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/auth/pages/Login.vue'>Login.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/auth/pages/ResetPassword.vue'>ResetPassword.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/auth/pages/Signup.vue'>Signup.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/auth/pages/VerifyOtp.vue'>VerifyOtp.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1467,12 +1273,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/base/layout/Generic.vue'>Generic.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1487,16 +1291,13 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/base/sections/Footer.vue'>Footer.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/base/sections/Navbar.vue'>Navbar.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1519,12 +1320,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/cart/pages/Cart.vue'>Cart.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1539,16 +1338,13 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/cart/sections/CartDisplay.vue'>CartDisplay.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/cart/sections/CartDisplayItem.vue'>CartDisplayItem.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1571,12 +1367,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/homepage/layout/HomepageLayout.vue'>HomepageLayout.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1591,12 +1385,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/homepage/pages/Homepage.vue'>Homepage.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1611,24 +1403,19 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/homepage/sections/BestSelling.vue'>BestSelling.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/homepage/sections/HomepageSidebar.vue'>HomepageSidebar.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/homepage/sections/NewProducts.vue'>NewProducts.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/homepage/sections/ProductByCat.vue'>ProductByCat.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1651,16 +1438,13 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/order/pages/OrderDetail.vue'>OrderDetail.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/order/pages/OrderStatus.vue'>OrderStatus.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1675,12 +1459,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/order/sections/StatusNavbar.vue'>StatusNavbar.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1703,12 +1485,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/product/pages/ProductDetail.vue'>ProductDetail.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1723,28 +1503,22 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/product/sections/AllProducts.vue'>AllProducts.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/product/sections/DisplayItem.vue'>DisplayItem.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/product/sections/ExtraProducts.vue'>ExtraProducts.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/product/sections/ProductDisplay.vue'>ProductDisplay.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/product/sections/VariantSelection.vue'>VariantSelection.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1767,12 +1541,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/search/pages/Search.vue'>Search.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1795,12 +1567,10 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/seller/layout/SellerLayout.vue'>SellerLayout.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1815,20 +1585,16 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/seller/pages/SellerDashboard.vue'>SellerDashboard.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/seller/pages/SellerOrders.vue'>SellerOrders.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/seller/pages/SellerProducts.vue'>SellerProducts.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
@@ -1843,24 +1609,19 @@
 											<thead>
 												<tr style='background-color: #f8f9fa;'>
 													<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-													<th style='text-align: left; padding: 8px;'>Summary</th>
 												</tr>
 											</thead>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/seller/sections/AuthActiveProducts.vue'>AuthActiveProducts.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/seller/sections/AuthDisplayItem.vue'>AuthDisplayItem.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/seller/sections/AuthInactiveProducts.vue'>AuthInactiveProducts.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 												<tr style='border-bottom: 1px solid #eee;'>
 													<td style='padding: 8px;'><b><a href='/frontend/src/components/seller/sections/SellerSidebar.vue'>SellerSidebar.vue</a></b></td>
-													<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
 												</tr>
 											</table>
 										</blockquote>
