@@ -53,6 +53,7 @@ public class CategoryController {
     /**
      * GET /api/categories/products
      * Fetch all categories with their products
+     * @return categories with products, only show inactive products to admins
      */
     @GetMapping("/products")
     public ResponseEntity<List<CategoryWithProductResponse>> getAllCategoriesWithProducts(HttpServletRequest request) {

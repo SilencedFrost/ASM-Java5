@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 @Mapper(
         componentModel = "spring",
@@ -43,7 +43,7 @@ public interface ProductMapper {
         return product.getProductId() + "." + product.getThumbnailExtension();
     }
 
-    default BigDecimal aggregatePrice(List<Variation> variations) {
+    default BigDecimal aggregatePrice(Set<Variation> variations) {
         return variations.stream().map(Variation::getPrice).min(BigDecimal::compareTo).orElse(BigDecimal.ZERO);
     }
 }

@@ -9,8 +9,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "product", schema = "public")
@@ -64,10 +64,10 @@ public class Product {
     private Integer totalSales;
 
     @OneToMany(mappedBy = "product", orphanRemoval = true)
-    private final List<Variation> variations = new ArrayList<>();
+    private final Set<Variation> variations = new HashSet<>();
 
     @OneToMany(mappedBy = "product", orphanRemoval = true)
-    private final List<Cart> carts = new ArrayList<>();
+    private final Set<Cart> carts = new HashSet<>();
 
     public void assignCategory(Category category) {
         if(this.category != null) {

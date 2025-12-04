@@ -39,14 +39,14 @@ public class CategoryService {
     }
 
     public List<CategoryWithProductResponse> findAllWithProduct() {
-        return categoryRepository.findByProductsIsNotEmpty()
+        return categoryRepository.findActiveCategoriesWithDetails()
                 .stream()
                 .map(categoryMapper::toDTOWithProduct)
                 .toList();
     }
 
     public List<CategoryWithProductResponse> findAllWithActiveProduct() {
-        return categoryRepository.findAll()
+        return categoryRepository.findAllWithDetails()
                 .stream()
                 .map(categoryMapper::toDTOWithProduct)
                 .peek(dto -> dto.productSummaryResponses().removeIf(p -> !p.isActive()))
