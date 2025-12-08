@@ -39,7 +39,7 @@ public class SellerController {
     }
 
     /**
-     * GET /api/seller/{sellerId}/products
+     * GET /api/sellers/{sellerId}/products
      * @return the seller's active product catalogue
      */
     @GetMapping("/{sellerId:[0-9]+}/products")

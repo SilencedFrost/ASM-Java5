@@ -5,13 +5,28 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Entity
 @Table(name = "category", schema = "public")
 @NoArgsConstructor
+@NamedEntityGraph(
+        name = "category-with-products-and-details",
+        attributeNodes = {
+                @NamedAttributeNode(value = "products", subgraph = "product-subgraph")
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "product-subgraph",
+                        attributeNodes = {
+                                @NamedAttributeNode("seller"),
+                                @NamedAttributeNode("variations")
+                        }
+                )
+        }
+)
 public class Category {
 
     @Id
@@ -32,6 +47,6 @@ public class Category {
     private Boolean isActive = true;
 
     @OneToMany(mappedBy = "category", orphanRemoval = true)
-    private final List<Product> products = new ArrayList<>();
+    private final Set<Product> products = new HashSet<>();
 }
 
