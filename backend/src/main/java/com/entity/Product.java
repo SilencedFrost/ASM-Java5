@@ -16,6 +16,14 @@ import java.util.Set;
 @Table(name = "product", schema = "public")
 @Getter
 @NoArgsConstructor
+@NamedEntityGraph(
+        name = "product-with-detail",
+        attributeNodes = {
+                @NamedAttributeNode(value = "seller"),
+                @NamedAttributeNode(value = "category"),
+                @NamedAttributeNode(value = "variations")
+        }
+)
 public class Product {
 
     @Id

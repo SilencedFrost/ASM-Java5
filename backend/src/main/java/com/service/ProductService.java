@@ -10,6 +10,7 @@ import com.exception.CategoryNotFoundException;
 import com.mapper.ProductMapper;
 import com.repository.CategoryRepository;
 import com.repository.ProductRepository;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -31,7 +31,7 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
-    public Page<ProductResponse> findAll(Pageable pageable) {
+    public Page<@NonNull ProductResponse> findAll(Pageable pageable) {
         return productRepository.findAll(pageable).map(productMapper::toDTO);
     }
 
@@ -47,17 +47,7 @@ public class ProductService {
     }
 
     public List<ProductSummaryResponse> findAllActiveSummary() {
-        return productRepository.findByIsActiveTrue()
-                .stream()
-                .map(productMapper::toSummaryDTO)
-                .toList();
-    }
-
-    public List<ProductSummaryResponse> findAllActiveSummaryBySeller(Long sellerId) {
-        return productRepository.findBySellerSellerIdAndIsActiveTrue(sellerId)
-                .stream()
-                .map(productMapper::toSummaryDTO)
-                .toList();
+        return this.findAllSummary().stream().filter(ProductSummaryResponse::isActive).toList();
     }
 
     public List<ProductSummaryResponse> findAllSummaryBySeller(Long sellerId) {
@@ -67,22 +57,23 @@ public class ProductService {
                 .toList();
     }
 
+    public List<ProductSummaryResponse> findAllActiveSummaryBySeller(Long sellerId) {
+        return this.findAllSummaryBySeller(sellerId).stream().filter(ProductSummaryResponse::isActive).toList();
+    }
+
     public Optional<ProductResponse> findById(Long productId) {
         return productRepository.findById(productId).map(productMapper::toDTO);
     }
 
     public Optional<ProductResponse> findActiveById(Long productId) {
-        return productRepository.findByProductIdAndIsActiveTrue(productId).map(productMapper::toDTO);
-    }
-
-    public List<ProductSummaryResponse> findByNameLike(String keyword) {
-        return productRepository.findByProductNameContainsIgnoreCase(keyword)
-                .stream()
-                .map(productMapper::toSummaryDTO)
-                .collect(Collectors.toList());
+        return this.findById(productId).filter(ProductResponse::isActive);
     }
 
     public List<ProductSummaryResponse> findActiveByNameLike(String keyword, String sortBy, Boolean isOrder) {
+        return findByNameLike(keyword, sortBy, isOrder).stream().filter(ProductSummaryResponse::isActive).toList();
+    }
+
+    public List<ProductSummaryResponse> findByNameLike(String keyword, String sortBy, Boolean isOrder) {
 
         Sort.Direction direction = isOrder ? Sort.Direction.ASC : Sort.Direction.DESC;
 
@@ -95,26 +86,22 @@ public class ProductService {
                 products = productRepository.findActiveByNameLikeOrderByMinPriceDesc(keyword);
             }
         } else {
-            String sortField = sortBy;
+            Sort sort = Sort.by(direction, sortBy);
 
-            Sort sort = Sort.by(direction, sortField);
-
-            products = productRepository.findByProductNameContainsIgnoreCaseAndIsActiveTrue(keyword, sort);
+            products = productRepository.findByProductNameContainsIgnoreCase(keyword, sort);
         }
 
-        return products.stream()
-                .map(productMapper::toSummaryDTO)
-                .collect(Collectors.toList());
+        return products.stream().map(productMapper::toSummaryDTO).toList();
     }
 
     public List<ProductSummaryResponse> findTop5Latest() {
         List<Product> productList = productRepository.findTop5ByOrderByCreationDateDesc();
-        return productList.stream().map(productMapper::toSummaryDTO).collect(Collectors.toList());
+        return productList.stream().map(productMapper::toSummaryDTO).toList();
     }
 
     public List<ProductSummaryResponse> findTop5BestSelling() {
         List<Product> productList = productRepository.findTop5ByOrderByTotalSalesDesc();
-        return productList.stream().map(productMapper::toSummaryDTO).collect(Collectors.toList());
+        return productList.stream().map(productMapper::toSummaryDTO).toList();
     }
 
     public Optional<ProductResponse> toggleActiveState(Long productId) {

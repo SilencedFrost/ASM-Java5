@@ -38,38 +38,47 @@ public class CategoryService {
         return categoryRepository.findById(categoryId).map(categoryMapper::toDTO);
     }
 
+    // Core methods that return entities/DTOs
     public List<CategoryWithProductResponse> findAllWithProduct() {
-        return categoryRepository.findActiveCategoriesWithDetails()
+        return categoryRepository.findNonEmptyWithProductDetails()
                 .stream()
                 .map(categoryMapper::toDTOWithProduct)
-                .toList();
-    }
-
-    public List<CategoryWithProductResponse> findAllWithActiveProduct() {
-        return categoryRepository.findAllWithDetails()
-                .stream()
-                .map(categoryMapper::toDTOWithProduct)
-                .peek(dto -> dto.productSummaryResponses().removeIf(p -> !p.isActive()))
-                .filter(dto -> !dto.productSummaryResponses().isEmpty())
                 .toList();
     }
 
     public List<CategoryResponse> findNotEmpty() {
-        return categoryRepository.findByProductsIsNotEmpty().stream().map(categoryMapper::toDTO).toList();
+        return categoryRepository.findByProductsIsNotEmpty()
+                .stream()
+                .map(categoryMapper::toDTO)
+                .toList();
     }
 
     public Optional<CategoryWithProductResponse> findByIdWithProduct(Integer categoryId) {
-        return categoryRepository.findById(categoryId).map(categoryMapper::toDTOWithProduct);
+        return categoryRepository.findByIdWithProductDetail(categoryId)
+                .map(categoryMapper::toDTOWithProduct);
+    }
+
+    // Filtered variations use helper methods
+    public List<CategoryWithProductResponse> findAllWithActiveProduct() {
+        return this.findAllWithProduct().stream()
+                .map(this::filterToActiveProducts)
+                .filter(this::hasProducts)
+                .toList();
     }
 
     public Optional<CategoryWithProductResponse> findByIdWithActiveProduct(Integer categoryId) {
-        return categoryRepository.findById(categoryId)
-                .map(categoryMapper::toDTOWithProduct)
-                .map(dto -> {
-                    dto.productSummaryResponses().removeIf(p -> !p.isActive());
-                    return dto;
-                })
-                .filter(dto -> !dto.productSummaryResponses().isEmpty());
+        return this.findByIdWithProduct(categoryId)
+                .map(this::filterToActiveProducts)
+                .filter(this::hasProducts);
+    }
+
+    private CategoryWithProductResponse filterToActiveProducts(CategoryWithProductResponse dto) {
+        dto.productSummaryResponses().removeIf(product -> !product.isActive());
+        return dto;
+    }
+
+    private boolean hasProducts(CategoryWithProductResponse dto) {
+        return !dto.productSummaryResponses().isEmpty();
     }
 
     public CategoryResponse create(CategoryCreateRequest categoryCreateRequest) {
