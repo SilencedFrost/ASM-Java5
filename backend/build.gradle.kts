@@ -58,5 +58,8 @@ tasks.withType<JavaCompile> {
 }
 
 tasks.bootRun {
+    val profile = project.findProperty("profile")?.toString() ?: "dev"
+
     sourceResources(sourceSets["main"])
+    systemProperty("spring.profiles.active", profile)
 }
