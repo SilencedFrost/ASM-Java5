@@ -43,3 +43,9 @@ bin/
 /src/main/resources/database.properties
 /src/main/resources/email.properties
 /src/main/resources/application.properties
+
+### IDEA config ###
+**/.idea
+
+### Sensitive data ###
+**/application-*.yaml
