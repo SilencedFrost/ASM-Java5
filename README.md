@@ -100,6 +100,13 @@
 
 ---
 
+## Extra documentations
+
+### Query Optimization data
+<img src="documents/QueryOptimization.png" width="100%" style="position: relative; top: 0; right: 0;" alt="Query latency optimization table and chart"/>
+
+---
+
 ## Project Structure
 
 ```sh
