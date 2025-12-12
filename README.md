@@ -15,7 +15,7 @@
 <em>Built with the tools and technologies:</em>
 
 <img src="https://img.shields.io/badge/JSON-000000.svg?style=default&logo=JSON&logoColor=white" alt="JSON">
-<img src="https://img.shields.io/badge/npm-CB3837.svg?style=default&logo=npm&logoColor=white" alt="npm">
+<img src="https://img.shields.io/badge/pnpm-F69220?logo=pnpm&logoColor=fff" alt="npm">
 <img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=default&logo=Prettier&logoColor=black" alt="Prettier">
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=default&logo=JavaScript&logoColor=black" alt="JavaScript">
 <img src="https://img.shields.io/badge/Vue.js-4FC08D.svg?style=default&logo=vuedotjs&logoColor=white" alt="Vue.js">
@@ -1652,7 +1652,7 @@
 This project requires the following dependencies:
 
 - **Programming Language:** Java
-- **Package Manager:** Gradle, Npm
+- **Package Manager:** Gradle, pnpm
 
 ### For local development
 
@@ -1700,8 +1700,8 @@ This project requires the following dependencies:
 
 	```sh
 	❯ cd frontend/
-	❯ npm install
-	❯ npm run dev
+	❯ pnpm install
+	❯ pnpm run dev
 	```
 6. **Access the frontend:**
 
